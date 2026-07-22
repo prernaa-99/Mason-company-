@@ -41,7 +41,7 @@ export default function Process() {
     () => {
       gsap.from(".proc-item", {
         opacity: 0,
-        y: 30,
+        y: 26,
         duration: 0.8,
         ease: "power3.out",
         stagger: 0.12,
@@ -54,8 +54,8 @@ export default function Process() {
         transformOrigin: "top",
         scrollTrigger: {
           trigger: ".proc-list",
-          start: "top 60%",
-          end: "bottom 70%",
+          start: "top 65%",
+          end: "bottom 75%",
           scrub: true,
         },
       });
@@ -67,44 +67,72 @@ export default function Process() {
     <section
       id="process"
       ref={ref}
-      className="relative border-t border-line py-24 lg:py-32"
+      className="border-t border-line py-24 lg:py-32"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="max-w-2xl">
-          <p className="eyebrow mb-5">Our process</p>
-          <h2 className="h-display text-3xl text-cream sm:text-4xl lg:text-5xl">
-            From booking to a safer bathroom.
-          </h2>
-          <p className="mt-6 text-lg leading-relaxed text-cream-dim">
-            A clear, guided process from package booking to final installation
-            &mdash; with support at every step.
-          </p>
-        </div>
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          {/* left — sticky intro */}
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <p className="eyebrow mb-5">Our process</p>
+            <h2 className="h-display text-3xl text-cream sm:text-4xl lg:text-5xl">
+              From booking to a safer bathroom.
+            </h2>
+            <p className="mt-6 max-w-md text-base leading-relaxed text-cream-dim">
+              A clear, guided process from package booking to final installation
+              &mdash; with support at every step.
+            </p>
 
-        <div className="proc-list relative mt-16 pl-10 sm:pl-14">
-          {/* track */}
-          <div className="absolute left-[13px] top-2 h-[calc(100%-1rem)] w-px bg-line sm:left-[17px]" />
-          <div className="proc-progress absolute left-[13px] top-2 h-[calc(100%-1rem)] w-px origin-top scale-y-0 bg-clay sm:left-[17px]" />
-
-          <div className="grid gap-10">
-            {steps.map((s, i) => (
-              <div key={i} className="proc-item relative">
-                <span className="absolute -left-10 top-0 grid h-7 w-7 place-items-center rounded-full border border-clay/50 bg-ink font-display text-sm text-clay sm:-left-14">
-                  {i + 1}
+            <div className="mt-8 border-t border-line pt-8">
+              <div className="flex items-baseline gap-3">
+                <span className="font-display text-5xl font-bold leading-none text-cream">
+                  6
                 </span>
-                <h3 className="font-display text-xl text-cream">{s.title}</h3>
-                <p className="mt-2 max-w-xl text-sm leading-relaxed text-cream-dim">
-                  {s.copy}
-                </p>
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-clay">
+                  Simple
+                  <br />
+                  steps
+                </span>
               </div>
-            ))}
+              <p className="mt-5 max-w-xs text-sm leading-relaxed text-cream-dim">
+                Handled by one accountable Mason team, from booking all the way
+                to handover.
+              </p>
+            </div>
+
+            <a
+              href="#book"
+              className="mt-8 inline-block rounded-full bg-cream px-6 py-3 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-bone-dim"
+            >
+              Book a Safety Visit
+            </a>
+          </div>
+
+          {/* right — timeline */}
+          <div className="proc-list relative pl-12 sm:pl-16">
+            {/* track + animated progress */}
+            <div className="absolute left-[15px] top-7 h-[calc(100%-3.5rem)] w-px bg-line sm:left-[19px]" />
+            <div className="proc-progress absolute left-[15px] top-7 h-[calc(100%-3.5rem)] w-px origin-top scale-y-0 bg-clay sm:left-[19px]" />
+
+            <div className="grid">
+              {steps.map((s, i) => (
+                <div
+                  key={i}
+                  className="proc-item relative border-t border-line py-7 first:border-t-0"
+                >
+                  <span className="absolute -left-12 top-7 grid h-8 w-8 place-items-center rounded-full border border-clay/40 bg-ink font-display text-sm font-semibold text-clay sm:-left-16">
+                    {i + 1}
+                  </span>
+                  <h3 className="font-display text-xl font-semibold text-cream sm:text-2xl">
+                    {s.title}
+                  </h3>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-cream-dim">
+                    {s.copy}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-
-        <p className="mt-14 text-sm text-cream-faint">
-          Clear steps. Assisted support. One accountable Mason team from booking
-          to handover.
-        </p>
       </div>
     </section>
   );
