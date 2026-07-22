@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/* ============================================================
+   MASON COMPANY — design system v2
+   Warm-neutral dark. Terracotta accent. Bold grotesque type.
+   Real photography. Flat, confident surfaces — no gradient glows.
+   ============================================================ */
+
+@theme inline {
+  /* Backgrounds — warm near-black */
+  --color-ink: #100e0a;
+  --color-ink-raised: #17140e;
+  --color-surface: #1f1a13;
+  --color-surface-2: #2a2419;
+
+  /* Foreground — soft off-white bone */
+  --color-cream: #f1f0ec;
+  --color-cream-dim: #a69e90;
+  --color-cream-faint: #6f6a5f;
+  --color-bone-dim: #e4ddce; /* pressed/hover for bone buttons */
+
+  /* Oxblood — richer wine. FILLED accent blocks only (panels/badges), NOT primary buttons */
+  --color-oxblood: #5e2831;
+  --color-oxblood-soft: #703640; /* hover */
+  --color-oxblood-deep: #3a171c;
+
+  /* Taupe — quiet secondary detail on dark (eyebrows, numbers, rules) */
+  --color-clay: #a08d77;
+  --color-clay-soft: #b6a68f;
+  --color-clay-deep: #857254;
+
+  /* Olive — tertiary surface / depth */
+  --color-olive: #57503e;
+
+  /* Hairlines */
+  --color-line: rgba(244, 239, 231, 0.09);
+  --color-line-strong: rgba(244, 239, 231, 0.16);
+
+  --font-display: var(--font-bricolage);
+  --font-sans: var(--font-manrope);
+}
+
+:root {
+  --background: #100e0a;
+  --foreground: #f1f0ec;
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+::selection {
+  background: var(--color-oxblood);
+  color: var(--color-cream);
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-2);
+  border-radius: 99px;
+}
+
+/* ============================================================
+   Type utilities
+   ============================================================ */
+
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+.h-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-clay);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Very subtle filmic grain — keeps surfaces from feeling sterile */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Reveal (GSAP animates these) */
+.reveal {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
