@@ -132,9 +132,9 @@ export default function WhyMason() {
   return (
     <section
       ref={ref}
-      className="border-t border-line py-24 lg:flex lg:min-h-screen lg:flex-col lg:justify-center lg:py-0"
+      className="border-t border-line py-24 lg:h-screen lg:overflow-hidden lg:py-0"
     >
-      <div className="mx-auto w-full max-w-6xl px-6 lg:px-10">
+      <div className="mx-auto flex h-full w-full max-w-6xl flex-col px-6 lg:px-10 lg:pb-12 lg:pt-28">
         <div className="max-w-3xl">
           <p className="wm-reveal eyebrow mb-5">Why Mason Company</p>
           <h2 className="wm-reveal h-display text-3xl text-cream sm:text-4xl lg:text-[2.75rem]">
@@ -146,7 +146,7 @@ export default function WhyMason() {
         </div>
 
         {/* deck → 3x2 grid */}
-        <div className="wm-grid relative mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3">
+        <div className="wm-grid relative mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-0 lg:flex-1 lg:grid-cols-3 lg:content-center">
           {reasons.map((r, i) => (
             <article
               key={r.title}

@@ -33,7 +33,7 @@ function BeforeAfter() {
       }}
       onPointerMove={(e) => dragging.current && move(e.clientX)}
       onPointerUp={() => (dragging.current = false)}
-      className="relative aspect-[16/10] w-full cursor-ew-resize select-none overflow-hidden rounded-2xl border border-line"
+      className="relative aspect-[16/10] w-full cursor-ew-resize select-none overflow-hidden rounded-2xl border border-line lg:aspect-auto lg:h-full"
     >
       {/* after (color) */}
       <Image
@@ -98,9 +98,9 @@ export default function Transformations() {
   return (
     <section
       id="transformations"
-      className="border-t border-line py-24 lg:py-32"
+      className="border-t border-line py-24 lg:h-screen lg:overflow-hidden lg:py-0"
     >
-      <Reveal className="mx-auto max-w-7xl px-6 lg:px-10">
+      <Reveal className="mx-auto flex h-full max-w-7xl flex-col px-6 lg:px-10 lg:pb-12 lg:pt-28">
         <div className="max-w-2xl">
           <p className="reveal eyebrow mb-5">Transformations</p>
           <h2 className="reveal h-display text-3xl text-cream sm:text-4xl lg:text-5xl">
@@ -112,7 +112,7 @@ export default function Transformations() {
           </p>
         </div>
 
-        <div className="reveal mt-14 grid gap-6 lg:grid-cols-[2fr_1fr]">
+        <div className="reveal mt-14 grid gap-6 lg:mt-10 lg:min-h-0 lg:flex-1 lg:grid-cols-[2fr_1fr]">
           <BeforeAfter />
 
           <div className="grid gap-6">
