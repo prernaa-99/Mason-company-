@@ -6,7 +6,7 @@ const check = (
     height="16"
     viewBox="0 0 24 24"
     fill="none"
-    className="mt-0.5 shrink-0 text-amber"
+    className="mt-0.5 shrink-0 text-clay"
   >
     <path
       d="M5 12.5l4 4 10-10"
@@ -72,77 +72,82 @@ export default function Packages() {
   return (
     <section
       id="packages"
-      className="relative border-t border-line py-24 lg:py-32"
+      className="relative border-t border-line py-24 lg:h-screen lg:overflow-hidden lg:py-0"
     >
-      <Reveal className="mx-auto max-w-7xl px-6 lg:px-10">
+      <Reveal className="mx-auto flex h-full max-w-7xl flex-col px-6 lg:px-10 lg:pb-8 lg:pt-24">
         <div className="max-w-2xl">
-          <p className="reveal eyebrow mb-5">Choose your safety package</p>
-          <h2 className="reveal h-display text-3xl text-cream sm:text-4xl lg:text-5xl">
+          <p className="reveal eyebrow mb-3">Choose your safety package</p>
+          <h2 className="reveal h-display text-3xl text-cream sm:text-4xl lg:text-[2.5rem]">
             Two complete ways to upgrade.
           </h2>
-          <p className="reveal mt-6 text-lg leading-relaxed text-cream-dim">
+          <p className="reveal mt-3 text-base leading-relaxed text-cream-dim">
             Clear inclusions. Premium finishes. Installed by Mason-trained
             experts &mdash; one accountable team.
           </p>
         </div>
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-2">
+        <div className="mt-8 grid gap-6 lg:mt-6 lg:min-h-0 lg:flex-1 lg:grid-cols-[1fr_1.12fr]">
           {packages.map((p) => (
             <div
               key={p.name}
-              className={`reveal relative flex flex-col rounded-3xl border p-8 transition-transform duration-500 hover:-translate-y-1 lg:p-10 ${
+              className={`reveal relative flex flex-col overflow-hidden rounded-3xl border p-6 lg:p-7 ${
                 p.featured
-                  ? "border-amber/40 bg-gradient-to-b from-surface to-ink-raised"
+                  ? "border-clay/60 bg-surface-2 lg:p-8"
                   : "border-line bg-ink-raised"
               }`}
             >
               {p.featured && (
-                <span className="absolute -top-3 right-8 rounded-full bg-amber px-4 py-1 text-xs font-semibold text-ink">
+                <span className="absolute right-6 top-6 rounded-full bg-clay px-3.5 py-1 text-[0.7rem] font-semibold text-ink lg:right-7 lg:top-7">
                   Most complete
                 </span>
               )}
 
-              <p className="text-xs uppercase tracking-[0.18em] text-amber">
+              <p
+                className={`text-xs uppercase tracking-[0.18em] ${
+                  p.featured ? "text-clay" : "text-clay/75"
+                }`}
+              >
                 {p.badge}
               </p>
-              <h3 className="mt-3 font-display text-4xl text-cream">
+              <h3 className="mt-1.5 font-display text-4xl text-cream lg:text-5xl">
                 {p.name}
               </h3>
-              <p className="mt-4 text-sm leading-relaxed text-cream-dim">
+              <p className="mt-3 max-w-sm text-sm leading-relaxed text-cream-dim">
                 {p.bestFor}
               </p>
 
-              <ul className="mt-8 grid gap-3 border-t border-line pt-8">
+              {/* CTA on top, above the feature list */}
+              <a
+                href="#book"
+                className={`mt-6 block rounded-full px-6 py-3.5 text-center text-sm font-semibold transition-transform duration-300 hover:scale-[1.01] ${
+                  p.featured
+                    ? "bg-cream text-ink hover:bg-bone-dim"
+                    : "border border-line-strong text-cream hover:border-clay hover:text-clay"
+                }`}
+              >
+                {p.cta}
+              </a>
+
+              <ul className="mt-7 grid gap-x-6 gap-y-3 border-t border-line pt-7 sm:grid-cols-2">
                 {p.includes.map((item) => (
-                  <li
-                    key={item}
-                    className="flex gap-3 text-sm text-cream-dim"
-                  >
+                  <li key={item} className="flex gap-2.5 text-sm text-cream-dim">
                     {check}
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
 
-              <p className="mt-8 rounded-2xl border border-line bg-ink/40 p-5 text-sm leading-relaxed text-cream">
-                {p.outcome}
-              </p>
-
               <a
                 href="#book"
-                className={`mt-8 rounded-full px-6 py-3.5 text-center text-sm font-semibold transition-transform duration-300 hover:scale-[1.02] ${
-                  p.featured
-                    ? "bg-amber text-ink hover:bg-amber-soft"
-                    : "border border-line-strong text-cream hover:border-amber hover:text-amber"
-                }`}
+                className="mt-auto pt-7 text-sm text-cream-faint transition-colors hover:text-cream"
               >
-                {p.cta}
+                Need a custom quote? &rarr;
               </a>
             </div>
           ))}
         </div>
 
-        <p className="reveal mt-8 max-w-3xl text-sm leading-relaxed text-cream-faint">
+        <p className="reveal mt-5 text-xs leading-relaxed text-cream-faint lg:hidden">
           Both packages are planned for real bathroom movement and installed by
           trained Mason experts &mdash; so the result feels safe, thoughtful,
           and still beautifully at home.
