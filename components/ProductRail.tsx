@@ -64,15 +64,16 @@ export default function ProductRail() {
 
   return (
     <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
-      <div
-        ref={scrollerRef}
-        onScroll={updateBar}
-        onPointerDown={onDown}
-        onPointerMove={onMove}
-        onPointerUp={onUp}
-        onPointerCancel={onUp}
-        className="flex cursor-grab gap-4 overflow-x-auto pb-1 [scrollbar-width:none] select-none active:cursor-grabbing [scroll-snap-type:x_proximity] [&::-webkit-scrollbar]:hidden"
-      >
+      <div className="relative">
+        <div
+          ref={scrollerRef}
+          onScroll={updateBar}
+          onPointerDown={onDown}
+          onPointerMove={onMove}
+          onPointerUp={onUp}
+          onPointerCancel={onUp}
+          className="flex cursor-grab gap-4 overflow-x-auto pb-1 [scrollbar-width:none] select-none active:cursor-grabbing [scroll-snap-type:x_proximity] [&::-webkit-scrollbar]:hidden"
+        >
         {items.map((it) => (
           <article
             key={it.title}
@@ -98,36 +99,35 @@ export default function ProductRail() {
             </div>
           </article>
         ))}
-      </div>
+        </div>
 
-      {/* controls: prev · progress · next */}
-      <div className="mt-6 flex items-center justify-center gap-5">
+        {/* arrows overlaid on the card edges, vertically centred */}
         <button
           onClick={() => page(-1)}
           aria-label="Previous"
-          className="grid h-9 w-9 place-items-center rounded-full border border-line-strong text-cream transition-colors duration-300 hover:border-cream/50"
+          className="absolute left-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-line-strong bg-ink/60 text-cream backdrop-blur-sm transition-colors duration-300 hover:bg-ink/85 lg:left-4"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path d="M15 5l-7 7 7 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
-
-        <div className="h-[3px] w-40 overflow-hidden rounded-full bg-line">
-          <div
-            ref={barRef}
-            className="h-full w-1/3 rounded-full bg-clay transition-transform duration-100 ease-out"
-          />
-        </div>
-
         <button
           onClick={() => page(1)}
           aria-label="Next"
-          className="grid h-9 w-9 place-items-center rounded-full border border-line-strong text-cream transition-colors duration-300 hover:border-cream/50"
+          className="absolute right-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-line-strong bg-ink/60 text-cream backdrop-blur-sm transition-colors duration-300 hover:bg-ink/85 lg:right-4"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
+      </div>
+
+      {/* progress bar centred below */}
+      <div className="mx-auto mt-6 h-[3px] w-40 overflow-hidden rounded-full bg-line">
+        <div
+          ref={barRef}
+          className="h-full w-1/3 rounded-full bg-clay transition-transform duration-100 ease-out"
+        />
       </div>
     </div>
   );
