@@ -34,30 +34,99 @@ const steps = [
   },
 ];
 
+// each tread steps further right — a descending staircase on desktop.
+// kept as static strings so Tailwind emits them.
+const offset = [
+  "lg:ml-0",
+  "lg:ml-[7%]",
+  "lg:ml-[14%]",
+  "lg:ml-[21%]",
+  "lg:ml-[28%]",
+  "lg:ml-[35%]",
+];
+
 export default function Process() {
   const ref = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
-      gsap.from(".proc-item", {
+      // heading fades in on approach (both breakpoints)
+      gsap.from(".proc-head", {
         opacity: 0,
-        y: 26,
-        duration: 0.8,
+        y: 24,
+        duration: 0.9,
         ease: "power3.out",
-        stagger: 0.12,
-        scrollTrigger: { trigger: ".proc-list", start: "top 78%", once: true },
+        stagger: 0.08,
+        scrollTrigger: { trigger: ref.current, start: "top 85%", once: true },
       });
 
-      gsap.to(".proc-progress", {
-        scaleY: 1,
-        ease: "none",
-        transformOrigin: "top",
-        scrollTrigger: {
-          trigger: ".proc-list",
-          start: "top 65%",
-          end: "bottom 75%",
-          scrub: true,
-        },
+      const mm = gsap.matchMedia();
+
+      // ---- desktop: pin, and build the staircase step-by-step on scroll ----
+      mm.add("(min-width: 1024px)", () => {
+        const treads = gsap.utils.toArray<HTMLElement>(".proc-step");
+        const countEl = ref.current!.querySelector<HTMLElement>(".proc-count");
+
+        gsap.set(treads, { opacity: 0, y: 36, x: -28 });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ref.current,
+            start: "top top",
+            end: "+=" + steps.length * 240,
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            onUpdate: (self) => {
+              // active step tracks the highlighted tread (0 -> 1, 1 -> last)
+              const n = Math.min(
+                steps.length,
+                Math.max(1, Math.round((steps.length - 1) * self.progress) + 1)
+              );
+              if (countEl) countEl.textContent = "0" + n;
+            },
+          },
+        });
+
+        // progress bar spans the whole flight
+        tl.to(
+          ".proc-progress",
+          { scaleX: 1, ease: "none", duration: steps.length * 0.6 },
+          0
+        );
+
+        // reveal each tread, then dim the previous one so only "now" is bright
+        treads.forEach((t, i) => {
+          const at = i * 0.6;
+          tl.to(
+            t,
+            { opacity: 1, y: 0, x: 0, duration: 0.5, ease: "power3.out" },
+            at
+          );
+          if (i > 0) {
+            tl.to(
+              treads[i - 1],
+              { opacity: 0.32, duration: 0.4, ease: "none" },
+              at
+            );
+          }
+        });
+      });
+
+      // ---- mobile: no pin, simple staggered reveal ----
+      mm.add("(max-width: 1023px)", () => {
+        gsap.from(".proc-step", {
+          opacity: 0,
+          y: 24,
+          duration: 0.7,
+          ease: "power3.out",
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: ".proc-stair",
+            start: "top 82%",
+            once: true,
+          },
+        });
       });
     },
     { scope: ref }
@@ -67,71 +136,64 @@ export default function Process() {
     <section
       id="process"
       ref={ref}
-      className="border-t border-line py-24 lg:py-32"
+      className="border-t border-line py-24 lg:h-screen lg:py-0"
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-          {/* left — sticky intro */}
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <p className="eyebrow mb-5">Our process</p>
-            <h2 className="h-display text-3xl text-cream sm:text-4xl lg:text-5xl">
-              From booking to a safer bathroom.
-            </h2>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-cream-dim">
-              A clear, guided process from package booking to final installation
-              &mdash; with support at every step.
-            </p>
+      <div className="mx-auto grid h-full max-w-7xl gap-12 px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14 lg:px-10 lg:pb-10 lg:pt-24">
+        {/* left — heading + live progress */}
+        <div>
+          <p className="proc-head eyebrow mb-5">Our process</p>
+          <h2 className="proc-head h-display text-3xl text-cream sm:text-4xl lg:text-5xl">
+            From booking to a safer bathroom.
+          </h2>
+          <p className="proc-head mt-6 max-w-md text-base leading-relaxed text-cream-dim">
+            Six clear steps, handled by one accountable Mason team &mdash; from
+            package booking all the way to final handover.
+          </p>
 
-            <div className="mt-8 border-t border-line pt-8">
-              <div className="flex items-baseline gap-3">
-                <span className="font-display text-5xl font-bold leading-none text-cream">
-                  6
-                </span>
-                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-clay">
-                  Simple
-                  <br />
-                  steps
-                </span>
-              </div>
-              <p className="mt-5 max-w-xs text-sm leading-relaxed text-cream-dim">
-                Handled by one accountable Mason team, from booking all the way
-                to handover.
-              </p>
-            </div>
-
-            <a
-              href="#book"
-              className="mt-8 inline-block rounded-full bg-cream px-6 py-3 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-bone-dim"
-            >
-              Book a Safety Visit
-            </a>
+          <div className="proc-head mt-8 flex items-end gap-3">
+            <span className="proc-count font-display text-6xl font-bold leading-none text-cream">
+              01
+            </span>
+            <span className="pb-1 text-xs font-semibold uppercase tracking-[0.2em] text-clay">
+              / 0{steps.length}
+              <br />
+              steps
+            </span>
+          </div>
+          <div className="proc-head relative mt-5 h-px w-48 bg-line">
+            <span className="proc-progress absolute inset-y-0 left-0 w-full origin-left scale-x-0 bg-clay" />
           </div>
 
-          {/* right — timeline */}
-          <div className="proc-list relative pl-12 sm:pl-16">
-            {/* track + animated progress */}
-            <div className="absolute left-[15px] top-7 h-[calc(100%-3.5rem)] w-px bg-line sm:left-[19px]" />
-            <div className="proc-progress absolute left-[15px] top-7 h-[calc(100%-3.5rem)] w-px origin-top scale-y-0 bg-clay sm:left-[19px]" />
+          <a
+            href="#book"
+            className="proc-head mt-8 inline-block rounded-full bg-cream px-6 py-3 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-bone-dim"
+          >
+            Book a Safety Visit
+          </a>
+        </div>
 
-            <div className="grid">
-              {steps.map((s, i) => (
-                <div
-                  key={i}
-                  className="proc-item relative border-t border-line py-7 first:border-t-0"
-                >
-                  <span className="absolute -left-12 top-7 grid h-8 w-8 place-items-center rounded-full border border-clay/40 bg-ink font-display text-sm font-semibold text-clay sm:-left-16">
-                    {i + 1}
-                  </span>
-                  <h3 className="font-display text-xl font-semibold text-cream sm:text-2xl">
+        {/* right — descending staircase */}
+        <div className="proc-stair flex flex-col gap-3 lg:gap-2.5">
+          {steps.map((s, i) => (
+            <div
+              key={s.title}
+              className={`proc-step w-full lg:w-[62%] ${offset[i]}`}
+            >
+              <div className="flex items-start gap-4 rounded-2xl border border-line border-l-2 border-l-clay/50 bg-ink-raised p-4 lg:px-5 lg:py-3.5">
+                <span className="font-display text-3xl font-bold leading-none text-clay">
+                  0{i + 1}
+                </span>
+                <div>
+                  <h3 className="font-display text-base font-semibold text-cream lg:text-lg">
                     {s.title}
                   </h3>
-                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-cream-dim">
+                  <p className="mt-1 text-xs leading-snug text-cream-dim">
                     {s.copy}
                   </p>
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
