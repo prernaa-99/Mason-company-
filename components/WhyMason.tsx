@@ -150,9 +150,9 @@ export default function WhyMason() {
           {reasons.map((r, i) => (
             <article
               key={r.title}
-              className="wm-card flex min-h-[220px] flex-col justify-center rounded-2xl border border-line-strong bg-surface p-7 will-change-transform lg:min-h-[240px]"
+              className="wm-card flex min-h-[220px] flex-col justify-center rounded-2xl border border-line bg-ink-raised p-7 transition-colors duration-150 will-change-transform hover:border-line-strong hover:bg-surface-2 lg:min-h-[240px]"
             >
-              <span className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-clay-soft">
+              <span className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-cream-faint">
                 {r.tag}
               </span>
 

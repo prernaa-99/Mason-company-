@@ -166,7 +166,7 @@ export default function Process() {
 
           <a
             href="#book"
-            className="proc-head mt-8 inline-block rounded-full bg-cream px-6 py-3 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-bone-dim"
+            className="proc-head mt-8 inline-block rounded-full bg-accent px-6 py-3 text-sm font-semibold text-[#fff7f5] transition-colors duration-150 hover:bg-accent-hover"
           >
             Book a Safety Visit
           </a>
@@ -180,7 +180,7 @@ export default function Process() {
               className={`proc-step w-full lg:w-[62%] ${offset[i]}`}
             >
               <div className="flex items-start gap-4 rounded-2xl border border-line border-l-2 border-l-clay/50 bg-ink-raised p-4 lg:px-5 lg:py-3.5">
-                <span className="font-display text-3xl font-bold leading-none text-clay">
+                <span className="font-display text-3xl font-bold leading-none text-cream-dim">
                   0{i + 1}
                 </span>
                 <div>

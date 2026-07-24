@@ -87,10 +87,10 @@ export default function ProductRail() {
               sizes="260px"
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
-            {/* bottom scrim */}
-            <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent" />
+            {/* bottom scrim — deepened so labels stay legible on lighter images */}
+            <div className="absolute inset-0 bg-[linear-gradient(transparent_40%,rgba(11,9,8,0.85)_100%)]" />
             <div className="absolute inset-x-0 bottom-0 p-5">
-              <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-clay">
+              <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-cream-faint">
                 {it.label}
               </span>
               <h3 className="mt-1 font-display text-lg font-semibold leading-tight text-cream">
@@ -105,7 +105,7 @@ export default function ProductRail() {
         <button
           onClick={() => page(-1)}
           aria-label="Previous"
-          className="absolute left-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-line-strong bg-ink/60 text-cream backdrop-blur-sm transition-colors duration-300 hover:bg-ink/85 lg:left-4"
+          className="absolute left-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-line-strong bg-ink/60 text-cream-dim backdrop-blur-sm transition-colors duration-150 hover:bg-ink/85 lg:left-4"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path d="M15 5l-7 7 7 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -114,7 +114,7 @@ export default function ProductRail() {
         <button
           onClick={() => page(1)}
           aria-label="Next"
-          className="absolute right-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-line-strong bg-ink/60 text-cream backdrop-blur-sm transition-colors duration-300 hover:bg-ink/85 lg:right-4"
+          className="absolute right-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-line-strong bg-ink/60 text-cream-dim backdrop-blur-sm transition-colors duration-150 hover:bg-ink/85 lg:right-4"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -126,7 +126,7 @@ export default function ProductRail() {
       <div className="mx-auto mt-6 h-[3px] w-40 overflow-hidden rounded-full bg-line">
         <div
           ref={barRef}
-          className="h-full w-1/3 rounded-full bg-clay transition-transform duration-100 ease-out"
+          className="h-full w-1/3 rounded-full bg-cream-dim transition-transform duration-100 ease-out"
         />
       </div>
     </div>

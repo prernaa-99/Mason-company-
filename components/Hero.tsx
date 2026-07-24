@@ -44,8 +44,10 @@ export default function Hero() {
           </p>
 
           <h1 className="h-display text-[2.15rem] leading-[1.04] text-cream sm:text-5xl lg:text-6xl">
-            <span className="hero-line block">Most falls happen here.</span>
-            <span className="hero-line block text-cream-dim">
+            <span className="hero-line block text-cream/90">
+              Most falls happen here.
+            </span>
+            <span className="hero-line block text-cream">
               We make sure yours don&rsquo;t.
             </span>
           </h1>
@@ -58,13 +60,13 @@ export default function Hero() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <a
               href="#book"
-              className="hero-cta rounded-full bg-cream px-7 py-3.5 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-bone-dim"
+              className="hero-cta rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-[#fff7f5] transition-colors duration-150 hover:bg-accent-hover"
             >
               Book a Safety Visit
             </a>
             <a
               href="#transformations"
-              className="hero-cta rounded-full border border-line-strong px-7 py-3.5 text-sm font-semibold text-cream transition-colors duration-300 hover:border-cream/40"
+              className="hero-cta rounded-full border border-line px-7 py-3.5 text-sm font-semibold text-cream transition-colors duration-150 hover:border-line-strong"
             >
               See Transformations
             </a>

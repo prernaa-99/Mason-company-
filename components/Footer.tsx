@@ -24,7 +24,7 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div>
             <div className="flex items-center gap-2.5">
-              <span className="grid h-8 w-8 place-items-center rounded-full border border-clay/50 text-clay">
+              <span className="grid h-8 w-8 place-items-center rounded-full border border-line-strong text-cream">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                   <path
                     d="M4 20V9l8-5 8 5v11M9 20v-6h6v6"
@@ -46,7 +46,7 @@ export default function Footer() {
             </p>
             <a
               href="#book"
-              className="mt-8 inline-block rounded-full bg-cream px-6 py-3 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-bone-dim"
+              className="mt-8 inline-block rounded-full border border-line px-6 py-3 text-sm font-semibold text-cream transition-colors duration-150 hover:border-line-strong"
             >
               Book a Safety Visit
             </a>
@@ -55,7 +55,7 @@ export default function Footer() {
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
             {columns.map((col) => (
               <div key={col.title}>
-                <p className="text-xs uppercase tracking-[0.18em] text-cream-faint">
+                <p className="text-xs uppercase tracking-[0.18em] text-cream-dim">
                   {col.title}
                 </p>
                 <ul className="mt-5 space-y-3">

@@ -36,12 +36,12 @@ export default function Stats() {
             </h2>
           </div>
 
-          {/* cost figure — the oxblood brand moment */}
-          <div className="reveal rounded-2xl bg-oxblood px-7 py-6">
-            <p className="text-xs uppercase tracking-[0.16em] text-cream/70">
+          {/* cost figure — accent-muted brand moment */}
+          <div className="reveal rounded-2xl bg-accent-muted px-7 py-6">
+            <p className="text-xs uppercase tracking-[0.16em] text-[#fff7f5]/75">
               Potential recovery cost of one fall
             </p>
-            <p className="mt-2 font-display text-4xl font-bold text-cream lg:text-5xl">
+            <p className="mt-2 font-display text-4xl font-bold text-[#fff7f5] lg:text-5xl">
               &#8377;3L&ndash;&#8377;10L
             </p>
           </div>
@@ -51,9 +51,9 @@ export default function Stats() {
           {stats.map((s, i) => (
             <div
               key={i}
-              className="bg-ink-raised p-7 transition-colors duration-500 hover:bg-surface"
+              className="bg-ink-raised p-7 transition-colors duration-150 hover:bg-surface-2"
             >
-              <div className="font-display text-5xl font-bold text-cream">
+              <div className="font-display text-5xl font-bold text-accent">
                 {s.node}
               </div>
               <p className="mt-5 text-sm font-semibold text-cream">{s.label}</p>

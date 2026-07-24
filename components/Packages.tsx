@@ -6,7 +6,7 @@ const check = (
     height="16"
     viewBox="0 0 24 24"
     fill="none"
-    className="mt-0.5 shrink-0 text-clay"
+    className="mt-0.5 shrink-0 text-cream-dim"
   >
     <path
       d="M5 12.5l4 4 10-10"
@@ -92,21 +92,17 @@ export default function Packages() {
               key={p.name}
               className={`reveal relative flex flex-col overflow-hidden rounded-3xl border p-6 lg:p-7 ${
                 p.featured
-                  ? "border-clay/60 bg-surface-2 lg:p-8"
+                  ? "border-line-strong bg-surface-2 lg:p-8"
                   : "border-line bg-ink-raised"
               }`}
             >
               {p.featured && (
-                <span className="absolute right-6 top-6 rounded-full bg-clay px-3.5 py-1 text-[0.7rem] font-semibold text-ink lg:right-7 lg:top-7">
+                <span className="absolute right-6 top-6 rounded-full border border-line-strong bg-ink-raised px-3.5 py-1 text-[0.7rem] font-semibold text-cream lg:right-7 lg:top-7">
                   Most complete
                 </span>
               )}
 
-              <p
-                className={`text-xs uppercase tracking-[0.18em] ${
-                  p.featured ? "text-clay" : "text-clay/75"
-                }`}
-              >
+              <p className="text-xs uppercase tracking-[0.18em] text-cream-faint">
                 {p.badge}
               </p>
               <h3 className="mt-1.5 font-display text-4xl text-cream lg:text-5xl">
@@ -119,10 +115,10 @@ export default function Packages() {
               {/* CTA on top, above the feature list */}
               <a
                 href="#book"
-                className={`mt-6 block rounded-full px-6 py-3.5 text-center text-sm font-semibold transition-transform duration-300 hover:scale-[1.01] ${
+                className={`mt-6 block rounded-full px-6 py-3.5 text-center text-sm font-semibold transition-all duration-150 hover:scale-[1.01] ${
                   p.featured
-                    ? "bg-cream text-ink hover:bg-bone-dim"
-                    : "border border-line-strong text-cream hover:border-clay hover:text-clay"
+                    ? "bg-accent text-[#fff7f5] hover:bg-accent-hover"
+                    : "border border-line text-cream hover:border-line-strong"
                 }`}
               >
                 {p.cta}
@@ -139,7 +135,7 @@ export default function Packages() {
 
               <a
                 href="#book"
-                className="mt-auto pt-7 text-sm text-cream-faint transition-colors hover:text-cream"
+                className="mt-auto pt-7 text-sm text-cream-dim transition-colors duration-150 hover:text-cream"
               >
                 Need a custom quote? &rarr;
               </a>

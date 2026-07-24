@@ -45,7 +45,7 @@ function BeforeAfter() {
         className="object-cover"
         priority
       />
-      <span className="absolute bottom-4 right-4 z-10 rounded-full bg-oxblood px-3 py-1 text-xs font-semibold text-cream">
+      <span className="absolute bottom-4 right-4 z-10 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-[#fff7f5]">
         After
       </span>
 
@@ -62,7 +62,7 @@ function BeforeAfter() {
           sizes="(max-width: 1024px) 100vw, 66vw"
           className="object-cover grayscale brightness-[0.7]"
         />
-        <span className="absolute bottom-4 left-4 rounded-full border border-line-strong bg-ink/70 px-3 py-1 text-xs font-semibold text-cream">
+        <span className="absolute bottom-4 left-4 rounded-full border border-line bg-surface-2 px-3 py-1 text-xs font-semibold text-cream">
           Before
         </span>
       </div>
@@ -73,7 +73,7 @@ function BeforeAfter() {
         style={{ left: `${pos}%` }}
       >
         <div className="absolute inset-y-0 w-px bg-cream/70" />
-        <div className="grid h-10 w-10 place-items-center rounded-full border border-cream/60 bg-ink/80 backdrop-blur">
+        <div className="grid h-10 w-10 place-items-center rounded-full border border-line bg-surface-2 backdrop-blur">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path
               d="M9 7l-4 5 4 5M15 7l4 5-4 5"
@@ -129,7 +129,7 @@ export default function Transformations() {
                     sizes="(max-width: 1024px) 100vw, 33vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent" />
                   <figcaption className="absolute bottom-4 left-4 text-sm font-semibold text-cream">
                     {g.label}
                   </figcaption>

@@ -34,7 +34,7 @@ export default function Doctors() {
   const [active, setActive] = useState(0);
 
   return (
-    <section id="doctors" className="border-t border-line py-24 lg:h-screen lg:py-0">
+    <section id="doctors" className="border-t border-line bg-clinical py-24 lg:h-screen lg:py-0">
       <div className="mx-auto flex h-full max-w-7xl flex-col px-6 lg:px-10 lg:pb-10 lg:pt-24">
         <Reveal className="max-w-2xl">
           <p className="reveal eyebrow mb-4">Doctor-reviewed</p>
@@ -61,7 +61,7 @@ export default function Doctors() {
                 aria-expanded={isActive}
                 className={`group relative w-full appearance-none overflow-hidden rounded-2xl border text-left transition-all duration-500 ease-out lg:min-h-0 ${
                   isActive
-                    ? "min-h-[320px] border-clay/40 lg:flex-[2.6]"
+                    ? "min-h-[320px] border-line-strong lg:flex-[2.6]"
                     : "min-h-[80px] border-line lg:flex-[1]"
                 }`}
               >
@@ -84,7 +84,7 @@ export default function Doctors() {
 
                 <div className="absolute inset-x-0 bottom-0 p-5 lg:p-6">
                   <span
-                    className={`block h-px bg-clay transition-all duration-500 ${
+                    className={`block h-px bg-cream-faint transition-all duration-500 ${
                       isActive ? "w-10 opacity-100" : "w-0 opacity-0"
                     }`}
                   />
@@ -104,7 +104,7 @@ export default function Doctors() {
                   >
                     {d.name}
                   </p>
-                  <p className="mt-0.5 text-xs text-clay">{d.creds}</p>
+                  <p className="mt-0.5 text-xs text-cream-dim">{d.creds}</p>
                 </div>
               </button>
             );

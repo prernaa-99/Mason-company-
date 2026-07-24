@@ -37,7 +37,11 @@ const faqs = [
 function Row({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="reveal border-t border-line">
+    <div
+      className={`reveal border-t border-line px-4 transition-colors duration-150 ${
+        open ? "bg-ink-raised" : ""
+      }`}
+    >
       <button
         onClick={() => setOpen((v) => !v)}
         className="flex w-full items-center justify-between gap-6 py-6 text-left"
@@ -46,7 +50,7 @@ function Row({ q, a }: { q: string; a: string }) {
           {q}
         </span>
         <span
-          className={`grid h-8 w-8 shrink-0 place-items-center rounded-full border border-line-strong text-clay transition-transform duration-300 ${
+          className={`grid h-8 w-8 shrink-0 place-items-center rounded-full border border-line-strong text-cream-dim transition-transform duration-300 ${
             open ? "rotate-45" : ""
           }`}
         >
@@ -92,7 +96,7 @@ export default function FAQ() {
           </p>
         </div>
 
-        <div>
+        <div className="mt-4 lg:mt-0 lg:pt-1 [&>*:first-child]:border-t-0">
           {faqs.map((f) => (
             <Row key={f.q} {...f} />
           ))}

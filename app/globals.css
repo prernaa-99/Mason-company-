@@ -7,42 +7,54 @@
    ============================================================ */
 
 @theme inline {
-  /* Backgrounds — warm near-black */
-  --color-ink: #100e0a;
-  --color-ink-raised: #17140e;
-  --color-surface: #1f1a13;
-  --color-surface-2: #2a2419;
+  /* Elevation ladder — warm near-black. Steps are deliberately uneven. */
+  --color-ink: #0b0908; /* page */
+  --color-ink-raised: #1c1815; /* card */
+  --color-surface: #131010; /* section */
+  --color-surface-2: #2e2723; /* raised */
+  --color-clinical: #100f0f; /* doctors only — neutral, reads cooler by contrast */
 
   /* Foreground — soft off-white bone */
-  --color-cream: #f1f0ec;
-  --color-cream-dim: #a69e90;
-  --color-cream-faint: #6f6a5f;
-  --color-bone-dim: #e4ddce; /* pressed/hover for bone buttons */
+  --color-cream: #f5ede6; /* text-primary */
+  --color-cream-dim: #b0a49a; /* text-secondary (>=4.5:1) */
+  --color-cream-faint: #7d726a; /* text-tertiary — eyebrows/labels ONLY */
+  --color-bone-dim: #e4ddce; /* pressed/hover for the persistent nav button */
 
-  /* Oxblood — richer wine. FILLED accent blocks only (panels/badges), NOT primary buttons */
-  --color-oxblood: #5e2831;
-  --color-oxblood-soft: #703640; /* hover */
+  /* Accent — burnt sienna. Appears in exactly 3 places + CTAs + focus. */
+  --color-accent: #a34a3c;
+  --color-accent-hover: #b85a48;
+  --color-accent-muted: #5e3630; /* large background fills only */
+
+  /* Legacy oxblood kept for ::selection; components now use accent-muted */
+  --color-oxblood: #5e3630;
+  --color-oxblood-soft: #703640;
   --color-oxblood-deep: #3a171c;
 
-  /* Taupe — quiet secondary detail on dark (eyebrows, numbers, rules) */
-  --color-clay: #a08d77;
-  --color-clay-soft: #b6a68f;
-  --color-clay-deep: #857254;
+  /* Taupe tokens neutralised — the pseudo-accent is gone, these read as tertiary/secondary */
+  --color-clay: #7d726a;
+  --color-clay-soft: #b0a49a;
+  --color-clay-deep: #7d726a;
 
   /* Olive — tertiary surface / depth */
   --color-olive: #57503e;
 
   /* Hairlines */
-  --color-line: rgba(244, 239, 231, 0.09);
-  --color-line-strong: rgba(244, 239, 231, 0.16);
+  --color-line: rgba(245, 237, 230, 0.08); /* border */
+  --color-line-strong: rgba(245, 237, 230, 0.16); /* border-hover */
 
   --font-display: var(--font-bricolage);
   --font-sans: var(--font-manrope);
 }
 
 :root {
-  --background: #100e0a;
-  --foreground: #f1f0ec;
+  --background: #0b0908;
+  --foreground: #f5ede6;
+}
+
+/* Accessibility: every focusable element gets a 2px accent ring, 2px offset */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 * {
@@ -108,7 +120,7 @@ html.lenis body {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 700;
-  color: var(--color-clay);
+  color: var(--color-cream-faint); /* tertiary — eyebrows stay neutral */
 }
 
 .text-balance {

@@ -19,7 +19,10 @@ export default function Booking() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-oxblood-deep/85" />
+        {/* accent-muted wash at ~62% so the real bathroom still reads */}
+        <div className="absolute inset-0 bg-accent-muted/[0.62]" />
+        {/* dark edge vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_45%,transparent_50%,rgba(11,9,8,0.6))]" />
 
         <div className="relative px-8 py-20 text-center sm:px-12 lg:py-28">
           <p className="reveal eyebrow mb-6">Book a Safety Visit</p>
@@ -34,13 +37,13 @@ export default function Booking() {
           <div className="reveal mt-9 flex flex-wrap items-center justify-center gap-3">
             <a
               href="#book"
-              className="rounded-full bg-cream px-8 py-4 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-bone-dim"
+              className="rounded-full bg-accent px-8 py-4 text-sm font-semibold text-[#fff7f5] transition-colors duration-150 hover:bg-accent-hover"
             >
               Book a Safety Visit
             </a>
             <a
               href="#book"
-              className="rounded-full border border-line-strong px-8 py-4 text-sm font-semibold text-cream transition-colors duration-300 hover:border-cream/40"
+              className="rounded-full border border-line px-8 py-4 text-sm font-semibold text-cream transition-colors duration-150 hover:border-line-strong"
             >
               Request a Callback
             </a>
@@ -55,7 +58,7 @@ export default function Booking() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                   <path
                     d="M5 12.5l4 4 10-10"
-                    stroke="#a08d77"
+                    stroke="#b0a49a"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
