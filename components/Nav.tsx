@@ -1,14 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const links = [
-  { label: "Why Mason", href: "#why" },
-  { label: "Transformations", href: "#transformations" },
-  { label: "Packages", href: "#packages" },
-  { label: "Process", href: "#process" },
-  { label: "Doctors", href: "#doctors" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Home", href: "/" },
+  { label: "Why Mason", href: "/why" },
+  { label: "About Us", href: "/about" },
 ];
 
 export default function Nav() {
@@ -30,28 +28,28 @@ export default function Nav() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
-        <a href="#top" className="font-display text-lg font-bold tracking-tight text-cream">
+        <Link href="/" className="font-display text-lg font-bold tracking-tight text-cream">
           Mason<span className="text-clay">.</span>
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
-            <a
+            <Link
               key={l.href}
               href={l.href}
               className="text-sm text-cream-dim transition-colors hover:text-cream"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
         </div>
 
-        <a
-          href="#book"
+        <Link
+          href="/#book"
           className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-accent-hover"
         >
           Book a Safety Visit
-        </a>
+        </Link>
       </nav>
     </header>
   );
