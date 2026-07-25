@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ProductRail from "./ProductRail";
+import Magnetic from "./Magnetic";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -16,11 +17,11 @@ export default function Hero() {
       });
       tl.from(".hero-eyebrow", { opacity: 0, y: 14, duration: 0.6 })
         .from(
-          ".hero-line",
-          { opacity: 0, y: 34, duration: 0.9, stagger: 0.1 },
-          "-=0.25"
+          ".hero-line-inner",
+          { yPercent: 118, duration: 1, stagger: 0.12 },
+          "-=0.2"
         )
-        .from(".hero-sub", { opacity: 0, y: 18, duration: 0.8 }, "-=0.55")
+        .from(".hero-sub", { opacity: 0, y: 18, duration: 0.8 }, "-=0.6")
         .from(
           ".hero-cta",
           { opacity: 0, y: 14, duration: 0.7, stagger: 0.08 },
@@ -44,11 +45,15 @@ export default function Hero() {
           </p>
 
           <h1 className="h-display text-[2.15rem] leading-[1.04] text-cream sm:text-5xl lg:text-6xl">
-            <span className="hero-line block text-cream/90">
-              Most falls happen here.
+            <span className="block overflow-hidden pb-[0.1em]">
+              <span className="hero-line-inner block text-cream/90">
+                Most falls happen here.
+              </span>
             </span>
-            <span className="hero-line block text-cream">
-              We make sure yours don&rsquo;t.
+            <span className="block overflow-hidden pb-[0.1em]">
+              <span className="hero-line-inner block text-cream">
+                We make sure yours don&rsquo;t.
+              </span>
             </span>
           </h1>
 
@@ -58,12 +63,14 @@ export default function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="#book"
-              className="hero-cta rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-[#fff7f5] transition-colors duration-150 hover:bg-accent-hover"
-            >
-              Book a Safety Visit
-            </a>
+            <Magnetic>
+              <a
+                href="#book"
+                className="hero-cta inline-block rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-[#fff7f5] transition-colors duration-150 hover:bg-accent-hover"
+              >
+                Book a Safety Visit
+              </a>
+            </Magnetic>
             <a
               href="#transformations"
               className="hero-cta rounded-full border border-line px-7 py-3.5 text-sm font-semibold text-cream transition-colors duration-150 hover:border-line-strong"

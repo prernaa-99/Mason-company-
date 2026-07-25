@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Reveal from "./Reveal";
+import Magnetic from "./Magnetic";
 
 const chips = [
   "Full refund before installation",
@@ -35,12 +36,14 @@ export default function Booking() {
           </p>
 
           <div className="reveal mt-9 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="#book"
-              className="rounded-full bg-accent px-8 py-4 text-sm font-semibold text-[#fff7f5] transition-colors duration-150 hover:bg-accent-hover"
-            >
-              Book a Safety Visit
-            </a>
+            <Magnetic>
+              <a
+                href="#book"
+                className="inline-block rounded-full bg-accent px-8 py-4 text-sm font-semibold text-[#fff7f5] transition-colors duration-150 hover:bg-accent-hover"
+              >
+                Book a Safety Visit
+              </a>
+            </Magnetic>
             <a
               href="#book"
               className="rounded-full border border-white/35 px-8 py-4 text-sm font-semibold text-white transition-colors duration-150 hover:border-white/70"

@@ -12,6 +12,7 @@ const gallery = [
 
 function BeforeAfter() {
   const [pos, setPos] = useState(52);
+  const [cursor, setCursor] = useState({ x: 0, y: 0, show: false });
   const ref = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
 
@@ -23,6 +24,13 @@ function BeforeAfter() {
     setPos(Math.max(0, Math.min(100, p)));
   };
 
+  const track = (e: React.PointerEvent) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    setCursor({ x: e.clientX - rect.left, y: e.clientY - rect.top, show: true });
+  };
+
   return (
     <div
       ref={ref}
@@ -31,10 +39,33 @@ function BeforeAfter() {
         el(e).setPointerCapture(e.pointerId);
         move(e.clientX);
       }}
-      onPointerMove={(e) => dragging.current && move(e.clientX)}
+      onPointerMove={(e) => {
+        track(e);
+        if (dragging.current) move(e.clientX);
+      }}
+      onPointerEnter={track}
+      onPointerLeave={() => setCursor((c) => ({ ...c, show: false }))}
       onPointerUp={() => (dragging.current = false)}
-      className="relative aspect-[16/10] w-full cursor-ew-resize select-none overflow-hidden rounded-2xl border border-line lg:aspect-auto lg:h-full"
+      className="relative aspect-[16/10] w-full cursor-ew-resize select-none overflow-hidden rounded-2xl border border-line lg:aspect-auto lg:h-full lg:cursor-none"
     >
+      {/* custom drag cursor (desktop) */}
+      <div
+        className="pointer-events-none absolute z-30 hidden -translate-x-1/2 -translate-y-1/2 transition-opacity duration-200 lg:block"
+        style={{ left: cursor.x, top: cursor.y, opacity: cursor.show ? 1 : 0 }}
+      >
+        <span className="flex items-center gap-1.5 rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M9 7l-4 5 4 5M15 7l4 5-4 5"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          Drag
+        </span>
+      </div>
       {/* after (color) */}
       <Image
         src="/images/bath-1.jpg"

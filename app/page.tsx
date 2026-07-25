@@ -1,6 +1,7 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
+import SafetyMap from "@/components/SafetyMap";
 import WhyMason from "@/components/WhyMason";
 import Transformations from "@/components/Transformations";
 import Packages from "@/components/Packages";
@@ -17,6 +18,7 @@ export default function Home() {
       <main>
         <Hero />
         <Stats />
+        <SafetyMap />
         <WhyMason />
         <Transformations />
         <Packages />
