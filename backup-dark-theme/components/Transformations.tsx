@@ -72,12 +72,12 @@ function BeforeAfter() {
         className="absolute inset-y-0 z-10 flex w-0 items-center justify-center"
         style={{ left: `${pos}%` }}
       >
-        <div className="absolute inset-y-0 w-px bg-white/85" />
-        <div className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/95 shadow-sm backdrop-blur">
+        <div className="absolute inset-y-0 w-px bg-cream/70" />
+        <div className="grid h-10 w-10 place-items-center rounded-full border border-line bg-surface-2 backdrop-blur">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path
               d="M9 7l-4 5 4 5M15 7l4 5-4 5"
-              stroke="#1a1a18"
+              stroke="#f1ebe0"
               strokeWidth="1.6"
               strokeLinecap="round"
               strokeLinejoin="round"

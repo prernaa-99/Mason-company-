@@ -26,10 +26,10 @@ export default function Booking() {
 
         <div className="relative px-8 py-20 text-center sm:px-12 lg:py-28">
           <p className="reveal eyebrow mb-6">Book a Safety Visit</p>
-          <h2 className="reveal mx-auto max-w-3xl h-display text-4xl leading-[1.05] text-white sm:text-5xl lg:text-6xl">
+          <h2 className="reveal mx-auto max-w-3xl h-display text-4xl leading-[1.05] text-cream sm:text-5xl lg:text-6xl">
             Make the bathroom safer while it still feels like home.
           </h2>
-          <p className="reveal mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
+          <p className="reveal mx-auto mt-6 max-w-xl text-base leading-relaxed text-cream-dim sm:text-lg">
             Act before a fall changes everything. Choose a package or request a
             callback &mdash; one accountable Mason team handles the rest.
           </p>
@@ -43,7 +43,7 @@ export default function Booking() {
             </a>
             <a
               href="#book"
-              className="rounded-full border border-white/35 px-8 py-4 text-sm font-semibold text-white transition-colors duration-150 hover:border-white/70"
+              className="rounded-full border border-line px-8 py-4 text-sm font-semibold text-cream transition-colors duration-150 hover:border-line-strong"
             >
               Request a Callback
             </a>
@@ -53,12 +53,12 @@ export default function Booking() {
             {chips.map((c) => (
               <span
                 key={c}
-                className="flex items-center gap-2 text-xs text-white/85"
+                className="flex items-center gap-2 text-xs text-cream-dim"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                   <path
                     d="M5 12.5l4 4 10-10"
-                    stroke="#e6f3ef"
+                    stroke="#b0a49a"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"

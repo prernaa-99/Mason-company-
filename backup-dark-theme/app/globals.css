@@ -1,57 +1,54 @@
 @import "tailwindcss";
 
 /* ============================================================
-   MASON COMPANY — design system v3 (LIGHT)
-   Warm off-white paper. Emerald accent (health, calm, safe).
-   Bold grotesque type. Real photography. Flat, confident surfaces.
-   NOTE: token NAMES are inherited from the dark theme (ink/cream/…);
-   their VALUES are inverted here so every component re-themes for free.
-   The dark theme is preserved in /backup-dark-theme.
+   MASON COMPANY — design system v2
+   Warm-neutral dark. Terracotta accent. Bold grotesque type.
+   Real photography. Flat, confident surfaces — no gradient glows.
    ============================================================ */
 
 @theme inline {
-  /* Elevation ladder — warm paper. Page → card → sunken. */
-  --color-ink: #fafaf8; /* page */
-  --color-ink-raised: #ffffff; /* card / raised panel */
-  --color-surface: #f2f1ec; /* sunken section / footer */
-  --color-surface-2: #e5e3dd; /* hover / chip / featured card (warm grey) */
-  --color-clinical: #f2f1ec; /* doctors section — distinct warm grey */
+  /* Elevation ladder — warm near-black. Steps are deliberately uneven. */
+  --color-ink: #0b0908; /* page */
+  --color-ink-raised: #1c1815; /* card */
+  --color-surface: #131010; /* section */
+  --color-surface-2: #2e2723; /* raised */
+  --color-clinical: #100f0f; /* doctors only — neutral, reads cooler by contrast */
 
-  /* Foreground — warm near-black on paper (all >=4.5:1) */
-  --color-cream: #1a1a18; /* text-primary */
-  --color-cream-dim: #5c5b57; /* text-secondary */
-  --color-cream-faint: #82807a; /* text-tertiary — eyebrows/labels ONLY */
-  --color-bone-dim: #e5e3dd; /* legacy hover slot (nav CTA is emerald now) */
+  /* Foreground — soft off-white bone */
+  --color-cream: #f5ede6; /* text-primary */
+  --color-cream-dim: #b0a49a; /* text-secondary (>=4.5:1) */
+  --color-cream-faint: #7d726a; /* text-tertiary — eyebrows/labels ONLY */
+  --color-bone-dim: #e4ddce; /* pressed/hover for the persistent nav button */
 
-  /* Accent — emerald. Sparing punctuation: CTAs, links, one mark per section. */
-  --color-accent: #0e7c5a;
-  --color-accent-hover: #0b6749;
-  --color-accent-muted: #0c5a41; /* deep emerald fill — carries white text */
+  /* Accent — burnt sienna. Appears in exactly 3 places + CTAs + focus. */
+  --color-accent: #a34a3c;
+  --color-accent-hover: #b85a48;
+  --color-accent-muted: #5e3630; /* large background fills only */
 
-  /* Selection tokens repurposed to emerald */
-  --color-oxblood: #0e7c5a;
-  --color-oxblood-soft: #0b6749;
-  --color-oxblood-deep: #0c5a41;
+  /* Legacy oxblood kept for ::selection; components now use accent-muted */
+  --color-oxblood: #5e3630;
+  --color-oxblood-soft: #703640;
+  --color-oxblood-deep: #3a171c;
 
-  /* Clay repurposed → emerald punctuation (logo dot, process rule/progress) */
-  --color-clay: #0e7c5a;
-  --color-clay-soft: #0b6749;
-  --color-clay-deep: #0c5a41;
+  /* Taupe tokens neutralised — the pseudo-accent is gone, these read as tertiary/secondary */
+  --color-clay: #7d726a;
+  --color-clay-soft: #b0a49a;
+  --color-clay-deep: #7d726a;
 
-  /* Olive — tertiary surface / depth (rarely used) */
+  /* Olive — tertiary surface / depth */
   --color-olive: #57503e;
 
-  /* Hairlines — warm dark on paper */
-  --color-line: rgba(26, 24, 20, 0.1); /* border */
-  --color-line-strong: rgba(26, 24, 20, 0.17); /* border-hover */
+  /* Hairlines */
+  --color-line: rgba(245, 237, 230, 0.08); /* border */
+  --color-line-strong: rgba(245, 237, 230, 0.16); /* border-hover */
 
   --font-display: var(--font-bricolage);
   --font-sans: var(--font-manrope);
 }
 
 :root {
-  --background: #fafaf8;
-  --foreground: #1a1a18;
+  --background: #0b0908;
+  --foreground: #f5ede6;
 }
 
 /* Accessibility: every focusable element gets a 2px accent ring, 2px offset */
@@ -88,8 +85,8 @@ html.lenis body {
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: #ffffff;
+  background: var(--color-oxblood);
+  color: var(--color-cream);
 }
 
 ::-webkit-scrollbar {
@@ -99,11 +96,8 @@ html.lenis body {
   background: var(--color-ink);
 }
 ::-webkit-scrollbar-thumb {
-  background: #cfccc4;
+  background: var(--color-surface-2);
   border-radius: 99px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #bdb9af;
 }
 
 /* ============================================================

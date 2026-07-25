@@ -48,7 +48,7 @@ export default function Nav() {
 
         <a
           href="#book"
-          className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-accent-hover"
+          className="rounded-full bg-cream px-5 py-2.5 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-bone-dim"
         >
           Book a Safety Visit
         </a>

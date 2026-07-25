@@ -87,8 +87,8 @@ export default function ProductRail() {
               sizes="260px"
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
-            {/* bottom scrim — fades to paper so dark labels stay legible on photos */}
-            <div className="absolute inset-0 bg-[linear-gradient(transparent_35%,rgba(250,250,248,0.94)_100%)]" />
+            {/* bottom scrim — deepened so labels stay legible on lighter images */}
+            <div className="absolute inset-0 bg-[linear-gradient(transparent_40%,rgba(11,9,8,0.85)_100%)]" />
             <div className="absolute inset-x-0 bottom-0 p-5">
               <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-cream-faint">
                 {it.label}
