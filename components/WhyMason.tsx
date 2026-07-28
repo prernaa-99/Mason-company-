@@ -138,7 +138,8 @@ export default function WhyMason() {
         <div className="max-w-3xl">
           <p className="wm-reveal eyebrow mb-5">Why Mason Company</p>
           <h2 className="wm-reveal h-display text-3xl text-cream sm:text-4xl lg:text-[2.75rem]">
-            A complete solution &mdash; not a pile of products.
+            A complete <span className="accent-word">solution</span> &mdash; not
+            a pile of products.
           </h2>
           <p className="wm-reveal mt-5 max-w-xl text-base leading-relaxed text-cream-dim">
             Six strengths that come together into one accountable outcome.

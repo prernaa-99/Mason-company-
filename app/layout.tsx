@@ -1,17 +1,33 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Manrope } from "next/font/google";
+import { Archivo, Fraunces, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+/* Display — big impactful headlines. The dominant typeface. */
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
 });
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+/* Serif — expressive accent words, always italic, dropped inside headlines. */
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  display: "swap",
+  style: ["italic"],
+});
+
+/* Sans — body copy, UI, buttons. The document default. */
+const geist = Geist({
+  variable: "--font-geist",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+/* Mono — small labels, eyebrow text, numerals. */
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
 });
@@ -30,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} ${manrope.variable} h-full antialiased`}
+      className={`${archivo.variable} ${fraunces.variable} ${geist.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="grain min-h-full bg-ink text-cream">
         <SmoothScroll>{children}</SmoothScroll>

@@ -38,7 +38,8 @@ export default function Testimonials() {
         <div className="max-w-2xl">
           <p className="reveal eyebrow mb-5">Families we&rsquo;ve helped</p>
           <h2 className="reveal h-display text-3xl text-cream sm:text-4xl lg:text-5xl">
-            What families say after installation.
+            What <span className="accent-word">families</span> say after
+            installation.
           </h2>
         </div>
 

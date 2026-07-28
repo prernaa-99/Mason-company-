@@ -39,7 +39,8 @@ export default function Doctors() {
         <Reveal className="max-w-2xl">
           <p className="reveal eyebrow mb-4">Doctor-reviewed</p>
           <h2 className="reveal h-display text-3xl text-cream sm:text-4xl lg:text-[2.75rem]">
-            Safety thinking, shaped by medicine.
+            Safety thinking, shaped by{" "}
+            <span className="accent-word">medicine</span>.
           </h2>
           <p className="reveal mt-4 max-w-xl text-base leading-relaxed text-cream-dim">
             Built with medical inputs and senior-care context. Hover a doctor

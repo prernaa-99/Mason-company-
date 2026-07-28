@@ -52,7 +52,7 @@ export default function Hero() {
             </span>
             <span className="block overflow-hidden pb-[0.1em]">
               <span className="hero-line-inner block text-cream">
-                We make sure yours don&rsquo;t.
+                We make sure <span className="accent-word">yours</span> don&rsquo;t.
               </span>
             </span>
           </h1>
@@ -66,7 +66,7 @@ export default function Hero() {
             <Magnetic>
               <a
                 href="#book"
-                className="hero-cta inline-block rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-[#fff7f5] transition-colors duration-150 hover:bg-accent-hover"
+                className="hero-cta inline-block rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-on-accent transition-colors duration-150 hover:bg-accent-hover"
               >
                 Book a Safety Visit
               </a>

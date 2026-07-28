@@ -143,7 +143,8 @@ export default function Process() {
         <div>
           <p className="proc-head eyebrow mb-5">Our process</p>
           <h2 className="proc-head h-display text-3xl text-cream sm:text-4xl lg:text-5xl">
-            From booking to a safer bathroom.
+            From booking to a <span className="accent-word">safer</span>{" "}
+            bathroom.
           </h2>
           <p className="proc-head mt-6 max-w-md text-base leading-relaxed text-cream-dim">
             Six clear steps, handled by one accountable Mason team &mdash; from
@@ -166,7 +167,7 @@ export default function Process() {
 
           <a
             href="#book"
-            className="proc-head mt-8 inline-block rounded-full bg-accent px-6 py-3 text-sm font-semibold text-[#fff7f5] transition-colors duration-150 hover:bg-accent-hover"
+            className="proc-head mt-8 inline-block rounded-full bg-accent px-6 py-3 text-sm font-semibold text-on-accent transition-colors duration-150 hover:bg-accent-hover"
           >
             Book a Safety Visit
           </a>

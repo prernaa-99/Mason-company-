@@ -32,16 +32,17 @@ export default function Stats() {
           <div className="max-w-2xl">
             <p className="reveal eyebrow mb-5">The risk is real</p>
             <h2 className="reveal h-display text-3xl text-cream sm:text-4xl lg:text-5xl">
-              The response should be thoughtful.
+              The response should be{" "}
+              <span className="accent-word">thoughtful</span>.
             </h2>
           </div>
 
           {/* cost figure — accent-muted brand moment */}
           <div className="reveal rounded-2xl bg-accent-muted px-7 py-6">
-            <p className="text-xs uppercase tracking-[0.16em] text-[#fff7f5]/75">
+            <p className="text-xs uppercase tracking-[0.16em] text-on-accent/75">
               Potential recovery cost of one fall
             </p>
-            <p className="mt-2 font-display text-4xl font-bold text-[#fff7f5] lg:text-5xl">
+            <p className="mt-2 font-display text-4xl font-bold text-on-accent lg:text-5xl">
               &#8377;3L&ndash;&#8377;10L
             </p>
           </div>

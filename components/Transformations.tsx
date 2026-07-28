@@ -76,7 +76,7 @@ function BeforeAfter() {
         className="object-cover"
         priority
       />
-      <span className="absolute bottom-4 right-4 z-10 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-[#fff7f5]">
+      <span className="absolute bottom-4 right-4 z-10 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-on-accent">
         After
       </span>
 
@@ -135,7 +135,8 @@ export default function Transformations() {
         <div className="max-w-2xl">
           <p className="reveal eyebrow mb-5">Transformations</p>
           <h2 className="reveal h-display text-3xl text-cream sm:text-4xl lg:text-5xl">
-            A reassurance. Not a renovation.
+            A <span className="accent-word">reassurance</span>. Not a
+            renovation.
           </h2>
           <p className="reveal mt-6 text-lg leading-relaxed text-cream-dim">
             We make bathrooms safer through thoughtful additions &mdash; grip,

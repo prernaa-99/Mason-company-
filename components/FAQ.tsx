@@ -88,7 +88,7 @@ export default function FAQ() {
         <div>
           <p className="reveal eyebrow mb-5">FAQ</p>
           <h2 className="reveal h-display text-3xl text-cream sm:text-4xl lg:text-5xl">
-            Clear answers before you book.
+            <span className="accent-word">Clear</span> answers before you book.
           </h2>
           <p className="reveal mt-6 max-w-sm text-base leading-relaxed text-cream-dim">
             Still unsure? Speak with our team &mdash; we&rsquo;ll guide you

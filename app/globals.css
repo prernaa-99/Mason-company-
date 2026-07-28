@@ -1,52 +1,80 @@
 @import "tailwindcss";
 
 /* ============================================================
-   MASON COMPANY — design system v3 (LIGHT)
-   Warm off-white paper. Emerald accent (health, calm, safe).
-   Bold grotesque type. Real photography. Flat, confident surfaces.
+   MASON COMPANY — design system v4
+   Source of truth: design-tokens.json (W3C Design Tokens format).
+   Sand neutrals (never pure grey) + forest green + near-black ink.
+   Type: Archivo extrabold display, Fraunces italic accent words,
+   Geist body, Geist Mono labels.
    NOTE: token NAMES are inherited from the dark theme (ink/cream/…);
-   their VALUES are inverted here so every component re-themes for free.
+   their VALUES follow the token file so components re-theme for free.
    The dark theme is preserved in /backup-dark-theme.
    ============================================================ */
 
 @theme inline {
+  /* ---- raw palette (mirrors design-tokens.json `color`) ---- */
+  --color-sand-50: #fafaf8;
+  --color-sand-100: #f2f1ec;
+  --color-sand-200: #e5e3dd;
+  --color-sand-400: #82807a;
+  --color-sand-600: #5c5b57;
+  --color-forest-50: #e6f3ef;
+  --color-forest-200: #8fc9b4;
+  --color-forest-600: #0e7c5a;
+  --color-forest-700: #0b6749;
+  --color-gold: #b4791a; /* attention / warning — accents only */
+  --color-brick: #c0392b; /* error / danger — accents only */
+
+  /* ---- semantic aliases (design-tokens.json `semantic`) ----
+     Restyle the brand by repointing these, not by editing raw colors. */
+
   /* Elevation ladder — warm paper. Page → card → sunken. */
-  --color-ink: #fafaf8; /* page */
+  --color-ink: var(--color-sand-50); /* page / background */
   --color-ink-raised: #ffffff; /* card / raised panel */
-  --color-surface: #f2f1ec; /* sunken section / footer */
-  --color-surface-2: #e5e3dd; /* hover / chip / featured card (warm grey) */
-  --color-clinical: #f2f1ec; /* doctors section — distinct warm grey */
+  --color-surface: var(--color-sand-100); /* sunken section / footer */
+  --color-surface-2: var(--color-sand-200); /* hover / chip / featured card */
+  --color-clinical: var(--color-sand-100); /* doctors section */
 
   /* Foreground — warm near-black on paper (all >=4.5:1) */
-  --color-cream: #1a1a18; /* text-primary */
-  --color-cream-dim: #5c5b57; /* text-secondary */
-  --color-cream-faint: #82807a; /* text-tertiary — eyebrows/labels ONLY */
-  --color-bone-dim: #e5e3dd; /* legacy hover slot (nav CTA is emerald now) */
+  --color-cream: #1a1a18; /* foreground / text-primary */
+  --color-cream-dim: var(--color-sand-600); /* secondary */
+  --color-cream-faint: var(--color-sand-400); /* muted — labels ONLY */
+  --color-bone-dim: var(--color-sand-200); /* legacy hover slot */
 
-  /* Accent — emerald. Sparing punctuation: CTAs, links, one mark per section. */
-  --color-accent: #0e7c5a;
-  --color-accent-hover: #0b6749;
-  --color-accent-muted: #0c5a41; /* deep emerald fill — carries white text */
+  /* Accent — forest. Sparing punctuation: CTAs, links, one mark per section. */
+  --color-accent: var(--color-forest-700); /* primary */
+  --color-accent-hover: var(--color-forest-600); /* primaryHover */
+  --color-accent-muted: var(--color-forest-700); /* full-bleed dark green sections */
+  --color-accent-tint: var(--color-forest-50); /* light green wash background */
+  --color-accent-soft: var(--color-forest-200); /* highlights ON dark green */
+  --color-on-accent: var(--color-sand-100); /* text ON dark green — not pure white */
 
-  /* Selection tokens repurposed to emerald */
-  --color-oxblood: #0e7c5a;
-  --color-oxblood-soft: #0b6749;
-  --color-oxblood-deep: #0c5a41;
+  /* Status — small accents only, never structural */
+  --color-warning: var(--color-gold);
+  --color-danger: var(--color-brick);
 
-  /* Clay repurposed → emerald punctuation (logo dot, process rule/progress) */
-  --color-clay: #0e7c5a;
-  --color-clay-soft: #0b6749;
-  --color-clay-deep: #0c5a41;
+  /* Selection tokens repurposed to forest */
+  --color-oxblood: var(--color-forest-700);
+  --color-oxblood-soft: var(--color-forest-600);
+  --color-oxblood-deep: var(--color-forest-700);
+
+  /* Clay repurposed → forest punctuation (logo dot, process rule/progress) */
+  --color-clay: var(--color-forest-700);
+  --color-clay-soft: var(--color-forest-600);
+  --color-clay-deep: var(--color-forest-700);
 
   /* Olive — tertiary surface / depth (rarely used) */
   --color-olive: #57503e;
 
-  /* Hairlines — warm dark on paper */
+  /* Hairlines — sand-200, expressed as ink at low alpha so they sit on any surface */
   --color-line: rgba(26, 24, 20, 0.1); /* border */
   --color-line-strong: rgba(26, 24, 20, 0.17); /* border-hover */
 
-  --font-display: var(--font-bricolage);
-  --font-sans: var(--font-manrope);
+  /* ---- type (design-tokens.json `fontFamily`) ---- */
+  --font-display: var(--font-archivo);
+  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
 }
 
 :root {
@@ -114,23 +142,55 @@ html.lenis body {
   font-family: var(--font-display), system-ui, sans-serif;
 }
 
+/* typography.headline — Archivo extrabold */
 .h-display {
   font-family: var(--font-display), system-ui, sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.02;
   letter-spacing: -0.03em;
 }
 
+/* typography.accentWord — Fraunces italic, set inline inside a headline.
+   The signature move: swap one or two words per headline. */
+.accent-word {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
+/* typography.label — Geist Mono, eyebrows and numerals */
 .eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  font-weight: 700;
-  color: var(--color-cream-faint); /* tertiary — eyebrows stay neutral */
+  font-weight: 500;
+  color: var(--color-cream-faint); /* muted — eyebrows stay neutral */
+}
+
+.font-mono-label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-weight: 500;
 }
 
 .text-balance {
   text-wrap: balance;
+}
+
+/* Photo scrim — a dark ramp so captions sit ON the photograph rather than in a
+   white fog. Most of these bathrooms are bright, so a paper-coloured scrim just
+   dissolved the bottom third of the image. Five stops rather than two: a plain
+   linear alpha ramp reads as a visible band edge. Text over this must be light. */
+.photo-scrim {
+  background-image: linear-gradient(
+    to top,
+    rgba(26, 26, 24, 0.82) 0%,
+    rgba(26, 26, 24, 0.56) 13%,
+    rgba(26, 26, 24, 0.3) 26%,
+    rgba(26, 26, 24, 0.1) 42%,
+    rgba(26, 26, 24, 0) 62%
+  );
 }
 
 /* Very subtle filmic grain — keeps surfaces from feeling sterile */

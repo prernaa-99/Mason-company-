@@ -78,7 +78,7 @@ export default function Packages() {
         <div className="max-w-2xl">
           <p className="reveal eyebrow mb-3">Choose your safety package</p>
           <h2 className="reveal h-display text-3xl text-cream sm:text-4xl lg:text-[2.5rem]">
-            Two complete ways to upgrade.
+            Two <span className="accent-word">complete</span> ways to upgrade.
           </h2>
           <p className="reveal mt-3 text-base leading-relaxed text-cream-dim">
             Clear inclusions. Premium finishes. Installed by Mason-trained
@@ -117,7 +117,7 @@ export default function Packages() {
                 href="#book"
                 className={`mt-6 block rounded-full px-6 py-3.5 text-center text-sm font-semibold transition-all duration-150 hover:scale-[1.01] ${
                   p.featured
-                    ? "bg-accent text-[#fff7f5] hover:bg-accent-hover"
+                    ? "bg-accent text-on-accent hover:bg-accent-hover"
                     : "border border-line text-cream hover:border-line-strong"
                 }`}
               >
