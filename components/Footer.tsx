@@ -1,3 +1,5 @@
+import { MasonWordmark } from "./Logo";
+
 const columns = [
   {
     title: "Explore",
@@ -23,21 +25,8 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div>
-            <div className="flex items-center gap-2.5">
-              <span className="grid h-8 w-8 place-items-center rounded-full border border-line-strong text-cream">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M4 20V9l8-5 8 5v11M9 20v-6h6v6"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-              <span className="font-display text-lg text-cream">
-                Mason Company
-              </span>
+            <div className="text-cream" aria-label="Mason Company">
+              <MasonWordmark size={26} />
             </div>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-cream-dim">
               Mason Company helps families make bathrooms safer for ageing

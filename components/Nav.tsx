@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { MasonWordmark } from "./Logo";
 
 const links = [
   { label: "Home", href: "/" },
@@ -28,8 +29,12 @@ export default function Nav() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
-        <Link href="/" className="font-display text-lg font-bold tracking-tight text-cream">
-          Mason<span className="text-clay">.</span>
+        <Link
+          href="/"
+          aria-label="Mason Company — home"
+          className="text-cream transition-colors duration-300 hover:text-accent"
+        >
+          <MasonWordmark size={20} />
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">
