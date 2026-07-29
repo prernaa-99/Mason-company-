@@ -151,12 +151,21 @@ html.lenis body {
 }
 
 /* typography.accentWord — Fraunces italic, set inline inside a headline.
-   The signature move: swap one or two words per headline. */
+   The signature move: swap one or two words per headline.
+   No letter-spacing of its own: it must inherit the headline's tracking, or the
+   accent word sits looser than the words either side of it.
+   Colour is forest — the token file omits it, but every accent word in the
+   reference build is green. */
 .accent-word {
   font-family: var(--font-serif), Georgia, serif;
   font-weight: 400;
   font-style: italic;
-  letter-spacing: -0.01em;
+  color: var(--color-accent);
+}
+
+/* on the dark-green surfaces, forest-700 would vanish — use the soft tint */
+.accent-word.on-dark {
+  color: var(--color-accent-soft);
 }
 
 /* typography.label — Geist Mono, eyebrows and numerals */

@@ -116,7 +116,7 @@ export default function WhyContent() {
           <span className="block overflow-hidden pb-[0.1em]">
             <span className="why-hero-line block">
               A fall{" "}
-              <span className="accent-word text-accent">doesn&rsquo;t</span>.
+              <span className="accent-word">doesn&rsquo;t</span>.
             </span>
           </span>
         </h1>

@@ -29,7 +29,7 @@ export default function Booking() {
           <p className="reveal eyebrow mb-6">Book a Safety Visit</p>
           <h2 className="reveal mx-auto max-w-3xl h-display text-4xl leading-[1.05] text-white sm:text-5xl lg:text-6xl">
             Make the bathroom safer while it still feels like{" "}
-            <span className="accent-word">home</span>.
+            <span className="accent-word on-dark">home</span>.
           </h2>
           <p className="reveal mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
             Act before a fall changes everything. Choose a package or request a
