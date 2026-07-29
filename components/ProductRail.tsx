@@ -7,16 +7,23 @@ import gsap from "gsap";
 
 type Item = { title: string; label: string; img: string };
 
+// The twelve items we actually install, names and tags taken verbatim from the
+// What We Do section of the masonco build so both sites describe the same kit.
+// Photography is ours — that project's whatwedo/ images are abstract background
+// washes, not product shots.
 const items: Item[] = [
-  { title: "Grab & support bars", label: "Support", img: "/images/bath-3.jpg" },
-  { title: "Anti-slip wet zones", label: "Grip", img: "/images/shower-3.jpg" },
-  { title: "Toilet & transfer support", label: "Balance", img: "/images/bath-4.jpg" },
-  { title: "Sensor night lighting", label: "Visibility", img: "/images/bath-6.jpg" },
-  { title: "Shower seating", label: "Comfort", img: "/images/shower-2.jpg" },
-  { title: "Corner & edge protection", label: "Protection", img: "/images/detail-1.jpg" },
-  { title: "Two-way safety lock", label: "Security", img: "/images/bath-1.jpg" },
-  { title: "Anti-slip mats", label: "Traction", img: "/images/shower-4.jpg" },
-  { title: "Home-first finishes", label: "Dignity", img: "/images/bath-2.jpg" },
+  { title: "PVD-coated vertical grab bars", label: "Grab support", img: "/images/bath-3.jpg" },
+  { title: "PVD-coated L / angled grab bar", label: "Grab support", img: "/images/bath-5.jpg" },
+  { title: "PVD-coated flip-up / folding bar", label: "Grab support", img: "/images/bath-1.jpg" },
+  { title: "Anti-slip solution / coating", label: "Traction", img: "/images/shower-3.jpg" },
+  { title: "Premium anti-slip mats", label: "Traction", img: "/images/shower-4.jpg" },
+  { title: "Toilet seat / raised seat / commode support", label: "Support", img: "/images/bath-4.jpg" },
+  { title: "Shower seating stool", label: "Support", img: "/images/shower-2.jpg" },
+  { title: "Sensor lighting unit", label: "Comfort", img: "/images/bath-6.jpg" },
+  { title: "Two-way lock", label: "Safety", img: "/images/detail-1.jpg" },
+  { title: "8-corner equivalent corner safety", label: "Protection", img: "/images/bath-2.jpg" },
+  { title: "Drainage solutions", label: "Hygiene", img: "/images/shower-1.jpg" },
+  { title: "Bathroom slippers", label: "Comfort", img: "/images/care-1.jpg" },
 ];
 
 export default function ProductRail() {
