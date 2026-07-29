@@ -10,7 +10,7 @@ const chips = [
 
 export default function Booking() {
   return (
-    <section id="book" className="border-t border-line px-6 py-16 lg:px-10 lg:py-24">
+    <section id="book" className="border-t border-line bg-sand-100 px-6 py-16 lg:px-10 lg:py-24">
       <Reveal className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl border border-line">
         {/* background image */}
         <Image

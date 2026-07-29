@@ -72,7 +72,7 @@ export default function Packages() {
   return (
     <section
       id="packages"
-      className="relative border-t border-line py-24 lg:h-screen lg:overflow-hidden lg:py-0"
+      className="relative border-t border-line bg-sand-100 py-24 lg:h-screen lg:overflow-hidden lg:py-0"
     >
       <Reveal className="mx-auto flex h-full max-w-7xl flex-col px-6 lg:px-10 lg:pb-8 lg:pt-24">
         <div className="max-w-2xl">

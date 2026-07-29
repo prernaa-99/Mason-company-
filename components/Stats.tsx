@@ -26,7 +26,7 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section id="why" className="border-t border-line py-24 lg:py-32">
+    <section id="why" className="border-t border-line bg-sand-100 py-24 lg:py-32">
       <Reveal className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
           <div className="max-w-2xl">

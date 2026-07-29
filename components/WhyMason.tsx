@@ -132,7 +132,7 @@ export default function WhyMason() {
   return (
     <section
       ref={ref}
-      className="border-t border-line py-24 lg:h-screen lg:overflow-hidden lg:py-0"
+      className="border-t border-line bg-sand-100 py-24 lg:h-screen lg:overflow-hidden lg:py-0"
     >
       <div className="mx-auto flex h-full w-full max-w-6xl flex-col px-6 lg:px-10 lg:pb-12 lg:pt-28">
         <div className="max-w-3xl">
