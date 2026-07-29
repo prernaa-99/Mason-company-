@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import Cta from "./Cta";
 
 const check = (
   <svg
@@ -113,16 +114,14 @@ export default function Packages() {
               </p>
 
               {/* CTA on top, above the feature list */}
-              <a
+              <Cta
                 href="#book"
-                className={`mt-6 block rounded-full px-6 py-3.5 text-center text-sm font-semibold transition-all duration-150 hover:scale-[1.01] ${
-                  p.featured
-                    ? "bg-accent text-on-accent hover:bg-accent-hover"
-                    : "border border-line text-cream hover:border-line-strong"
-                }`}
+                size="block"
+                variant={p.featured ? "solid" : "outline"}
+                className="mt-6"
               >
                 {p.cta}
-              </a>
+              </Cta>
 
               <ul className="mt-7 grid gap-x-6 gap-y-3 border-t border-line pt-7 sm:grid-cols-2">
                 {p.includes.map((item) => (

@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MasonWordmark } from "./Logo";
+import Cta from "./Cta";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -85,18 +86,9 @@ export default function Footer() {
               compromise
             </span>
           </h2>
-          <Link
-            href="/#book"
-            className="group inline-flex shrink-0 items-center gap-3 rounded-full bg-sand-100 px-8 py-4 text-base font-semibold text-cream transition-transform hover:-translate-y-0.5 hover:bg-white"
-          >
+          <Cta href="/#book" variant="light" className="shrink-0">
             Book a free visit
-            <span
-              aria-hidden="true"
-              className="transition-transform group-hover:translate-x-1"
-            >
-              &rarr;
-            </span>
-          </Link>
+          </Cta>
         </div>
 
         {/* Columns */}

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { MasonWordmark } from "./Logo";
+import Cta from "./Cta";
 
 const links = [
   { label: "Home", href: "/" },
@@ -49,12 +50,9 @@ export default function Nav() {
           ))}
         </div>
 
-        <Link
-          href="/#book"
-          className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-accent-hover"
-        >
+        <Cta href="/#book" size="compact">
           Book a Safety Visit
-        </Link>
+        </Cta>
       </nav>
     </header>
   );

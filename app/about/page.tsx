@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import Cta from "@/components/Cta";
 
 export const metadata: Metadata = {
   title: "About Us — Mason Company",
@@ -27,12 +27,9 @@ export default function AboutPage() {
             the home feeling like home.
           </p>
 
-          <Link
-            href="/#book"
-            className="mt-9 inline-block rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-accent-hover"
-          >
+          <Cta href="/#book" className="mt-9">
             Book a Safety Visit
-          </Link>
+          </Cta>
         </section>
 
         {/* TODO: build out the full About page below (story, founders,

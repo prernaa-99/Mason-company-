@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Reveal from "./Reveal";
+import Cta from "./Cta";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -255,12 +255,9 @@ export default function WhyContent() {
               accountable team — and finished so the bathroom still feels like
               home, not a hospital.
             </p>
-            <Link
-              href="/#book"
-              className="mt-8 inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-ink transition-colors duration-150 hover:bg-bone-dim"
-            >
+            <Cta href="/#book" variant="light" className="mt-8">
               Book a Safety Visit
-            </Link>
+            </Cta>
           </div>
         </Reveal>
       </section>
@@ -273,18 +270,10 @@ export default function WhyContent() {
             <span className="accent-word">chance</span>.
           </h2>
           <div className="reveal mt-9 flex flex-wrap justify-center gap-3">
-            <Link
-              href="/#book"
-              className="rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-accent-hover"
-            >
-              Book a Safety Visit
-            </Link>
-            <Link
-              href="/#packages"
-              className="rounded-full border border-line-strong px-7 py-3.5 text-sm font-semibold text-cream transition-colors duration-150 hover:bg-surface"
-            >
+            <Cta href="/#book">Book a Safety Visit</Cta>
+            <Cta href="/#packages" variant="outline">
               See the packages
-            </Link>
+            </Cta>
           </div>
         </Reveal>
       </section>

@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Cta from "./Cta";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -165,12 +166,9 @@ export default function Process() {
             <span className="proc-progress absolute inset-y-0 left-0 w-full origin-left scale-x-0 bg-clay" />
           </div>
 
-          <a
-            href="#book"
-            className="proc-head mt-8 inline-block rounded-full bg-accent px-6 py-3 text-sm font-semibold text-on-accent transition-colors duration-150 hover:bg-accent-hover"
-          >
+          <Cta href="#book" className="proc-head mt-8">
             Book a Safety Visit
-          </a>
+          </Cta>
         </div>
 
         {/* right — descending staircase */}
