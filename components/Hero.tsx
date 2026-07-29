@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ProductRail from "./ProductRail";
 import Magnetic from "./Magnetic";
+import Cta from "./Cta";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -15,21 +16,31 @@ export default function Hero() {
         defaults: { ease: "power3.out" },
         delay: 0.1,
       });
-      // the wall settles in under everything else, slower than the type
-      tl.from(".hero-lattice", { opacity: 0, duration: 1.6 }, 0);
+      // Deliberately set + to, never .from(). A .from() leaves the VISIBLE state
+      // implicit: if the tween is reverted, interrupted or never reaches its end
+      // (Strict Mode remount, a refresh mid-flight), the element is stranded at
+      // opacity 0 and the button is simply gone. Here the end of every tween is
+      // clearProps, so the finished state is "no inline styles at all" — i.e.
+      // whatever the CSS says, which is visible.
+      gsap.set([".hero-eyebrow", ".hero-sub", ".hero-ctas"], { opacity: 0, y: 16 });
+      gsap.set(".hero-line-inner", { yPercent: 118 });
+      gsap.set(".hero-lattice", { opacity: 0 });
 
-      tl.from(".hero-eyebrow", { opacity: 0, y: 14, duration: 0.6 }, 0)
-        .from(
+      const rise = { opacity: 1, y: 0, clearProps: "opacity,transform" };
+
+      tl.to(".hero-eyebrow", { ...rise, duration: 0.6 })
+        .to(
           ".hero-line-inner",
-          { yPercent: 118, duration: 1, stagger: 0.12 },
+          { yPercent: 0, duration: 1, stagger: 0.12, clearProps: "transform" },
           "-=0.2"
         )
-        .from(".hero-sub", { opacity: 0, y: 18, duration: 0.8 }, "-=0.6")
-        .from(
-          ".hero-cta",
-          { opacity: 0, y: 14, duration: 0.7, stagger: 0.08 },
-          "-=0.5"
-        );
+        .to(".hero-sub", { ...rise, duration: 0.8 }, "-=0.6")
+        .to(".hero-ctas", { ...rise, duration: 0.7 }, "-=0.5")
+        // the wall settles in under everything else, slower than the type.
+        // Absolute 0, added last: relative positions above are measured from the
+        // timeline's end, so inserting this 1.6s tween earlier would push every
+        // following step later.
+        .to(".hero-lattice", { opacity: 1, duration: 1.6, clearProps: "opacity" }, 0);
     },
     { scope: ref }
   );
@@ -38,7 +49,9 @@ export default function Hero() {
     <section
       ref={ref}
       id="top"
-      className="relative isolate flex h-[100svh] flex-col overflow-hidden pt-24 pb-7"
+      /* min-h, not h: on a short viewport the copy + CTAs + rail exceed one
+         screen, and a hard height silently clipped the buttons. */
+      className="relative isolate flex min-h-[100svh] flex-col overflow-hidden pt-24 pb-7"
     >
       {/* tiled-wall texture; isolate + -z-10 keeps it under the type and the rail */}
       <div
@@ -46,8 +59,9 @@ export default function Hero() {
         className="hero-lattice tile-lattice pointer-events-none absolute inset-0 -z-10"
       />
 
-      {/* text — vertically centred in the space above the rail */}
-      <div className="flex min-h-0 flex-1 items-center">
+      {/* text — vertically centred in the space above the rail. No min-h-0:
+          min-height:auto is what stops this shrinking below its own content. */}
+      <div className="flex flex-1 items-center py-6">
         <div className="mx-auto w-full max-w-4xl px-6 text-center">
           <p className="hero-eyebrow eyebrow mb-5">
             Bathroom safety for ageing parents
@@ -71,21 +85,15 @@ export default function Hero() {
             doctor-informed, expertly-installed bathroom safety.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          {/* the row animates, not the buttons — keeps GSAP off elements that
+              carry their own hover transitions */}
+          <div className="hero-ctas mt-8 flex flex-wrap items-center justify-center gap-3">
             <Magnetic>
-              <a
-                href="#book"
-                className="hero-cta inline-block rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-on-accent transition-colors duration-150 hover:bg-accent-hover"
-              >
-                Book a Safety Visit
-              </a>
+              <Cta href="#book">Book a Safety Visit</Cta>
             </Magnetic>
-            <a
-              href="#transformations"
-              className="hero-cta rounded-full border border-line px-7 py-3.5 text-sm font-semibold text-cream transition-colors duration-150 hover:border-line-strong"
-            >
+            <Cta href="#transformations" variant="outline">
               See Transformations
-            </a>
+            </Cta>
           </div>
         </div>
       </div>
