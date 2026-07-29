@@ -1,72 +1,155 @@
+"use client";
+
+import Link from "next/link";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MasonWordmark } from "./Logo";
 
-const columns = [
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+// Homepage anchors are absolute (/#packages, not #packages) because this footer
+// also renders on /why and /about, where a bare hash would go nowhere.
+// TODO: privacy / terms / refund have no pages yet — they are inert until built.
+const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
     title: "Explore",
-    links: ["Why Mason", "What We Do", "Our Process", "Evidence & Safety Data"],
-  },
-  {
-    title: "Packages",
-    links: ["Standard Package", "Advanced Package", "Compare Packages"],
+    links: [
+      { label: "Transformations", href: "/#transformations" },
+      { label: "Packages", href: "/#packages" },
+      { label: "Compare Packages", href: "/#packages" },
+      { label: "Standard Package", href: "/#packages" },
+      { label: "Advanced Package", href: "/#packages" },
+      { label: "Our Process", href: "/#process" },
+    ],
   },
   {
     title: "Company",
-    links: ["About Mason", "Founders", "Doctor Recommendations", "FAQs"],
+    links: [
+      { label: "Why Mason Company", href: "/why" },
+      { label: "About Mason Company", href: "/about" },
+      { label: "Doctor Recommendations", href: "/#doctors" },
+      { label: "Customer Testimonials", href: "/#testimonials" },
+      { label: "FAQs", href: "/#faq" },
+    ],
   },
   {
-    title: "Legal",
-    links: ["Privacy Policy", "Terms & Conditions", "Refund & Cancellation"],
+    title: "Support",
+    links: [
+      { label: "Book a Safety Visit", href: "/#book" },
+      { label: "Contact", href: "/#book" },
+      { label: "Privacy Policy", href: "#" },
+      { label: "Terms & Conditions", href: "#" },
+      { label: "Refund & Cancellation Policy", href: "#" },
+    ],
   },
 ];
 
 export default function Footer() {
+  const container = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(".ft-reveal", {
+          y: 30,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "power3.out",
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: container.current,
+            start: "top 78%",
+            once: true,
+          },
+        });
+      });
+    },
+    { scope: container }
+  );
+
   return (
-    <footer className="border-t border-line bg-surface">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
-          <div>
-            <div className="text-cream" aria-label="Mason Company">
-              <MasonWordmark size={26} />
-            </div>
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-cream-dim">
-              Mason Company helps families make bathrooms safer for ageing
-              parents through premium, doctor-informed, expert-installed safety
-              upgrades.
+    <footer
+      ref={container}
+      className="bg-cream px-6 pb-10 pt-20 sm:px-10 lg:px-16"
+    >
+      <div className="mx-auto w-full max-w-6xl">
+        {/* Closing CTA */}
+        <div className="ft-reveal flex flex-col items-start justify-between gap-8 border-b border-white/10 pb-14 lg:flex-row lg:items-end">
+          <h2 className="max-w-2xl font-display text-3xl font-extrabold leading-[1.08] tracking-tight text-sand-100 sm:text-4xl lg:text-5xl">
+            A safer bathroom, without the{" "}
+            <span className="font-serif font-normal italic text-forest-200">
+              compromise
+            </span>
+          </h2>
+          <Link
+            href="/#book"
+            className="group inline-flex shrink-0 items-center gap-3 rounded-full bg-sand-100 px-8 py-4 text-base font-semibold text-cream transition-transform hover:-translate-y-0.5 hover:bg-white"
+          >
+            Book a free visit
+            <span
+              aria-hidden="true"
+              className="transition-transform group-hover:translate-x-1"
+            >
+              &rarr;
+            </span>
+          </Link>
+        </div>
+
+        {/* Columns */}
+        <div className="ft-reveal grid grid-cols-2 gap-10 py-14 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div className="col-span-2 lg:col-span-1">
+            <Link
+              href="/"
+              aria-label="Mason Company — home"
+              className="inline-block text-sand-100 transition-colors hover:text-forest-200"
+            >
+              <MasonWordmark size={30} />
+            </Link>
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-sand-100/60">
+              Complete bathroom safety for ageing adults &mdash; planned with
+              medical input, fitted by trained experts, and finished to feel
+              like home.
             </p>
             <a
-              href="#book"
-              className="mt-8 inline-block rounded-full border border-line px-6 py-3 text-sm font-semibold text-cream transition-colors duration-150 hover:border-line-strong"
+              href="mailto:hello@masonco.in"
+              className="mt-5 inline-block text-sm text-sand-100/80 transition-colors hover:text-forest-200"
             >
-              Book a Safety Visit
+              hello@masonco.in
             </a>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-            {columns.map((col) => (
-              <div key={col.title}>
-                <p className="text-xs uppercase tracking-[0.18em] text-cream-dim">
-                  {col.title}
-                </p>
-                <ul className="mt-5 space-y-3">
-                  {col.links.map((l) => (
-                    <li key={l}>
-                      <a
-                        href="#"
-                        className="text-sm text-cream-dim transition-colors hover:text-cream"
-                      >
-                        {l}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          {COLUMNS.map((col) => (
+            <div key={col.title}>
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-sand-100/50">
+                {col.title}
+              </p>
+              <ul className="mt-5 space-y-3">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-sand-100/80 transition-colors hover:text-forest-200"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-line pt-8 text-xs text-cream-faint sm:flex-row sm:items-center">
-          <p>&copy; {new Date().getFullYear()} Mason Company. All rights reserved.</p>
-          <p>Premium · Doctor-informed · Expert-installed</p>
+        {/* Bottom bar */}
+        <div className="ft-reveal flex flex-col items-start justify-between gap-3 border-t border-white/10 pt-8 text-xs text-sand-100/50 sm:flex-row sm:items-center">
+          <p>
+            &copy; {new Date().getFullYear()} Mason Company. All rights
+            reserved.
+          </p>
+          <p>Serving major cities across India</p>
         </div>
       </div>
     </footer>

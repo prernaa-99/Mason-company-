@@ -6,6 +6,7 @@ import Transformations from "@/components/Transformations";
 import Packages from "@/components/Packages";
 import Process from "@/components/Process";
 import Doctors from "@/components/Doctors";
+import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import Booking from "@/components/Booking";
 import Footer from "@/components/Footer";
@@ -22,6 +23,7 @@ export default function Home() {
         <Packages />
         <Process />
         <Doctors />
+        <Testimonials />
         <FAQ />
         <Booking />
       </main>
