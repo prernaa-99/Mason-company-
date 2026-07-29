@@ -15,7 +15,10 @@ export default function Hero() {
         defaults: { ease: "power3.out" },
         delay: 0.1,
       });
-      tl.from(".hero-eyebrow", { opacity: 0, y: 14, duration: 0.6 })
+      // the wall settles in under everything else, slower than the type
+      tl.from(".hero-lattice", { opacity: 0, duration: 1.6 }, 0);
+
+      tl.from(".hero-eyebrow", { opacity: 0, y: 14, duration: 0.6 }, 0)
         .from(
           ".hero-line-inner",
           { yPercent: 118, duration: 1, stagger: 0.12 },
@@ -35,8 +38,14 @@ export default function Hero() {
     <section
       ref={ref}
       id="top"
-      className="relative flex h-[100svh] flex-col overflow-hidden pt-24 pb-7"
+      className="relative isolate flex h-[100svh] flex-col overflow-hidden pt-24 pb-7"
     >
+      {/* tiled-wall texture; isolate + -z-10 keeps it under the type and the rail */}
+      <div
+        aria-hidden="true"
+        className="hero-lattice tile-lattice pointer-events-none absolute inset-0 -z-10"
+      />
+
       {/* text — vertically centred in the space above the rail */}
       <div className="flex min-h-0 flex-1 items-center">
         <div className="mx-auto w-full max-w-4xl px-6 text-center">
