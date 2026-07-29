@@ -7,6 +7,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/** The live Lenis instance, so components that own a horizontal gesture (the
+ *  product rail) can pause page smooth-scrolling for the duration of a drag.
+ *  Null when reduced motion is on and Lenis never starts. */
+export const smoothScroll: { current: Lenis | null } = { current: null };
+
 export default function SmoothScroll({
   children,
 }: {
@@ -24,6 +29,7 @@ export default function SmoothScroll({
       smoothWheel: true,
     });
 
+    smoothScroll.current = lenis;
     lenis.on("scroll", ScrollTrigger.update);
 
     const raf = (time: number) => lenis.raf(time * 1000);
@@ -33,6 +39,7 @@ export default function SmoothScroll({
     return () => {
       gsap.ticker.remove(raf);
       lenis.destroy();
+      smoothScroll.current = null;
     };
   }, []);
 

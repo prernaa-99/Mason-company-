@@ -4,8 +4,12 @@ import Image from "next/image";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { smoothScroll } from "./SmoothScroll";
 
 type Item = { title: string; label: string; img: string };
+
+/** px of travel before we decide whether a gesture is the rail's or the page's */
+const DIRECTION_THRESHOLD = 6;
 
 // The twelve items we actually install, names and tags taken verbatim from the
 // What We Do section of the masonco build so both sites describe the same kit.
@@ -29,7 +33,13 @@ const items: Item[] = [
 export default function ProductRail() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
-  const drag = useRef({ down: false, startX: 0, startScroll: 0 });
+  const drag = useRef({
+    down: false,
+    locked: false,
+    startX: 0,
+    startY: 0,
+    startScroll: 0,
+  });
 
   useGSAP(() => {
     gsap.from(".rail-card", {
@@ -56,18 +66,49 @@ export default function ProductRail() {
     el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: "smooth" });
   };
 
+  // A gesture belongs to the rail OR to the page, never both. We watch the first
+  // few pixels, decide which way it's going, and only then take it over — a
+  // drag that starts vertical is handed straight back so the page scrolls.
   const onDown = (e: React.PointerEvent) => {
     const el = scrollerRef.current;
     if (!el) return;
-    drag.current = { down: true, startX: e.clientX, startScroll: el.scrollLeft };
-    el.setPointerCapture(e.pointerId);
+    drag.current = {
+      down: true,
+      locked: false,
+      startX: e.clientX,
+      startY: e.clientY,
+      startScroll: el.scrollLeft,
+    };
   };
+
   const onMove = (e: React.PointerEvent) => {
     const el = scrollerRef.current;
     if (!el || !drag.current.down) return;
-    el.scrollLeft = drag.current.startScroll - (e.clientX - drag.current.startX);
+
+    const dx = e.clientX - drag.current.startX;
+    const dy = e.clientY - drag.current.startY;
+
+    if (!drag.current.locked) {
+      if (Math.abs(dx) < DIRECTION_THRESHOLD && Math.abs(dy) < DIRECTION_THRESHOLD) return;
+      if (Math.abs(dy) > Math.abs(dx)) {
+        drag.current.down = false; // vertical intent — let the page have it
+        return;
+      }
+      drag.current.locked = true;
+      el.setPointerCapture(e.pointerId);
+      // stop the page mid-flight, or Lenis keeps easing while we drag sideways
+      smoothScroll.current?.stop();
+    }
+
+    e.preventDefault();
+    el.scrollLeft = drag.current.startScroll - dx;
   };
-  const onUp = () => (drag.current.down = false);
+
+  const onUp = () => {
+    if (drag.current.locked) smoothScroll.current?.start();
+    drag.current.down = false;
+    drag.current.locked = false;
+  };
 
   return (
     <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
@@ -79,7 +120,10 @@ export default function ProductRail() {
           onPointerMove={onMove}
           onPointerUp={onUp}
           onPointerCancel={onUp}
-          className="flex cursor-grab gap-4 overflow-x-auto pb-1 [scrollbar-width:none] select-none active:cursor-grabbing [scroll-snap-type:x_proximity] [&::-webkit-scrollbar]:hidden"
+          /* overscroll-x-contain: hitting either end must not chain the scroll
+             up to the page. touch-pan-y: on touch the browser only ever owns the
+             vertical axis; horizontal is ours. */
+          className="flex cursor-grab gap-4 overflow-x-auto overscroll-x-contain pb-1 touch-pan-y [scrollbar-width:none] select-none active:cursor-grabbing [scroll-snap-type:x_proximity] [&::-webkit-scrollbar]:hidden"
         >
         {items.map((it) => (
           <article
