@@ -26,15 +26,15 @@ const FAQS = [
   },
   {
     q: "What packages do you offer?",
-    a: "Mason currently offers two packages: Standard and Advanced. Standard covers core safety needs. Advanced adds premium finish details and additional support components.",
+    a: "Mason currently offers two packages: Standard and Advanced. Both install exactly the same complete kit. Advanced adds a safety check-up visit a year after installation.",
   },
   {
     q: "What is included in Standard?",
-    a: "Standard includes grab bars, anti-slip coating, anti-slip mats, shower seating, sensor lighting, two-way lock, corner safety, drainage support, bathroom slippers, and total support solutions.",
+    a: "The complete kit — 12 upgrades in all: PVD-coated grab bars, anti-slip coating and mats, toilet / raised-seat / commode support, shower seating, sensor lighting, a two-way lock, corner safety, drainage solutions, and bathroom slippers.",
   },
   {
     q: "What is included in Advanced?",
-    a: "Advanced includes everything in Standard, plus PVD-coated grab bars, toilet seat / raised seat / commode support, premium-looking mats, and additional bathroom slippers.",
+    a: "Exactly the same 12 upgrades as Standard — nothing is held back. Advanced adds a one-year safety check-up visit, where we return to inspect the fittings and tighten or replace anything that has worn.",
   },
   {
     q: "Can I buy only one product, like a grab bar?",
