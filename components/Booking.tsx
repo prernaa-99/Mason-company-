@@ -27,7 +27,7 @@ export default function Booking() {
         <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_45%,transparent_50%,rgba(11,9,8,0.6))]" />
 
         <div className="relative px-8 py-20 text-center sm:px-12 lg:py-28">
-          <p className="reveal eyebrow mb-6">Book a Safety Visit</p>
+          <p className="reveal eyebrow on-dark mb-6">Book a Safety Visit</p>
           <h2 className="reveal mx-auto max-w-3xl h-display text-4xl leading-[1.05] text-white sm:text-5xl lg:text-6xl">
             Book the visit. We&rsquo;ll handle the{" "}
             <span className="accent-word on-dark">rest</span>.
