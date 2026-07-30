@@ -1,24 +1,23 @@
 import Reveal from "./Reveal";
-import CountUp from "./CountUp";
 
 const stats = [
   {
-    node: <CountUp to={25} suffix="%" />,
+    value: "25%",
     label: "Reported injury and/or fall",
     copy: "Among Indians aged 60+, 1 in 4 reported an injury and/or fall in the previous two years.",
   },
   {
-    node: <CountUp to={81} suffix="%" />,
+    value: "81%",
     label: "Bathroom injuries from falls",
     copy: "Falls are the dominant risk around wet zones, toilets, and transfers.",
   },
   {
-    node: <CountUp to={65.63} decimals={2} suffix="%" />,
+    value: "65.63%",
     label: "Falls that led to injury",
     copy: "A review of older adults in India found a high pooled injury prevalence among those who fell.",
   },
   {
-    node: <>26&ndash;38%</>,
+    value: "26–38%",
     label: "Fewer falls after home changes",
     copy: "Home hazard interventions can reduce fall rates, especially for higher-risk adults.",
   },
@@ -52,10 +51,10 @@ export default function Stats() {
           {stats.map((s, i) => (
             <div
               key={i}
-              className="bg-ink-raised p-7 transition-colors duration-150 hover:bg-surface-2"
+              className="bg-ink-raised p-7"
             >
               <div className="font-display text-5xl font-bold text-accent">
-                {s.node}
+                {s.value}
               </div>
               <p className="mt-5 text-sm font-semibold text-cream">{s.label}</p>
               <p className="mt-2 text-sm leading-relaxed text-cream-dim">
