@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Reveal from "./Reveal";
-import Magnetic from "./Magnetic";
 import Cta from "./Cta";
 
 const chips = [
@@ -38,9 +37,7 @@ export default function Booking() {
           </p>
 
           <div className="reveal mt-9 flex flex-wrap items-center justify-center gap-3">
-            <Magnetic>
-              <Cta href="#book">Book a Safety Visit</Cta>
-            </Magnetic>
+            <Cta href="#book">Book a Safety Visit</Cta>
             <Cta href="#book" variant="outlineLight">
               Request a Callback
             </Cta>

@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ProductRail from "./ProductRail";
-import Magnetic from "./Magnetic";
 import Cta from "./Cta";
 
 export default function Hero() {
@@ -88,9 +87,7 @@ export default function Hero() {
           {/* the row animates, not the buttons — keeps GSAP off elements that
               carry their own hover transitions */}
           <div className="hero-ctas mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Magnetic>
-              <Cta href="#book">Book a Safety Visit</Cta>
-            </Magnetic>
+            <Cta href="#book">Book a Safety Visit</Cta>
             <Cta href="#transformations" variant="outline">
               See Transformations
             </Cta>
