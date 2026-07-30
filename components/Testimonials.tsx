@@ -74,19 +74,20 @@ export default function Testimonials() {
       className="flex min-h-screen flex-col justify-center overflow-hidden bg-forest-700 px-6 py-16 sm:px-10 lg:px-16"
     >
       <div className="mx-auto w-full max-w-6xl">
-        {/* Header */}
-        <div className="text-center">
+        {/* Header — left-aligned in a max-w-2xl block, matching every other
+            section on the page. */}
+        <div className="max-w-2xl">
           <span className="tm-reveal block font-sans text-sm font-bold uppercase tracking-[0.35em] text-forest-200">
             Testimonials
           </span>
-          <h2 className="tm-reveal mt-4 font-display text-3xl font-extrabold leading-[1.05] tracking-tight text-sand-100 sm:text-4xl lg:whitespace-nowrap lg:text-5xl">
+          <h2 className="tm-reveal mt-4 font-display text-3xl font-extrabold leading-[1.05] tracking-tight text-sand-100 sm:text-4xl lg:text-5xl">
             What{" "}
             <span className="font-serif font-normal italic text-forest-200">
               families
             </span>{" "}
             say after installation
           </h2>
-          <p className="tm-reveal mx-auto mt-4 max-w-2xl text-base leading-relaxed text-sand-100/75 sm:text-lg">
+          <p className="tm-reveal mt-4 text-base leading-relaxed text-sand-100/75 sm:text-lg">
             Families choose Mason Company because the upgrade feels thoughtful,
             premium, and reassuring &mdash; not like a temporary hospital setup.
           </p>

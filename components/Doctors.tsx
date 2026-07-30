@@ -66,18 +66,19 @@ export default function Doctors() {
       className="flex min-h-screen flex-col justify-center overflow-hidden bg-sand-100 px-6 py-16 sm:px-10 lg:px-16"
     >
       <div className="mx-auto w-full max-w-6xl">
-        {/* Header */}
-        <div className="text-center">
+        {/* Header — left-aligned in a max-w-2xl block, matching every other
+            section on the page. */}
+        <div className="max-w-2xl">
           <span className="doc-reveal block font-sans text-sm font-bold uppercase tracking-[0.35em] text-forest-700">
             Doctor-Reviewed
           </span>
-          <h2 className="doc-reveal mt-4 font-display text-3xl font-extrabold leading-[1.05] tracking-tight text-cream sm:text-4xl lg:whitespace-nowrap lg:text-5xl">
+          <h2 className="doc-reveal mt-4 font-display text-3xl font-extrabold leading-[1.05] tracking-tight text-cream sm:text-4xl lg:text-5xl">
             Doctor-Reviewed{" "}
             <span className="font-serif font-normal italic text-forest-700">
               safety thinking
             </span>
           </h2>
-          <p className="doc-reveal mx-auto mt-4 max-w-xl text-base leading-relaxed text-sand-600 sm:text-lg">
+          <p className="doc-reveal mt-4 max-w-xl text-base leading-relaxed text-sand-600 sm:text-lg">
             Medical input helps us plan safer routines. Mason-trained experts
             make the solution feel premium at home.
           </p>
@@ -121,7 +122,7 @@ export default function Doctors() {
         </div>
 
         {/* Disclaimer */}
-        <p className="doc-reveal mx-auto mt-10 max-w-3xl text-center text-xs leading-relaxed text-sand-400">
+        <p className="doc-reveal mt-10 max-w-3xl text-xs leading-relaxed text-sand-400">
           Doctor inputs are used for preventive safety planning and product
           approach. Mason Company does not provide medical treatment or
           guarantee fall-free outcomes.
