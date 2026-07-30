@@ -9,7 +9,7 @@ type IconProps = {
   className?: string;
 };
 
-export function ArrowForward({ size = 18, className }: IconProps) {
+function Glyph({ size, className, d }: IconProps & { d: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -20,7 +20,40 @@ export function ArrowForward({ size = 18, className }: IconProps) {
       focusable="false"
       className={className}
     >
-      <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+      <path d={d} />
     </svg>
+  );
+}
+
+export function ArrowForward({ size = 18, className }: IconProps) {
+  return (
+    <Glyph
+      size={size}
+      className={className}
+      d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+    />
+  );
+}
+
+/* These two are exact mirrors about x=12, which the hand-drawn chevrons they
+   replaced were not — one sat at 11.5 and the other at 12.5, so centring the
+   SVG box left them looking unevenly padded inside their buttons. */
+export function ChevronLeft({ size = 20, className }: IconProps) {
+  return (
+    <Glyph
+      size={size}
+      className={className}
+      d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+    />
+  );
+}
+
+export function ChevronRight({ size = 20, className }: IconProps) {
+  return (
+    <Glyph
+      size={size}
+      className={className}
+      d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+    />
   );
 }

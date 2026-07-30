@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { smoothScroll } from "./SmoothScroll";
+import { ChevronLeft, ChevronRight } from "./Icon";
 
 type Item = { title: string; label: string; img: string };
 
@@ -158,18 +159,14 @@ export default function ProductRail() {
           aria-label="Previous"
           className="absolute left-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-line-strong bg-ink/60 text-cream-dim backdrop-blur-sm transition-colors duration-150 hover:bg-ink/85 lg:left-4"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M15 5l-7 7 7 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          <ChevronLeft />
         </button>
         <button
           onClick={() => page(1)}
           aria-label="Next"
           className="absolute right-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-line-strong bg-ink/60 text-cream-dim backdrop-blur-sm transition-colors duration-150 hover:bg-ink/85 lg:right-4"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          <ChevronRight />
         </button>
       </div>
 
