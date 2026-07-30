@@ -80,9 +80,11 @@ export default function Packages() {
   return (
     <section
       id="packages"
-      className="relative bg-forest-700 py-24 lg:h-screen lg:overflow-hidden lg:py-0"
+      /* min-h, not h: a hard height plus overflow-hidden clipped the bottom of
+         the cards once the rows and outcome copy went in. */
+      className="relative bg-forest-700 py-24 lg:min-h-screen lg:py-0"
     >
-      <Reveal className="mx-auto flex h-full max-w-7xl flex-col px-6 lg:px-10 lg:pb-8 lg:pt-24">
+      <Reveal className="mx-auto flex h-full max-w-7xl flex-col px-6 lg:px-10 lg:pb-24 lg:pt-24">
         <div className="max-w-2xl">
           <p className="reveal eyebrow on-dark mb-3">
             Choose your safety package
