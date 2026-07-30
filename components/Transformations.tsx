@@ -161,8 +161,10 @@ export default function Transformations() {
                     sizes="(max-width: 1024px) 100vw, 33vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent" />
-                  <figcaption className="absolute bottom-4 left-4 text-sm font-semibold text-cream">
+                  {/* same dark ramp as the hero rail — `ink` is paper here, so
+                      the old from-ink/90 faded these photos out to white */}
+                  <div className="photo-scrim absolute inset-0" />
+                  <figcaption className="absolute bottom-4 left-4 text-sm font-semibold text-white">
                     {g.label}
                   </figcaption>
                 </div>
