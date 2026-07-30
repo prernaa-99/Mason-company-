@@ -41,13 +41,19 @@ export default function Doctors() {
     () => {
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.from(".doc-reveal", {
-          y: 34,
-          opacity: 0,
+        // set + to, not .from() with immediateRender:false — that leaves the
+        // content sitting in place and then snaps it to the start state the
+        // instant the trigger fires, which reads as a jolt as the section
+        // arrives. Hiding it up front and animating in avoids the jump;
+        // clearProps means nothing is stranded if the tween is interrupted.
+        gsap.set(".doc-reveal", { y: 34, opacity: 0 });
+        gsap.to(".doc-reveal", {
+          y: 0,
+          opacity: 1,
           duration: 0.7,
           stagger: 0.12,
           ease: "power3.out",
-          immediateRender: false,
+          clearProps: "opacity,transform",
           scrollTrigger: {
             trigger: container.current,
             start: "top 68%",
