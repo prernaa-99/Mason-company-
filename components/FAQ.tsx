@@ -149,11 +149,16 @@ export default function FAQ() {
     <section
       id="faq"
       ref={container}
-      className="flex min-h-screen flex-col justify-center overflow-hidden bg-sand-100 px-6 py-16 sm:px-10 lg:px-16"
+      /* No overflow-hidden: an ancestor with it becomes the scroll container
+         for descendants, which silently kills the sticky header below. */
+      className="flex min-h-screen flex-col justify-center bg-sand-100 px-6 py-16 sm:px-10 lg:px-16"
     >
       <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-        {/* Header */}
-        <div className="faq-reveal lg:pt-2">
+        {/* Header — sticks beside the accordion so the left gutter isn't empty
+            and the section title stays with the answers. self-start is what
+            makes it work: grid items stretch by default, and a full-height
+            item has nothing to travel within. top clears the fixed nav. */}
+        <div className="faq-reveal lg:sticky lg:top-28 lg:self-start lg:pt-2">
           <span className="block font-sans text-sm font-bold uppercase tracking-[0.35em] text-forest-700">
             FAQ
           </span>
