@@ -1,5 +1,6 @@
 import Reveal from "./Reveal";
 import Cta from "./Cta";
+import { ArrowForward } from "./Icon";
 
 const check = (
   <svg
@@ -160,9 +161,13 @@ export default function Packages() {
 
               <a
                 href="#book"
-                className="mt-auto pt-7 text-sm text-sand-600 transition-colors duration-150 hover:text-cream"
+                className="group mt-auto inline-flex items-center gap-1.5 pt-7 text-sm text-sand-600 transition-colors duration-150 hover:text-cream"
               >
-                Need a custom quote? &rarr;
+                Need a custom quote?
+                <ArrowForward
+                  size={15}
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                />
               </a>
             </div>
           ))}

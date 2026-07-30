@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowForward } from "./Icon";
 
 /* The one CTA on the site. Every call-to-action goes through this so heights,
    type size and the hover-slide arrow can't drift apart again.
@@ -53,12 +54,10 @@ export default function Cta({
     >
       {children}
       {arrow && (
-        <span
-          aria-hidden="true"
+        <ArrowForward
+          size={size === "default" ? 19 : 17}
           className="transition-transform duration-200 group-hover:translate-x-1"
-        >
-          &rarr;
-        </span>
+        />
       )}
     </Link>
   );
