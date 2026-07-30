@@ -70,12 +70,12 @@ export default function Hero() {
           <h1 className="h-display text-[2.15rem] leading-[1.04] text-cream sm:text-5xl lg:text-6xl">
             <span className="block overflow-hidden pb-[0.1em]">
               <span className="hero-line-inner block text-cream/90">
-                Most falls happen here.
+                Most <span className="accent-word">falls</span> happen here.
               </span>
             </span>
             <span className="block overflow-hidden pb-[0.1em]">
               <span className="hero-line-inner block text-cream">
-                We make sure <span className="accent-word">yours</span> don&rsquo;t.
+                We make sure yours don&rsquo;t.
               </span>
             </span>
           </h1>
