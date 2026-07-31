@@ -6,30 +6,10 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { smoothScroll } from "./SmoothScroll";
 import { ChevronLeft, ChevronRight } from "./Icon";
-
-type Item = { title: string; label: string; img: string };
+import { KIT } from "./kit";
 
 /** px of travel before we decide whether a gesture is the rail's or the page's */
 const DIRECTION_THRESHOLD = 6;
-
-// The twelve items we actually install, names and tags taken verbatim from the
-// What We Do section of the masonco build so both sites describe the same kit.
-// Photography is ours — that project's whatwedo/ images are abstract background
-// washes, not product shots.
-const items: Item[] = [
-  { title: "PVD-coated vertical grab bars", label: "Grab support", img: "/images/bath-3.jpg" },
-  { title: "PVD-coated L / angled grab bar", label: "Grab support", img: "/images/bath-5.jpg" },
-  { title: "PVD-coated flip-up / folding bar", label: "Grab support", img: "/images/bath-1.jpg" },
-  { title: "Anti-slip solution / coating", label: "Traction", img: "/images/shower-3.jpg" },
-  { title: "Premium anti-slip mats", label: "Traction", img: "/images/shower-4.jpg" },
-  { title: "Toilet seat / raised seat / commode support", label: "Support", img: "/images/bath-4.jpg" },
-  { title: "Shower seating stool", label: "Support", img: "/images/shower-2.jpg" },
-  { title: "Sensor lighting unit", label: "Comfort", img: "/images/bath-6.jpg" },
-  { title: "Two-way lock", label: "Safety", img: "/images/detail-1.jpg" },
-  { title: "8-corner equivalent corner safety", label: "Protection", img: "/images/bath-2.jpg" },
-  { title: "Drainage solutions", label: "Hygiene", img: "/images/shower-1.jpg" },
-  { title: "Bathroom slippers", label: "Comfort", img: "/images/care-1.jpg" },
-];
 
 export default function ProductRail() {
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -126,7 +106,7 @@ export default function ProductRail() {
              vertical axis; horizontal is ours. */
           className="flex cursor-grab gap-4 overflow-x-auto overscroll-x-contain pb-1 touch-pan-y [scrollbar-width:none] select-none active:cursor-grabbing [scroll-snap-type:x_proximity] [&::-webkit-scrollbar]:hidden"
         >
-        {items.map((it) => (
+        {KIT.map((it) => (
           <article
             key={it.title}
             className="rail-card group relative aspect-[3/4] h-[clamp(200px,35vh,370px)] shrink-0 overflow-hidden rounded-xl [scroll-snap-align:start]"

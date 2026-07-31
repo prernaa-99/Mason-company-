@@ -1,6 +1,7 @@
 import Reveal from "./Reveal";
 import Cta from "./Cta";
 import { ArrowForward } from "./Icon";
+import { PACKAGE_ROWS } from "./packages-data";
 
 const check = (
   <svg
@@ -19,24 +20,6 @@ const check = (
     />
   </svg>
 );
-
-/* Both packages install the SAME kit. The only difference is the one-year
-   check-up, so the inclusions live here once rather than being duplicated —
-   the two lists can no longer drift apart. */
-const INCLUDES = [
-  "3 PVD-coated vertical grab bars",
-  "1 PVD-coated L / angled grab bar",
-  "1 PVD-coated flip-up / folding bar",
-  "Anti-slip solution / coating",
-  "2 premium anti-slip mats",
-  "Toilet / raised-seat / commode support",
-  "1 shower seating stool",
-  "1 sensor lighting unit",
-  "1 two-way lock",
-  "8-corner equivalent corner safety",
-  "4 drainage solutions",
-  "2 pairs bathroom slippers",
-];
 
 const packages = [
   {
@@ -65,17 +48,6 @@ const packages = [
    the space goes on check/dash rows. Only the last row differs between the two
    packages — everything above it is deliberately identical. */
 const dash = <span className="h-0.5 w-4 shrink-0 rounded-full bg-sand-200" />;
-
-const ROWS: { label: string; standard: boolean; advanced: boolean }[] = [
-  {
-    label: `All ${INCLUDES.length} safety upgrades installed`,
-    standard: true,
-    advanced: true,
-  },
-  { label: "Installed by trained Mason experts", standard: true, advanced: true },
-  { label: "Inspection and final walkthrough", standard: true, advanced: true },
-  { label: "One-year safety check-up visit", standard: false, advanced: true },
-];
 
 export default function Packages() {
   return (
@@ -134,7 +106,7 @@ export default function Packages() {
               </Cta>
 
               <ul className="mt-7 space-y-2.5 border-t border-sand-200 pt-6">
-                {ROWS.map((row, i) => {
+                {PACKAGE_ROWS.map((row, i) => {
                   const on = p.featured ? row.advanced : row.standard;
                   const differentiator = row.standard !== row.advanced;
                   return (

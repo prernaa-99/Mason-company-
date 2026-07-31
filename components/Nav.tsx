@@ -7,7 +7,7 @@ import Cta from "./Cta";
 
 const links = [
   { label: "Home", href: "/" },
-  { label: "Why Mason", href: "/why" },
+  { label: "Packages", href: "/packages" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
