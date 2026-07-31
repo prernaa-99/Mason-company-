@@ -148,7 +148,7 @@ export default function Process() {
             bathroom.
           </h2>
           <p className="proc-head mt-6 max-w-md text-base leading-relaxed text-cream-dim">
-            Six clear steps, handled by one accountable Mason team &mdash; from
+            Six clear steps, handled by one accountable Mason team - from
             package booking all the way to final handover.
           </p>
 

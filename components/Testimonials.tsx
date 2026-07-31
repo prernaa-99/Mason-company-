@@ -95,7 +95,7 @@ export default function Testimonials() {
           </h2>
           <p className="tm-reveal mt-4 text-base leading-relaxed text-sand-100/75 sm:text-lg">
             Families choose Mason Company because the upgrade feels thoughtful,
-            premium, and reassuring &mdash; not like a temporary hospital setup.
+            premium, and reassuring - not like a temporary hospital setup.
           </p>
         </div>
 

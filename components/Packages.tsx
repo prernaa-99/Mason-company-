@@ -56,7 +56,7 @@ const packages = [
     bestFor:
       "The same installation, with a safety check-up a year on to catch anything that has worked loose.",
     outcome:
-      "The same upgrade, looked after — so it stays as safe as the day it was fitted.",
+      "The same upgrade, looked after - so it stays as safe as the day it was fitted.",
     cta: "Book Advanced",
   },
 ];
@@ -175,7 +175,7 @@ export default function Packages() {
 
         <p className="reveal mt-5 text-xs leading-relaxed text-sand-100/60 lg:hidden">
           Both packages are planned for real bathroom movement and installed by
-          trained Mason experts &mdash; so the result feels safe, thoughtful,
+          trained Mason experts - so the result feels safe, thoughtful,
           and still beautifully at home.
         </p>
       </Reveal>

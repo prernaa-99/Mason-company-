@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Cta from "@/components/Cta";
 
 export const metadata: Metadata = {
-  title: "About Us — Mason Company",
+  title: "About Us - Mason Company",
   description:
     "Mason Company helps families make bathrooms safer for ageing parents through premium, doctor-informed, expert-installed safety upgrades.",
 };
@@ -23,7 +23,7 @@ export default function AboutPage() {
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream-dim">
             Mason Company helps families make bathrooms safer for ageing parents
-            &mdash; premium, doctor-informed, expert-installed upgrades that keep
+            - premium, doctor-informed, expert-installed upgrades that keep
             the home feeling like home.
           </p>
 

@@ -80,7 +80,7 @@ export default function Hero() {
           </h1>
 
           <p className="hero-sub mx-auto mt-6 max-w-lg text-base leading-relaxed text-cream-dim">
-            You can&rsquo;t always be there &mdash; safety can be. Premium,
+            You can&rsquo;t always be there - safety can be. Premium,
             doctor-informed, expertly-installed bathroom safety.
           </p>
 

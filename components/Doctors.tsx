@@ -19,7 +19,7 @@ const DOCTORS = [
   {
     initials: "RG",
     name: "Dr. Rajiv Goyal",
-    creds: "MBBS, MD — Dermatology, Venereology & Leprosy",
+    creds: "MBBS, MD - Dermatology, Venereology & Leprosy",
     meta: "Dermatologist · 22 years overall experience",
     quote:
       "Good preventive design respects both safety and dignity. The right bathroom changes should reduce avoidable risk while still feeling comfortable, clean, and appropriate for the home.",

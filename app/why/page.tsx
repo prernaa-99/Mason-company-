@@ -4,9 +4,9 @@ import Footer from "@/components/Footer";
 import WhyContent from "@/components/WhyContent";
 
 export const metadata: Metadata = {
-  title: "Why Mason — Safety isn't a product, it's a plan",
+  title: "Why Mason - Safety isn't a product, it's a plan",
   description:
-    "Why families choose Mason: a complete, doctor-informed, expert-installed bathroom-safety solution — one accountable team, from assessment to handover.",
+    "Why families choose Mason: a complete, doctor-informed, expert-installed bathroom-safety solution - one accountable team, from assessment to handover.",
 };
 
 export default function WhyPage() {

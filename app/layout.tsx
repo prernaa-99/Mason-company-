@@ -34,7 +34,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mason Company — Safer bathrooms for ageing parents",
+  title: "Mason Company - Safer bathrooms for ageing parents",
   description:
     "Premium, doctor-informed, expert-installed bathroom safety upgrades that keep the home feeling like home. Book a Safety Visit.",
 };

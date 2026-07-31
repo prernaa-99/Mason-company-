@@ -33,7 +33,7 @@ export default function Booking() {
           </h2>
           <p className="reveal mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
             Act before a fall changes everything. Choose a package or request a
-            callback &mdash; one accountable Mason team handles the rest.
+            callback - one accountable Mason team handles the rest.
           </p>
 
           <div className="reveal mt-9 flex flex-wrap items-center justify-center gap-3">

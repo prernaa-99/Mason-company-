@@ -139,7 +139,7 @@ export default function Transformations() {
             renovation.
           </h2>
           <p className="reveal mt-6 text-lg leading-relaxed text-cream-dim">
-            We make bathrooms safer through thoughtful additions &mdash; grip,
+            We make bathrooms safer through thoughtful additions - grip,
             balance, comfort, ease. Drag to see the difference.
           </p>
         </div>

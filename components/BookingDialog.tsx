@@ -251,7 +251,7 @@ export default function BookingProvider({
           {done ? (
             <div className="mt-6">
               <p className="text-sm leading-relaxed text-sand-600">
-                Thanks {name.trim().split(" ")[0]} &mdash; our team will call you
+                Thanks {name.trim().split(" ")[0]} - our team will call you
                 on{" "}
                 {/* nowrap so the number never splits across two lines */}
                 <span className="whitespace-nowrap font-semibold text-cream">
@@ -404,7 +404,7 @@ export default function BookingProvider({
                       {locState === "unavailable" && (
                         <p className="mt-2 text-xs leading-relaxed text-sand-400">
                           Couldn&rsquo;t get your location. You can still book
-                          &mdash; we&rsquo;ll confirm the address on the call.
+                          - we&rsquo;ll confirm the address on the call.
                         </p>
                       )}
                     </>
@@ -420,9 +420,13 @@ export default function BookingProvider({
                 {busy ? "Sending…" : "Request my visit"}
               </button>
 
-              <p className="mt-4 text-xs leading-relaxed text-sand-400">
-                We only use these details to arrange your visit. No spam, and
-                the visit itself is free.
+              {/* Centred under the full-width button. The break is explicit
+                  rather than left to text-balance, which stranded "visit" at
+                  the start of the second line. */}
+              <p className="mt-4 text-center text-xs leading-relaxed text-sand-400">
+                We only use these details to arrange your visit
+                <br />
+                No spam, and the visit itself is free
               </p>
             </form>
           )}

@@ -32,7 +32,7 @@ export default function Nav() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
         <Link
           href="/"
-          aria-label="Mason Company — home"
+          aria-label="Mason Company - home"
           className="text-cream transition-colors duration-300 hover:text-accent"
         >
           <MasonWordmark size={20} />

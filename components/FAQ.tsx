@@ -30,11 +30,11 @@ const FAQS = [
   },
   {
     q: "What is included in Standard?",
-    a: "The complete kit — 12 upgrades in all: PVD-coated grab bars, anti-slip coating and mats, toilet / raised-seat / commode support, shower seating, sensor lighting, a two-way lock, corner safety, drainage solutions, and bathroom slippers.",
+    a: "The complete kit - 12 upgrades in all: PVD-coated grab bars, anti-slip coating and mats, toilet / raised-seat / commode support, shower seating, sensor lighting, a two-way lock, corner safety, drainage solutions, and bathroom slippers.",
   },
   {
     q: "What is included in Advanced?",
-    a: "Exactly the same 12 upgrades as Standard — nothing is held back. Advanced adds a one-year safety check-up visit, where we return to inspect the fittings and tighten or replace anything that has worn.",
+    a: "Exactly the same 12 upgrades as Standard - nothing is held back. Advanced adds a one-year safety check-up visit, where we return to inspect the fittings and tighten or replace anything that has worn.",
   },
   {
     q: "Can I buy only one product, like a grab bar?",

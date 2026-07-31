@@ -92,7 +92,7 @@ export default function ProductRail() {
     if (!drag.current.locked) {
       if (Math.abs(dx) < DIRECTION_THRESHOLD && Math.abs(dy) < DIRECTION_THRESHOLD) return;
       if (Math.abs(dy) > Math.abs(dx)) {
-        drag.current.down = false; // vertical intent — let the page have it
+        drag.current.down = false; // vertical intent - let the page have it
         return;
       }
       drag.current.locked = true;

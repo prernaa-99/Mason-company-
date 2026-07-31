@@ -102,13 +102,13 @@ export default function Footer() {
           <div className="col-span-2 lg:col-span-1">
             <Link
               href="/"
-              aria-label="Mason Company — home"
+              aria-label="Mason Company - home"
               className="inline-block text-sand-100 transition-colors hover:text-forest-200"
             >
               <MasonWordmark size={30} />
             </Link>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-sand-100/60">
-              Complete bathroom safety for ageing adults &mdash; planned with
+              Complete bathroom safety for ageing adults - planned with
               medical input, fitted by trained experts, and finished to feel
               like home.
             </p>

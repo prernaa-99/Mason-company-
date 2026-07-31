@@ -16,13 +16,13 @@ const chain = [
   {
     n: "01",
     name: "Stepping in",
-    risk: "A wet threshold and a slick floor — right where there's nothing to hold. Most people's idea of a 'safe bathroom' starts a full metre too late.",
+    risk: "A wet threshold and a slick floor - right where there's nothing to hold. Most people's idea of a 'safe bathroom' starts a full metre too late.",
     img: "/v2-images/hero-after.png",
   },
   {
     n: "02",
     name: "Turning around",
-    risk: "Bathrooms are tight. A pivot on wet tile, mid-turn, with nothing within arm's reach — this is where balance quietly gives out.",
+    risk: "Bathrooms are tight. A pivot on wet tile, mid-turn, with nothing within arm's reach - this is where balance quietly gives out.",
     img: "/images/bath-4.jpg",
   },
   {
@@ -48,7 +48,7 @@ const chain = [
 const partials = [
   {
     label: "Wait and see",
-    copy: "The cheapest plan — until the ambulance. A serious fall averages ₹3–10 lakh and weeks of family coordination, all paid after it's already too late.",
+    copy: "The cheapest plan - until the ambulance. A serious fall averages ₹3–10 lakh and weeks of family coordination, all paid after it's already too late.",
   },
   {
     label: "One grab bar",
@@ -56,7 +56,7 @@ const partials = [
   },
   {
     label: "A handyman",
-    copy: "Fits what you point at — with no read on how your parent actually moves, no medical logic, no load rating, and no one accountable when it works loose.",
+    copy: "Fits what you point at - with no read on how your parent actually moves, no medical logic, no load rating, and no one accountable when it works loose.",
   },
 ];
 
@@ -121,7 +121,7 @@ export default function WhyContent() {
           </span>
         </h1>
         <p className="why-hero-sub mt-8 max-w-2xl text-lg leading-relaxed text-cream-dim">
-          A single trip to the bathroom is a chain of risky moments — stepping
+          A single trip to the bathroom is a chain of risky moments - stepping
           in, turning, sitting, standing, showering, the walk back in the dark.
           Cover five of them and the fall simply finds the sixth. Mason is built
           to cover the whole chain.
@@ -142,7 +142,7 @@ export default function WhyContent() {
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
         <p className="absolute bottom-6 left-6 max-w-md text-sm font-medium text-white/90 lg:bottom-8 lg:left-10 lg:text-base">
-          One real Mason bathroom. Every moment in the chain — covered, on
+          One real Mason bathroom. Every moment in the chain - covered, on
           purpose.
         </p>
       </div>
@@ -156,7 +156,7 @@ export default function WhyContent() {
           </h2>
           <p className="mt-6 text-base leading-relaxed text-cream-dim">
             This is the same trip your parent makes several times a day. Here is
-            where each one turns dangerous — and why a single fix can&rsquo;t
+            where each one turns dangerous - and why a single fix can&rsquo;t
             hold it together.
           </p>
         </div>
@@ -252,7 +252,7 @@ export default function WhyContent() {
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/85">
               Every moment assessed. Placement shaped by doctor input. Load-rated,
               PVD-coated hardware. Installed and owned end to end by one
-              accountable team — and finished so the bathroom still feels like
+              accountable team - and finished so the bathroom still feels like
               home, not a hospital.
             </p>
             <Cta href="/#book" variant="light" className="mt-8">
