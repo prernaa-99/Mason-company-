@@ -10,6 +10,7 @@ import {
 } from "react";
 import { ctaClass } from "./Cta";
 import { smoothScroll } from "./SmoothScroll";
+import ServiceArea from "./ServiceArea";
 
 /* ===========================================================================
    INTEGRATION POINTS — the only two places that talk to anything external.
@@ -422,10 +423,11 @@ export default function BookingProvider({
                 {busy ? "Sending…" : "Request my visit"}
               </button>
 
-              {/* Centred under the full-width button. The break is explicit
-                  rather than left to text-balance, which stranded "visit" at
-                  the start of the second line. */}
-              <p className="mt-4 text-center text-xs leading-relaxed text-sand-400">
+              {/* Centred under the full-width button. The break in the second
+                  line is explicit rather than left to text-balance, which
+                  stranded "visit" at the start of the second line. */}
+              <ServiceArea className="mt-5 text-center" />
+              <p className="mt-3 text-center text-xs leading-relaxed text-sand-400">
                 We only use these details to arrange your visit
                 <br />
                 No spam, and the visit itself is free

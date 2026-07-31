@@ -90,11 +90,22 @@ export default function ContactPage() {
 
         {/* Contact details — three columns split by hairlines rather than the
             reference's icon-in-a-circle tiles. */}
+        {/* No background of its own - it stays on the page's paper, so the
+            hairline is the only thing marking the section and the footer's
+            hard dark edge arrives after one continuous stretch rather than a
+            second grey slab.
+            Spacing follows from that: the rule needs at least as much air
+            below it as the form section leaves above (pb-20/24), and the
+            bottom needs more again to clear the footer. */}
         <Reveal
           as="section"
-          className="border-t border-line bg-sand-100 px-6 py-14 lg:px-10 lg:py-16"
+          className="border-t border-line pt-20 pb-24 lg:pt-24 lg:pb-32"
         >
-          <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-3 sm:gap-0">
+          {/* px INSIDE max-w-7xl, matching the two sections above. With the
+              padding on the section instead, the max-width box centres inside
+              an already-inset area and the columns end up 24px left of the
+              headline on anything wider than 1280px. */}
+          <div className="mx-auto grid max-w-7xl gap-10 px-6 sm:grid-cols-3 sm:gap-0 lg:px-10">
             {DETAILS.map((d, i) => (
               <div
                 key={d.title}

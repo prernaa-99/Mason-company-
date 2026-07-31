@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MasonWordmark } from "./Logo";
 import Cta from "./Cta";
+import { CITIES } from "./ServiceArea";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -147,7 +148,8 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Mason Company. All rights
             reserved.
           </p>
-          <p>Serving major cities across India</p>
+          {/* Was "Serving major cities across India" - we install in two. */}
+          <p>Installing in {CITIES}, with more cities on the way</p>
         </div>
       </div>
     </footer>

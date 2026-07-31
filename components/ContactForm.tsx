@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ctaClass } from "./Cta";
 import { ArrowForward } from "./Icon";
 import { EMAIL, toTenDigits } from "./BookingDialog";
+import ServiceArea from "./ServiceArea";
 
 /* ===========================================================================
    INTEGRATION POINT — the only place that talks to anything external.
@@ -18,10 +19,6 @@ export type ContactValues = {
   email: string;
   /** "" when the customer skipped it */
   packageInterest: string;
-  /** ISO yyyy-mm-dd, or "" */
-  preferredDate: string;
-  city: string;
-  message: string;
 };
 
 async function submitEnquiry(values: ContactValues): Promise<void> {
@@ -35,9 +32,6 @@ type Values = {
   mobile: string;
   email: string;
   packageInterest: string;
-  preferredDate: string;
-  city: string;
-  message: string;
 };
 
 const EMPTY: Values = {
@@ -45,13 +39,10 @@ const EMPTY: Values = {
   mobile: "",
   email: "",
   packageInterest: "",
-  preferredDate: "",
-  city: "",
-  message: "",
 };
 
-/* Only these three block submission. Everything else is a nice-to-have, and
-   asking for a date or a package before someone has spoken to us is the
+/* Only these three block submission. The package is a nice-to-have, and
+   pressing someone to commit to one before they have spoken to us is the
    fastest way to lose the enquiry. */
 type Required = "name" | "mobile" | "email";
 type Errors = Partial<Record<Required, string>>;
@@ -295,65 +286,20 @@ export default function ContactForm() {
           </div>
           <p className={ERROR} />
         </div>
-
-        <div>
-          <label htmlFor="contact-date" className={LABEL}>
-            Preferred visit date
-            <span className={OPTIONAL}>optional</span>
-          </label>
-          <input
-            id="contact-date"
-            name="date"
-            type="date"
-            value={values.preferredDate}
-            onChange={(e) => set("preferredDate", e.target.value)}
-            className={`${INPUT} border-sand-200 focus:border-forest-700 ${
-              values.preferredDate ? "" : "text-sand-400"
-            }`}
-          />
-          <p className={ERROR} />
-        </div>
-
-        <div>
-          <label htmlFor="contact-city" className={LABEL}>
-            City
-            <span className={OPTIONAL}>optional</span>
-          </label>
-          <input
-            id="contact-city"
-            name="city"
-            autoComplete="address-level2"
-            value={values.city}
-            onChange={(e) => set("city", e.target.value)}
-            placeholder="Delhi"
-            className={`${INPUT} border-sand-200 focus:border-forest-700`}
-          />
-          <p className={ERROR} />
-        </div>
-
-        <div className="sm:col-span-2">
-          <label htmlFor="contact-message" className={LABEL}>
-            Anything we should know
-            <span className={OPTIONAL}>optional</span>
-          </label>
-          <textarea
-            id="contact-message"
-            name="message"
-            rows={4}
-            value={values.message}
-            onChange={(e) => set("message", e.target.value)}
-            placeholder="Who the bathroom is for, any mobility concerns, or a question about the packages."
-            className={`${INPUT} resize-y border-sand-200 leading-relaxed focus:border-forest-700`}
-          />
-          <p className={ERROR} />
-        </div>
       </div>
 
-      <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      {/* col-reverse, so the DOM order that gives text-left / button-right on
+          desktop stacks the other way round on mobile - the button belongs
+          directly under the last field, not beneath a paragraph of fine print.
+          items-center because the text runs to three lines against a one-line
+          button. */}
+      <div className="mt-6 flex flex-col-reverse gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+        <ServiceArea className="max-w-sm" />
+
         <button
           type="submit"
           disabled={busy}
-          className={ctaClass({ className: "disabled:opacity-70" })}
+          className={ctaClass({ className: "shrink-0 disabled:opacity-70" })}
         >
           {busy ? "Sending…" : "Send my enquiry"}
           <ArrowForward
@@ -361,10 +307,6 @@ export default function ContactForm() {
             className="transition-transform duration-200 group-hover:translate-x-1"
           />
         </button>
-        <p className="max-w-xs text-xs leading-relaxed text-sand-400">
-          We only use these details to get back to you. No spam, and the
-          safety visit itself is free.
-        </p>
       </div>
     </form>
   );
