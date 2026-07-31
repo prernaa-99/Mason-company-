@@ -52,12 +52,14 @@ export function useBooking() {
 type Field = "name" | "mobile" | "email";
 type Errors = Partial<Record<Field, string>>;
 
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+/* Shared with the contact form so the two never validate the same field
+   differently. */
+export const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 /** Field holds only the 10 national digits — +91 is shown statically beside it.
  *  A leading 91/0 is stripped only when the input is too long, because a valid
  *  Indian mobile can itself begin "91" (they start 6-9). */
-function toTenDigits(raw: string) {
+export function toTenDigits(raw: string) {
   let d = raw.replace(/\D/g, "");
   if (d.length > 10 && d.startsWith("91")) d = d.slice(2);
   if (d.length > 10 && d.startsWith("0")) d = d.slice(1);

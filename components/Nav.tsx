@@ -9,6 +9,7 @@ const links = [
   { label: "Home", href: "/" },
   { label: "Why Mason", href: "/why" },
   { label: "About Us", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Nav() {

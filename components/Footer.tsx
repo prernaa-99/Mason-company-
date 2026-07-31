@@ -39,7 +39,7 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
     title: "Support",
     links: [
       { label: "Book a Safety Visit", href: "/#book" },
-      { label: "Contact", href: "/#book" },
+      { label: "Contact", href: "/contact" },
       { label: "Privacy Policy", href: "#" },
       { label: "Terms & Conditions", href: "#" },
       { label: "Refund & Cancellation Policy", href: "#" },
