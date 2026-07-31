@@ -5,9 +5,9 @@ import { useRef, useState } from "react";
 import Reveal from "./Reveal";
 
 const gallery = [
-  { img: "/images/bath-2.jpg", label: "Guest bathroom · Delhi" },
-  { img: "/images/shower-2.jpg", label: "Walk-in shower · Gurgaon" },
-  { img: "/images/bath-4.jpg", label: "Master bathroom · Mumbai" },
+  { img: "/images/bath-2.jpg", label: "Guest bathroom · Bengaluru" },
+  { img: "/images/shower-2.jpg", label: "Walk-in shower · Goa" },
+  { img: "/images/bath-4.jpg", label: "Master bathroom · Bengaluru" },
 ];
 
 function BeforeAfter() {
