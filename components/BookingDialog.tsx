@@ -214,11 +214,16 @@ export default function BookingProvider({
       >
         <div className="p-6 sm:p-8">
           <div className="flex items-start justify-between gap-4">
+            {/* Both states are title -> content -> button, so the header is the
+                same height either way and the close button never shifts. */}
             <div>
-              {done && <p className="eyebrow mb-2">Request received</p>}
               <h2
                 id="booking-title"
-                className="font-display text-2xl font-extrabold leading-tight tracking-tight text-cream"
+                /* Success gets a step up: it is the whole message on that
+                   screen, where the form title is just a label above fields. */
+                className={`font-display font-extrabold leading-tight tracking-tight text-cream ${
+                  done ? "text-3xl" : "text-2xl"
+                }`}
               >
                 {done ? (
                   <>
@@ -246,9 +251,13 @@ export default function BookingProvider({
           {done ? (
             <div className="mt-6">
               <p className="text-sm leading-relaxed text-sand-600">
-                Thanks {name.trim().split(" ")[0]} — our team will call you on{" "}
-                <span className="font-semibold text-cream">+91 {mobile}</span> to
-                arrange the visit.
+                Thanks {name.trim().split(" ")[0]} &mdash; our team will call you
+                on{" "}
+                {/* nowrap so the number never splits across two lines */}
+                <span className="whitespace-nowrap font-semibold text-cream">
+                  +91 {mobile}
+                </span>{" "}
+                to arrange the visit
               </p>
               <button
                 type="button"
@@ -256,7 +265,7 @@ export default function BookingProvider({
                   close();
                   reset();
                 }}
-                className={`${ctaClass({ size: "block" })} mt-6`}
+                className={`${ctaClass({ size: "block" })} mt-7`}
               >
                 Done
               </button>
