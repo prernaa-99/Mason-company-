@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MasonWordmark } from "./Logo";
 import Cta from "./Cta";
 import { CITIES } from "./ServiceArea";
+import { CARE_EMAIL } from "./contact-details";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -114,10 +115,10 @@ export default function Footer() {
               like home.
             </p>
             <a
-              href="mailto:hello@masonco.in"
+              href={`mailto:${CARE_EMAIL}`}
               className="mt-5 inline-block text-sm text-sand-100/80 transition-colors hover:text-forest-200"
             >
-              hello@masonco.in
+              {CARE_EMAIL}
             </a>
           </div>
 

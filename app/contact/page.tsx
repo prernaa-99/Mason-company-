@@ -4,6 +4,12 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import ContactForm from "@/components/ContactForm";
+import {
+  CARE_EMAIL,
+  HOURS,
+  PHONE_DISPLAY,
+  PHONE_HREF,
+} from "@/components/contact-details";
 
 export const metadata: Metadata = {
   title: "Contact - Mason Company",
@@ -11,32 +17,21 @@ export const metadata: Metadata = {
     "Talk to Mason Company about making a bathroom safer for ageing parents. Call, WhatsApp, or send an enquiry - we reply within 24 hours.",
 };
 
-/* TODO: placeholders. Swap for the real line, hours and inboxes before launch.
-   hello@masonco.in is the address already used in the footer. */
 const DETAILS: {
   title: string;
   lines: { text: string; href?: string }[];
 }[] = [
   {
     title: "Call & WhatsApp",
-    lines: [
-      { text: "+91 98765 43210", href: "tel:+919876543210" },
-      { text: "+91 98765 43211", href: "tel:+919876543211" },
-    ],
+    lines: [{ text: PHONE_DISPLAY, href: PHONE_HREF }],
   },
   {
     title: "When we answer",
-    lines: [
-      { text: "Mon - Sat, 9am - 7pm" },
-      { text: "Sunday closed" },
-    ],
+    lines: [{ text: HOURS }],
   },
   {
     title: "Write to us",
-    lines: [
-      { text: "hello@masonco.in", href: "mailto:hello@masonco.in" },
-      { text: "bookings@masonco.in", href: "mailto:bookings@masonco.in" },
-    ],
+    lines: [{ text: CARE_EMAIL, href: `mailto:${CARE_EMAIL}` }],
   },
 ];
 
