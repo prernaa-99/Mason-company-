@@ -210,7 +210,7 @@ export default function BookingProvider({
           // click on the backdrop (the dialog element itself) dismisses
           if (e.target === dialogRef.current) close();
         }}
-        className="m-auto w-[calc(100%-2rem)] max-w-md rounded-3xl bg-sand-50 p-0 text-cream backdrop:bg-cream/70 backdrop:backdrop-blur-sm"
+        className="m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-md overflow-y-auto rounded-3xl bg-sand-50 p-0 text-cream backdrop:bg-cream/70 backdrop:backdrop-blur-sm"
       >
         <div className="p-6 sm:p-8">
           <div className="flex items-start justify-between gap-4">
@@ -280,14 +280,16 @@ export default function BookingProvider({
                   placeholder="Priya Sharma"
                   className={`${INPUT} ${fieldBorder("name")}`}
                 />
-                {errors.name && (
-                  <p id="name-error" className="mt-1.5 text-xs text-brick">
-                    {errors.name}
-                  </p>
-                )}
+                <p
+                  id="name-error"
+                  aria-live="polite"
+                  className="mt-1.5 min-h-4 text-xs leading-4 text-brick"
+                >
+                  {errors.name}
+                </p>
               </div>
 
-              <div className="mt-5">
+              <div className="mt-3">
                 <label htmlFor="mobile" className={LABEL}>
                   Mobile number
                   <span aria-hidden="true" className="text-brick">*</span>
@@ -315,14 +317,16 @@ export default function BookingProvider({
                     className="w-full bg-transparent text-base text-cream placeholder:text-sand-400 focus:outline-none"
                   />
                 </div>
-                {errors.mobile && (
-                  <p id="mobile-error" className="mt-1.5 text-xs text-brick">
-                    {errors.mobile}
-                  </p>
-                )}
+                <p
+                  id="mobile-error"
+                  aria-live="polite"
+                  className="mt-1.5 min-h-4 text-xs leading-4 text-brick"
+                >
+                  {errors.mobile}
+                </p>
               </div>
 
-              <div className="mt-5">
+              <div className="mt-3">
                 <label htmlFor="email" className={LABEL}>
                   Email address
                   <span aria-hidden="true" className="text-brick">*</span>
@@ -340,16 +344,18 @@ export default function BookingProvider({
                   placeholder="priya@example.com"
                   className={`${INPUT} ${fieldBorder("email")}`}
                 />
-                {errors.email && (
-                  <p id="email-error" className="mt-1.5 text-xs text-brick">
-                    {errors.email}
-                  </p>
-                )}
+                <p
+                  id="email-error"
+                  aria-live="polite"
+                  className="mt-1.5 min-h-4 text-xs leading-4 text-brick"
+                >
+                  {errors.email}
+                </p>
               </div>
 
               {/* Location — optional. The button calls requestLocation() at the
                   top of this file; all four states are already designed. */}
-              <div className="mt-5">
+              <div className="mt-3">
                 <span className={LABEL}>Location</span>
                 <div className="mt-2 rounded-xl border border-sand-200 bg-white p-3">
                   {locState === "set" && location ? (
