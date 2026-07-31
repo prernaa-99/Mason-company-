@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowForward } from "./Icon";
+import { useBooking } from "./BookingDialog";
 
 /* The one CTA on the site. Every call-to-action goes through this so heights,
    type size and the hover-slide arrow can't drift apart again.
@@ -27,6 +30,29 @@ const SIZES: Record<Size, string> = {
   block: "w-full justify-center px-4 py-3 text-sm sm:text-base",
 };
 
+/* Not transition-all: this element may sit inside a GSAP timeline, and
+   transitioning every property fights whatever GSAP writes each frame.
+   Tailwind's translate utilities use the `translate` property, which is
+   separate from the `transform` GSAP animates, so the lift is safe. */
+const BASE =
+  "group inline-flex items-center gap-2.5 rounded-full font-semibold transition-[background-color,border-color,color,translate] duration-150 hover:-translate-y-0.5";
+
+/** Exported so non-link CTAs (the booking form's submit) match exactly. */
+export function ctaClass({
+  variant = "solid",
+  size = "default",
+  className = "",
+}: {
+  variant?: Variant;
+  size?: Size;
+  className?: string;
+} = {}) {
+  return `${BASE} ${VARIANTS[variant]} ${SIZES[size]} ${className}`;
+}
+
+/** Every "book" CTA opens the form rather than jumping to the section. */
+const BOOKING_HREFS = new Set(["#book", "/#book"]);
+
 export default function Cta({
   href,
   children,
@@ -43,15 +69,11 @@ export default function Cta({
   arrow?: boolean;
   className?: string;
 }) {
-  return (
-    <Link
-      href={href}
-      /* Not transition-all: this element may sit inside a GSAP timeline, and
-         transitioning every property fights whatever GSAP writes each frame.
-         Tailwind's translate utilities use the `translate` property, which is
-         separate from the `transform` GSAP animates, so the lift is safe. */
-      className={`group inline-flex items-center gap-2.5 rounded-full font-semibold transition-[background-color,border-color,color,translate] duration-150 hover:-translate-y-0.5 ${VARIANTS[variant]} ${SIZES[size]} ${className}`}
-    >
+  const booking = useBooking();
+  const classes = ctaClass({ variant, size, className });
+
+  const label = (
+    <>
       {children}
       {arrow && (
         <ArrowForward
@@ -59,6 +81,22 @@ export default function Cta({
           className="transition-transform duration-200 group-hover:translate-x-1"
         />
       )}
+    </>
+  );
+
+  // Falls back to a plain link when no provider is mounted, so the CTA still
+  // does something sensible rather than breaking.
+  if (booking && BOOKING_HREFS.has(href)) {
+    return (
+      <button type="button" onClick={booking.open} className={classes}>
+        {label}
+      </button>
+    );
+  }
+
+  return (
+    <Link href={href} className={classes}>
+      {label}
     </Link>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo, Fraunces, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import BookingProvider from "@/components/BookingDialog";
 
 /* Display — big impactful headlines. The dominant typeface. */
 const archivo = Archivo({
@@ -49,7 +50,10 @@ export default function RootLayout({
       className={`${archivo.variable} ${fraunces.variable} ${geist.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="grain min-h-full bg-ink text-cream">
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          {/* mounts the booking form once, for every "Book a Safety Visit" CTA */}
+          <BookingProvider>{children}</BookingProvider>
+        </SmoothScroll>
       </body>
     </html>
   );
