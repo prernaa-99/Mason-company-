@@ -88,8 +88,27 @@
   outline-offset: 2px;
 }
 
-* {
-  border-color: var(--color-line);
+/* …except text fields, which per spec match :focus-visible even on a mouse
+   click — so that hard 2px ring fired on every tap into a form. They signal
+   focus with a soft border shift instead (see BookingDialog).
+   This has to live here, unlayered: the rule above is unlayered too, and
+   unlayered styles beat anything in @layer utilities no matter how specific,
+   so a Tailwind focus:outline-none utility can never override it. */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+}
+
+/* Default hairline colour for anything with a border but no explicit one.
+   MUST stay inside @layer base: unlayered, this beats every border-* utility
+   in @layer utilities no matter how specific, so border-sand-200,
+   border-white/35, focus:border-forest-700 and friends all silently rendered
+   as --color-line instead. */
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
 }
 
 html {
