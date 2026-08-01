@@ -6,9 +6,10 @@
    cities is still a lead worth having, so the line ends with a reason to
    submit the form rather than close it.
 
-   Sits under the submit button with the rest of the fine print, but a step
-   ahead of it: sand-600 rather than sand-400, and the cities themselves in
-   full-contrast semibold. It is real information, not boilerplate. */
+   Set a step ahead of the surrounding fine print: sand-600 rather than
+   sand-400, and the cities themselves in full-contrast semibold. It is real
+   information, not boilerplate. In the dialog it sits under the location
+   field, which is the question it answers. */
 
 export const CITIES = "Bengaluru and Goa";
 

@@ -413,6 +413,12 @@ export default function BookingProvider({
                     </>
                   )}
                 </div>
+
+                {/* Here rather than under the button: "do you even come to my
+                    city?" is a question about this field, and answering it in
+                    place keeps five lines of centred small print from piling up
+                    after the CTA. */}
+                <ServiceArea className="mt-2" />
               </div>
 
               <button
@@ -423,14 +429,11 @@ export default function BookingProvider({
                 {busy ? "Sending…" : "Request my visit"}
               </button>
 
-              {/* Centred under the full-width button. The break in the second
-                  line is explicit rather than left to text-balance, which
-                  stranded "visit" at the start of the second line. */}
-              <ServiceArea className="mt-5 text-center" />
-              <p className="mt-3 text-center text-xs leading-relaxed text-sand-400">
-                We only use these details to arrange your visit
-                <br />
-                No spam, and the visit itself is free
+              {/* One line of reassurance, balanced so a wrap splits evenly
+                  instead of stranding a word. */}
+              <p className="mt-4 text-balance text-center text-xs leading-relaxed text-sand-400">
+                We only use these details to arrange your visit. No spam, and
+                the visit is free.
               </p>
             </form>
           )}
