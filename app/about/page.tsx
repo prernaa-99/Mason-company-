@@ -35,7 +35,7 @@ export default function AboutPage() {
       <Nav />
       <main>
         {/* ---- hero ---- */}
-        <section className="mx-auto max-w-7xl px-6 pt-32 pb-14 lg:px-10 lg:pt-40 lg:pb-16">
+        <section className="mx-auto max-w-7xl px-6 pt-32 pb-16 lg:px-10 lg:pt-40 lg:pb-16">
           <p className="eyebrow mb-6">About Us</p>
           <h1 className="h-display max-w-4xl text-[2.4rem] leading-[1.04] text-cream sm:text-5xl lg:text-[4rem]">
             We started Mason Company because safety at home should still feel
@@ -63,7 +63,13 @@ export default function AboutPage() {
           </Cta>
         </section>
 
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        {/* The photo carries its own half of the gap on both sides, rather
+            than the section below carrying a margin. Space owned by a block is
+            space you can reason about; a margin between two blocks belongs to
+            neither, and here it stacked on top of the next section's padding
+            to make that one boundary twice the others. lg:pt-0 keeps the
+            desktop hero and its image as tight as they are today. */}
+        <div className="mx-auto max-w-7xl px-6 pt-16 pb-16 sm:pt-24 sm:pb-24 lg:px-10 lg:pt-0 lg:pb-32">
           <PhotoSlot
             label="Wide, warm shot of a finished Mason bathroom — the hero image for the page"
             className="h-[38vh] min-h-[280px] w-full sm:h-[52vh]"
@@ -76,8 +82,8 @@ export default function AboutPage() {
             paragraphs in a single column is the most tiring block on the page;
             broken into labelled beats the reader gets landmarks and can rejoin
             the thread anywhere. */}
-        <section className="mt-24 border-t border-line bg-surface lg:mt-32">
-          <Reveal className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+        <section className="border-t border-line bg-surface">
+          <Reveal className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-10 lg:py-32">
             <div className="grid gap-12 lg:grid-cols-[18rem_1fr] lg:gap-20">
               <div className="lg:sticky lg:top-32 lg:self-start">
                 <p className="reveal eyebrow">Our Story</p>
@@ -122,7 +128,7 @@ export default function AboutPage() {
 
         {/* The line the whole story lands on, given a page to itself. */}
         <section className="border-t border-line">
-          <Reveal className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+          <Reveal className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-10 lg:py-32">
             <p className="reveal h-display max-w-3xl text-3xl leading-[1.1] text-cream sm:text-4xl lg:text-5xl">
               That is why Mason Company was{" "}
               <span className="accent-word">started</span>.
@@ -134,7 +140,7 @@ export default function AboutPage() {
             The one dark band on the page. It arrives after two paper sections,
             which is what makes it register as a change of voice. */}
         <section className="bg-forest-700">
-          <Reveal className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+          <Reveal className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-10 lg:py-32">
             <p className="reveal eyebrow on-dark mb-6">Why We Exist</p>
             <h2 className="reveal h-display max-w-4xl text-3xl leading-[1.08] text-sand-100 sm:text-4xl lg:text-5xl">
               We believe ageing parents deserve safer homes without giving up
@@ -177,7 +183,7 @@ export default function AboutPage() {
 
         {/* ---- why we are built for this ---- */}
         <section className="border-t border-line">
-          <Reveal className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+          <Reveal className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-10 lg:py-32">
             <div className="max-w-3xl">
               <p className="reveal eyebrow mb-6">Why We Are Built For This</p>
               <h2 className="reveal h-display text-3xl leading-[1.08] text-cream sm:text-4xl lg:text-5xl">
@@ -192,7 +198,13 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <ul className="reveal mt-10 flex flex-wrap gap-2.5">
+            {/* Desktop only. Pills are a horizontal device — they read as a
+                row of tags when they sit side by side, and at 390px only two
+                short ones fit on a line, so the set collapses into a ragged
+                left-aligned column of five outlined lozenges of five different
+                widths. Nothing about that says "tags" any more; it just looks
+                like buttons that don't do anything. */}
+            <ul className="reveal mt-10 hidden flex-wrap gap-2.5 sm:flex">
               {TRUST.map((item) => (
                 <li
                   key={item}
@@ -254,7 +266,7 @@ export default function AboutPage() {
 
         {/* ---- our approach ---- */}
         <section className="border-t border-line bg-surface">
-          <Reveal className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+          <Reveal className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-10 lg:py-32">
             <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-20">
               <div>
                 <p className="reveal eyebrow mb-6">Our Approach</p>
@@ -319,7 +331,7 @@ export default function AboutPage() {
 
         {/* ---- what we want to achieve ---- */}
         <section className="border-t border-line">
-          <Reveal className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+          <Reveal className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-10 lg:py-32">
             <p className="reveal eyebrow mb-6">What We Want To Achieve</p>
             <h2 className="reveal h-display max-w-4xl text-3xl leading-[1.08] text-cream sm:text-4xl">
               We want Mason Company to become India&rsquo;s most trusted
@@ -331,9 +343,32 @@ export default function AboutPage() {
               Our goal is to make preventive care easier to choose.
             </p>
 
-            <div className="reveal mt-14 grid gap-px overflow-hidden rounded-2xl bg-line sm:grid-cols-3">
-              {GOALS.map((g) => (
-                <div key={g.label} className="bg-ink p-7 lg:p-9">
+            {/* Three cells in a row from sm, a divided list below it. The
+                grid draws its cards by showing a bg-line container through
+                1px gaps — which works across three columns, but stacked into
+                one it produces cards you cannot see: the fill is the page
+                colour, so all that survives is a hairline and a 28px inset.
+                That inset pushed this copy off the left edge every other
+                block on the page sits on, and the last cell's 28px of bottom
+                padding read as section spacing, making this boundary 156px
+                where every other one is 128.
+
+                So below sm the padding goes horizontal-zero, the rules become
+                real borders, and the first and last cells drop their outer
+                padding — the same divided-list rhythm used further up the
+                page. One class per property rather than a base plus an
+                override, because two utilities for the same property resolve
+                by stylesheet order, not by the order written here. */}
+            <div className="reveal mt-14 grid gap-px overflow-hidden rounded-2xl bg-line max-sm:mt-10 max-sm:gap-0 max-sm:rounded-none max-sm:bg-transparent sm:grid-cols-3">
+              {GOALS.map((g, i) => (
+                <div
+                  key={g.label}
+                  className={`bg-ink p-7 max-sm:bg-transparent max-sm:px-0 lg:p-9 ${
+                    i === 0
+                      ? "max-sm:pt-0"
+                      : "max-sm:border-t max-sm:border-line max-sm:pt-6"
+                  } ${i === GOALS.length - 1 ? "max-sm:pb-0" : "max-sm:pb-6"}`}
+                >
                   <p className="eyebrow">{g.label}</p>
                   <p className="mt-4 text-base leading-relaxed text-cream">
                     {g.body}
@@ -349,7 +384,7 @@ export default function AboutPage() {
             behind an overlay: an unfilled PhotoSlot under 85% green would be
             invisible, which defeats the point of a placeholder announcing
             itself. The photo band sits above it instead. */}
-        <div className="mx-auto max-w-7xl px-6 pt-24 lg:px-10 lg:pt-32">
+        <div className="mx-auto max-w-7xl px-6 pt-16 pb-16 sm:pt-24 sm:pb-24 lg:px-10 lg:pt-32 lg:pb-32">
           <PhotoSlot
             label="Quiet, well-lit bathroom at night — the closing image"
             className="h-[34vh] min-h-[240px] w-full"
@@ -357,8 +392,8 @@ export default function AboutPage() {
           />
         </div>
 
-        <section className="mt-24 bg-forest-700 lg:mt-32">
-          <Reveal className="mx-auto max-w-7xl px-6 py-24 text-center lg:px-10 lg:py-32">
+        <section className="bg-forest-700">
+          <Reveal className="mx-auto max-w-7xl px-6 py-16 text-center sm:py-24 lg:px-10 lg:py-32">
             <h2 className="reveal mx-auto h-display max-w-3xl text-3xl leading-[1.08] text-sand-100 sm:text-4xl lg:text-5xl">
               Make the bathroom safer before it becomes{" "}
               <span className="accent-word on-dark">urgent</span>.
