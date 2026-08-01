@@ -66,7 +66,7 @@ export default function Safer() {
         <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-extrabold leading-[1.12] tracking-tight text-sand-100">
           <span className="block overflow-hidden pb-1">
             <span className="safer-line block">
-              But you can make your bathroom{" "}
+              Make your bathroom{" "}
               <span className="accent-word on-dark">safer</span>
             </span>
           </span>
