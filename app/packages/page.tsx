@@ -23,8 +23,10 @@ export const metadata: Metadata = {
    away from their labels. */
 
 /* Both the table rows and the CTA row use this, so the columns line up. The
-   mark columns are fixed; the label column takes whatever is left. */
-const ROW = "grid grid-cols-[1fr_3.5rem_3.5rem] sm:grid-cols-[1fr_11rem_11rem]";
+   mark columns are fixed; the label column takes whatever is left. 13rem is
+   set by the widest thing that has to fit in a mark column — the "Book
+   Standard" pill, which needs ~183px and wrapped onto two lines at 11rem. */
+const ROW = "grid grid-cols-[1fr_3.5rem_3.5rem] sm:grid-cols-[1fr_13rem_13rem]";
 
 const check = (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -62,19 +64,22 @@ export default function PackagesPage() {
       <Nav />
       <main>
         <section className="mx-auto max-w-7xl px-6 pt-32 pb-16 lg:px-10 lg:pt-40 lg:pb-24">
+          {/* Header runs to the page measure, so the eyebrow and headline sit
+              on the same left edge as every other page's. Only the two content
+              blocks below are centred on the narrower max-w-5xl column — a
+              four-row table stretched across the full 1280px leaves the marks
+              stranded a screen away from their labels. */}
           <p className="eyebrow mb-5">Packages</p>
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
-            <h1 className="h-display max-w-2xl text-5xl text-cream sm:text-6xl lg:text-7xl">
-              One complete <span className="accent-word">kit</span>.
-            </h1>
-            <p className="max-w-sm text-base leading-relaxed text-cream-dim lg:pb-3 lg:text-right">
-              Standard and Advanced install exactly the same {KIT.length}{" "}
-              upgrades. Only what happens a year later separates them.
-            </p>
-          </div>
+          <h1 className="h-display text-5xl text-cream sm:text-6xl lg:text-7xl">
+            One complete <span className="accent-word">kit</span>.
+          </h1>
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-cream-dim sm:text-lg">
+            Standard and Advanced install exactly the same {KIT.length}{" "}
+            upgrades. Only what happens a year later separates them.
+          </p>
 
           {/* ---- the comparison ---- */}
-          <Reveal className="mt-14 max-w-5xl lg:mt-20">
+          <Reveal className="mx-auto mt-14 max-w-5xl lg:mt-20">
             <div className="reveal">
               {/* Column heads. The Advanced column carries a tint that runs the
                   full height of the table, rounded at top and bottom, so the
@@ -94,7 +99,7 @@ export default function PackagesPage() {
                     Advanced
                   </span>
                   <span className="mt-0.5 hidden text-[0.65rem] text-forest-700/70 sm:block">
-                    Most complete
+                    Most popular
                   </span>
                 </div>
               </div>
@@ -127,12 +132,17 @@ export default function PackagesPage() {
               <div className={`${ROW} hidden sm:grid`}>
                 <div />
                 <div className="grid place-items-center px-2 py-7">
-                  <Cta href="#book" size="compact" variant="outline">
+                  <Cta
+                    href="#book"
+                    size="compact"
+                    variant="outline"
+                    className="whitespace-nowrap"
+                  >
                     Book Standard
                   </Cta>
                 </div>
                 <div className="grid place-items-center rounded-b-2xl bg-accent-tint px-2 py-7">
-                  <Cta href="#book" size="compact">
+                  <Cta href="#book" size="compact" className="whitespace-nowrap">
                     Book Advanced
                   </Cta>
                 </div>
@@ -149,8 +159,12 @@ export default function PackagesPage() {
             </div>
           </Reveal>
 
-          {/* ---- the kit ---- */}
-          <Reveal className="mt-24 max-w-5xl lg:mt-32">
+          {/* ---- the kit ----
+              The block runs to the page measure so the heading rule reaches
+              the right gutter; the list underneath is pulled back to max-w-5xl.
+              Left-aligned throughout, so "The 12 upgrades." starts on the same
+              edge as the h1 above it. */}
+          <Reveal className="mt-24 lg:mt-32">
             <div className="reveal flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 border-b-2 border-cream pb-4">
               <h2 className="h-display text-3xl text-cream sm:text-4xl">
                 The {KIT.length} <span className="accent-word">upgrades</span>.
@@ -158,7 +172,14 @@ export default function PackagesPage() {
               <p className="eyebrow">Identical in both packages</p>
             </div>
 
-            <ul className="reveal">
+            {/* Two across from lg up — six rows of two, on the page measure so
+                the second column's hairline ends level with the heading rule
+                above it. Not at sm: halving a 640px column leaves ~140px for
+                the title, and these run long ("Toilet seat / raised seat /
+                commode support"). Grid rather than columns so a wrapped title
+                lifts both cells in its row and the hairlines stay level across
+                the gutter. */}
+            <ul className="reveal lg:grid lg:grid-cols-2 lg:gap-x-20">
               {KIT.map((item, i) => (
                 <li
                   key={item.title}
