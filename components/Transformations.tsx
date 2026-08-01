@@ -37,7 +37,11 @@ function BeforeAfter() {
       onPointerDown={(e) => {
         dragging.current = true;
         el(e).setPointerCapture(e.pointerId);
-        move(e.clientX);
+        // Jump the divider to the press point for a mouse, where a click is a
+        // deliberate "put it here". A touch that lands here may well be the
+        // start of a scroll, and yanking the divider under the finger before
+        // the gesture has declared itself is the wrong guess to make.
+        if (e.pointerType !== "touch") move(e.clientX);
       }}
       onPointerMove={(e) => {
         track(e);
@@ -46,7 +50,16 @@ function BeforeAfter() {
       onPointerEnter={track}
       onPointerLeave={() => setCursor((c) => ({ ...c, show: false }))}
       onPointerUp={() => (dragging.current = false)}
-      className="relative aspect-[16/10] w-full cursor-ew-resize select-none overflow-hidden rounded-2xl border border-line lg:aspect-auto lg:h-full lg:cursor-none"
+      /* The browser cancels our pointer when it claims the gesture as a page
+         scroll. Without this the flag stays true, and the next finger anywhere
+         on the image drags the divider without being asked to. */
+      onPointerCancel={() => (dragging.current = false)}
+      /* touch-pan-y is the whole fix for the page moving under the drag. With
+         touch-action unset the browser owns every direction, so sliding the
+         divider sideways scrolled the page at the same time. pan-y hands it
+         back the vertical axis only: a swipe up or down over the image still
+         scrolls the page, a sideways drag is ours alone. */
+      className="relative aspect-[16/10] w-full touch-pan-y cursor-ew-resize select-none overflow-hidden rounded-2xl border border-line lg:aspect-auto lg:h-full lg:cursor-none"
     >
       {/* custom drag cursor (desktop) */}
       <div
