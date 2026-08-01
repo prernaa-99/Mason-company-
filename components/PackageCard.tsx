@@ -34,15 +34,15 @@ type Skin = {
 function skin(tone: Tone, featured: boolean): Skin {
   if (tone === "green" && !featured) {
     return {
-      card: "bg-white/10 ring-1 ring-white/25",
-      lede: "text-sand-100/75",
-      rule: "border-white/20",
+      card: "bg-white/[0.16] ring-1 ring-white/40",
+      lede: "text-sand-100/85",
+      rule: "border-white/30",
       rowOn: "font-semibold text-sand-100",
-      rowMid: "text-sand-100/75",
-      rowOff: "text-sand-100/55", // muted, but still legible over the green
+      rowMid: "text-sand-100/80",
+      rowOff: "text-sand-100/55", // the one row that should stay quiet
       mark: "text-forest-200", // accent-soft: the highlight made for dark green
-      dash: "bg-white/30",
-      outcome: "text-sand-100/65",
+      dash: "bg-white/40",
+      outcome: "text-sand-100/70",
       cta: "outlineLight",
     };
   }
