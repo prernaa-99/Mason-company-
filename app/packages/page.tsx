@@ -117,8 +117,13 @@ export default function PackagesPage() {
               ))}
             </ul>
 
-            <div className="reveal mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-              <Cta href="/#book">Book a Safety Visit</Cta>
+            {/* Stacked below sm so the CTA gets the full column, same as
+                every other CTA on a phone. flex-wrap alone left it at its
+                content width with the reassurance line dropped underneath. */}
+            <div className="reveal mt-10 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-4">
+              <Cta href="/#book" className="w-full justify-center sm:w-auto">
+                Book a Safety Visit
+              </Cta>
               <p className="max-w-sm text-sm leading-relaxed text-cream-dim">
                 Not sure which package? The visit is free - we&rsquo;ll walk the
                 bathroom with you and say what it actually needs.

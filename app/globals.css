@@ -336,3 +336,27 @@ html.lenis body {
     animation: none;
   }
 }
+
+/* Booking dialog. Two entrances, because it is two different objects: a sheet
+   rising from the bottom edge on a phone, a panel settling in the middle on a
+   pointer. Both run on open — a <dialog> goes display:none -> block when
+   showModal() fires, which is enough to start a keyframe. */
+@keyframes sheet-in {
+  from {
+    translate: 0 100%;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    scale: 0.97;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}

@@ -185,7 +185,6 @@ export default function BookingProvider({
     }
   };
 
-
   /* Active state is the border itself going green — same 1px stroke as at
      rest, so nothing thickens or shifts. The harshness before came from the
      global 2px offset outline, which is now suppressed for form fields. */
@@ -213,10 +212,30 @@ export default function BookingProvider({
           // click on the backdrop (the dialog element itself) dismisses
           if (e.target === dialogRef.current) close();
         }}
-        className="m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-md overflow-y-auto rounded-3xl bg-sand-50 p-0 text-cream backdrop:bg-cream/70 backdrop:backdrop-blur-sm"
+        /* Bottom sheet on a phone, centred panel from sm. A form you reached
+           by tapping a button at the bottom of the screen should open from
+           that edge and stay in thumb reach — a centred card asks the hand to
+           travel to the middle of the display and leaves a strip of dead page
+           under it. m-0 mt-auto is what does it: the UA gives a modal dialog
+           inset:0 with margin:auto, so zeroing every margin but the top drops
+           it to the bottom edge, full width. max-w-none is needed to clear the
+           UA's own max-width. */
+        /* flex column with overflow-hidden, not a single scrolling box: the
+           fields scroll, the submit does not. Capped at 88dvh, a box that
+           scrolls as a whole puts the one button the sheet exists for below
+           the fold on any short viewport, with nothing to say it is there. */
+        className="m-0 mt-auto flex max-h-[88dvh] w-full max-w-none animate-[sheet-in_320ms_cubic-bezier(0.22,1,0.36,1)] flex-col overflow-hidden rounded-t-3xl bg-sand-50 p-0 text-cream backdrop:bg-cream/70 backdrop:backdrop-blur-sm motion-reduce:animate-none sm:m-auto sm:max-h-[calc(100dvh-2rem)] sm:w-[calc(100%-2rem)] sm:max-w-md sm:animate-[panel-in_200ms_ease-out] sm:rounded-3xl"
       >
-        <div className="p-6 sm:p-8">
-          <div className="flex items-start justify-between gap-4">
+        {/* Grabber. Purely a signal — the sheet is dismissed by the close
+            button, the backdrop or Escape, not by dragging — but it is the
+            one mark that tells you at a glance this is a sheet and not the
+            page having jumped. */}
+        <div aria-hidden="true" className="flex justify-center pt-3 sm:hidden">
+          <span className="h-1 w-10 rounded-full bg-sand-200" />
+        </div>
+
+        <div className="flex min-h-0 flex-1 flex-col p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:p-8">
+          <div className="flex shrink-0 items-start justify-between gap-4">
             {/* Both states are title -> content -> button, so the header is the
                 same height either way and the close button never shifts. */}
             <div>
@@ -230,7 +249,8 @@ export default function BookingProvider({
               >
                 {done ? (
                   <>
-                    We&rsquo;ll be in <span className="accent-word">touch</span>.
+                    We&rsquo;ll be in <span className="accent-word">touch</span>
+                    .
                   </>
                 ) : (
                   /* Deliberately plain and identical to the button that opened
@@ -254,8 +274,7 @@ export default function BookingProvider({
           {done ? (
             <div className="mt-6">
               <p className="text-sm leading-relaxed text-sand-600">
-                Thanks {name.trim().split(" ")[0]} - our team will call you
-                on{" "}
+                Thanks {name.trim().split(" ")[0]} - our team will call you on{" "}
                 {/* nowrap so the number never splits across two lines */}
                 <span className="whitespace-nowrap font-semibold text-cream">
                   +91 {mobile}
@@ -274,167 +293,201 @@ export default function BookingProvider({
               </button>
             </div>
           ) : (
-            <form onSubmit={onSubmit} noValidate className="mt-6">
-              <div>
-                <label htmlFor="name" className={LABEL}>
-                  Full name
-                  <span aria-hidden="true" className="text-brick">*</span>
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  autoComplete="name"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  aria-invalid={!!errors.name}
-                  aria-describedby={describedBy("name")}
-                  placeholder="Priya Sharma"
-                  className={`${INPUT} ${fieldBorder("name")}`}
-                />
-                <p
-                  id="name-error"
-                  aria-live="polite"
-                  className="mt-1.5 min-h-4 text-xs leading-4 text-brick"
-                >
-                  {errors.name}
-                </p>
-              </div>
+            <form
+              onSubmit={onSubmit}
+              noValidate
+              className="mt-6 flex min-h-0 flex-1 flex-col"
+            >
+              {/* data-lenis-prevent: Lenis binds wheel on the window and
+                  preventDefaults it, so a wheel over this box scrolled
+                  nothing — stop() pauses the page tween but does not release
+                  the event. The attribute is how Lenis is told an element
+                  owns its own scrolling. overscroll-contain then keeps
+                  reaching the end of the fields from chaining out to the page
+                  behind the sheet.
 
-              <div className="mt-3">
-                <label htmlFor="mobile" className={LABEL}>
-                  Mobile number
-                  <span aria-hidden="true" className="text-brick">*</span>
-                </label>
-                <div className={`${GROUP} ${groupBorder("mobile")}`}>
-                  <span
-                    aria-hidden="true"
-                    className="shrink-0 select-none text-base text-sand-600"
-                  >
-                    +91
-                  </span>
-                  <span aria-hidden="true" className="h-5 w-px bg-sand-200" />
+                  px-1 -mx-1 so the 2px focus ring on a field at the edge of
+                  the scrollport isn't shaved off by the overflow. */}
+              <div
+                data-lenis-prevent
+                /* pb-5 so the last field clears the pinned footer's hairline
+                   instead of sitting on it — the rule needs air on both
+                   sides, and the scrollport's own end is the only place to
+                   put the space above it. */
+                className="-mx-1 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1 pb-5"
+              >
+                <div>
+                  <label htmlFor="name" className={LABEL}>
+                    Full name
+                    <span aria-hidden="true" className="text-brick">
+                      *
+                    </span>
+                  </label>
                   <input
-                    id="mobile"
-                    name="mobile"
-                    type="tel"
-                    inputMode="numeric"
-                    autoComplete="tel"
+                    id="name"
+                    name="name"
+                    autoComplete="name"
                     required
-                    value={mobile}
-                    onChange={(e) => setMobile(toTenDigits(e.target.value))}
-                    aria-invalid={!!errors.mobile}
-                    aria-describedby={describedBy("mobile")}
-                    placeholder="98765 43210"
-                    className="w-full bg-transparent text-base text-cream placeholder:text-sand-400 focus:outline-none"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    aria-invalid={!!errors.name}
+                    aria-describedby={describedBy("name")}
+                    placeholder="Priya Sharma"
+                    className={`${INPUT} ${fieldBorder("name")}`}
                   />
+                  <p
+                    id="name-error"
+                    aria-live="polite"
+                    className="mt-1.5 min-h-4 text-xs leading-4 text-brick"
+                  >
+                    {errors.name}
+                  </p>
                 </div>
-                <p
-                  id="mobile-error"
-                  aria-live="polite"
-                  className="mt-1.5 min-h-4 text-xs leading-4 text-brick"
-                >
-                  {errors.mobile}
-                </p>
-              </div>
 
-              <div className="mt-3">
-                <label htmlFor="email" className={LABEL}>
-                  Email address
-                  <span aria-hidden="true" className="text-brick">*</span>
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  aria-invalid={!!errors.email}
-                  aria-describedby={describedBy("email")}
-                  placeholder="priya@example.com"
-                  className={`${INPUT} ${fieldBorder("email")}`}
-                />
-                <p
-                  id="email-error"
-                  aria-live="polite"
-                  className="mt-1.5 min-h-4 text-xs leading-4 text-brick"
-                >
-                  {errors.email}
-                </p>
-              </div>
+                <div className="mt-3">
+                  <label htmlFor="mobile" className={LABEL}>
+                    Mobile number
+                    <span aria-hidden="true" className="text-brick">
+                      *
+                    </span>
+                  </label>
+                  <div className={`${GROUP} ${groupBorder("mobile")}`}>
+                    <span
+                      aria-hidden="true"
+                      className="shrink-0 select-none text-base text-sand-600"
+                    >
+                      +91
+                    </span>
+                    <span aria-hidden="true" className="h-5 w-px bg-sand-200" />
+                    <input
+                      id="mobile"
+                      name="mobile"
+                      type="tel"
+                      inputMode="numeric"
+                      autoComplete="tel"
+                      required
+                      value={mobile}
+                      onChange={(e) => setMobile(toTenDigits(e.target.value))}
+                      aria-invalid={!!errors.mobile}
+                      aria-describedby={describedBy("mobile")}
+                      placeholder="98765 43210"
+                      className="w-full bg-transparent text-base text-cream placeholder:text-sand-400 focus:outline-none"
+                    />
+                  </div>
+                  <p
+                    id="mobile-error"
+                    aria-live="polite"
+                    className="mt-1.5 min-h-4 text-xs leading-4 text-brick"
+                  >
+                    {errors.mobile}
+                  </p>
+                </div>
 
-              {/* Location — optional. The button calls requestLocation() at the
+                <div className="mt-3">
+                  <label htmlFor="email" className={LABEL}>
+                    Email address
+                    <span aria-hidden="true" className="text-brick">
+                      *
+                    </span>
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    aria-invalid={!!errors.email}
+                    aria-describedby={describedBy("email")}
+                    placeholder="priya@example.com"
+                    className={`${INPUT} ${fieldBorder("email")}`}
+                  />
+                  <p
+                    id="email-error"
+                    aria-live="polite"
+                    className="mt-1.5 min-h-4 text-xs leading-4 text-brick"
+                  >
+                    {errors.email}
+                  </p>
+                </div>
+
+                {/* Location — optional. The button calls requestLocation() at the
                   top of this file; all four states are already designed. */}
-              <div className="mt-3">
-                <span className={LABEL}>Location</span>
-                <div className="mt-2 rounded-xl border border-sand-200 bg-white p-3">
-                  {locState === "set" && location ? (
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-sm text-cream">{location}</span>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setLocation(null);
-                          setLocState("idle");
-                        }}
-                        className="shrink-0 text-xs font-semibold text-sand-400 transition-colors duration-150 hover:text-cream"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  ) : (
-                    <>
-                      <button
-                        type="button"
-                        onClick={onLocation}
-                        disabled={locState === "pending"}
-                        className="flex w-full items-center gap-2.5 text-left text-sm font-semibold text-forest-700 transition-opacity duration-150 disabled:opacity-60"
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          className="h-[18px] w-[18px] shrink-0"
-                          fill="currentColor"
-                          aria-hidden="true"
+                <div className="mt-3">
+                  <span className={LABEL}>Location</span>
+                  <div className="mt-2 rounded-xl border border-sand-200 bg-white p-3">
+                    {locState === "set" && location ? (
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="text-sm text-cream">{location}</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setLocation(null);
+                            setLocState("idle");
+                          }}
+                          className="shrink-0 text-xs font-semibold text-sand-400 transition-colors duration-150 hover:text-cream"
                         >
-                          <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" />
-                        </svg>
-                        {locState === "pending"
-                          ? "Getting your location…"
-                          : "Use my current location"}
-                      </button>
-                      {locState === "unavailable" && (
-                        <p className="mt-2 text-xs leading-relaxed text-sand-400">
-                          Couldn&rsquo;t get your location. You can still book
-                          - we&rsquo;ll confirm the address on the call.
-                        </p>
-                      )}
-                    </>
-                  )}
-                </div>
+                          Remove
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <button
+                          type="button"
+                          onClick={onLocation}
+                          disabled={locState === "pending"}
+                          className="flex w-full items-center gap-2.5 text-left text-sm font-semibold text-forest-700 transition-opacity duration-150 disabled:opacity-60"
+                        >
+                          <svg
+                            viewBox="0 0 24 24"
+                            className="h-[18px] w-[18px] shrink-0"
+                            fill="currentColor"
+                            aria-hidden="true"
+                          >
+                            <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" />
+                          </svg>
+                          {locState === "pending"
+                            ? "Getting your location…"
+                            : "Use my current location"}
+                        </button>
+                        {locState === "unavailable" && (
+                          <p className="mt-2 text-xs leading-relaxed text-sand-400">
+                            Couldn&rsquo;t get your location. You can still book
+                            - we&rsquo;ll confirm the address on the call.
+                          </p>
+                        )}
+                      </>
+                    )}
+                  </div>
 
-                {/* Here rather than under the button: "do you even come to my
+                  {/* Here rather than under the button: "do you even come to my
                     city?" is a question about this field, and answering it in
                     place keeps five lines of centred small print from piling up
                     after the CTA. */}
-                <ServiceArea className="mt-2" />
+                  <ServiceArea className="mt-2" />
+                </div>
               </div>
 
-              <button
-                type="submit"
-                disabled={busy}
-                className={`${ctaClass({ size: "block" })} mt-7 disabled:opacity-70`}
-              >
-                {busy ? "Sending…" : "Request my visit"}
-              </button>
+              {/* Pinned. The hairline is what marks it as pinned rather than
+                  merely last — without it, fields scrolling under the button
+                  look truncated instead of continuing. */}
+              <div className="shrink-0 border-t border-sand-200 pt-5">
+                <button
+                  type="submit"
+                  disabled={busy}
+                  className={`${ctaClass({ size: "block" })} disabled:opacity-70`}
+                >
+                  {busy ? "Sending…" : "Request my visit"}
+                </button>
 
-              {/* One line of reassurance, balanced so a wrap splits evenly
-                  instead of stranding a word. */}
-              <p className="mt-4 text-balance text-center text-xs leading-relaxed text-sand-400">
-                We only use these details to arrange your visit. No spam, and
-                the visit is free.
-              </p>
+                {/* One line of reassurance, balanced so a wrap splits evenly
+                    instead of stranding a word. */}
+                <p className="mt-4 text-balance text-center text-xs leading-relaxed text-sand-400">
+                  We only use these details to arrange your visit. No spam, and
+                  the visit is free.
+                </p>
+              </div>
             </form>
           )}
         </div>

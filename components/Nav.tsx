@@ -197,6 +197,10 @@ export default function Nav() {
       {menuOpen && (
         <div
           id="mobile-menu"
+          /* data-lenis-prevent for the same reason as the booking sheet:
+             Lenis preventDefaults wheel on the window even while stopped, so
+             without it this panel cannot be scrolled on a short viewport. */
+          data-lenis-prevent
           className="flex flex-1 flex-col overflow-y-auto overscroll-contain px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] lg:hidden"
         >
           {/* Links carry the display face at headline size. A phone menu has
