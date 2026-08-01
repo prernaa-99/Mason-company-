@@ -150,9 +150,12 @@ export default function AboutPage() {
                   <li key={line} className="flex items-start gap-4">
                     <span
                       aria-hidden="true"
-                      className="mt-3 h-0.5 w-5 shrink-0 rounded-full bg-white/35"
+                      className="mt-3 h-0.5 w-5 shrink-0 rounded-full bg-white/50"
                     />
-                    <span className="text-base leading-relaxed text-sand-100/60 sm:text-lg">
+                    {/* The refusals stay subordinate to the promise through
+                        size and the forest rule beside it, not by being too
+                        faint to read on the green. */}
+                    <span className="text-base leading-relaxed text-sand-100/85 sm:text-lg">
                       {line}
                     </span>
                   </li>
@@ -275,23 +278,23 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* The routine, set as a grid. Ten moments read as scope; the same
-                ten inside a sentence read as a comma list nobody finishes. */}
+            {/* The routine as one run of display type rather than ten cells.
+                A cell wide enough for "Night-time use" is far too wide for
+                "Sitting", so a grid here spends most of its area on nothing.
+                Set as a line, the words themselves fill the measure, and the
+                whole scope of the work is taken in at a glance. */}
             <p className="reveal mt-16 eyebrow">
               Our work covers the full bathroom routine
             </p>
-            <ul className="reveal mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-line sm:grid-cols-3 lg:grid-cols-5">
+            <ul className="reveal mt-6 flex flex-wrap items-baseline gap-x-4 gap-y-2 font-display text-2xl font-bold leading-snug tracking-tight text-cream sm:text-3xl lg:text-[2.5rem]">
               {ROUTINE.map((moment, i) => (
-                <li
-                  key={moment}
-                  className="flex flex-col justify-between gap-6 bg-surface p-5 lg:p-6"
-                >
-                  <span className="font-mono-label text-[0.65rem] text-sand-400">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="font-display text-base font-semibold leading-snug text-cream">
-                    {moment}
-                  </span>
+                <li key={moment}>
+                  {moment}
+                  {i < ROUTINE.length - 1 && (
+                    <span aria-hidden="true" className="ml-4 text-forest-700">
+                      &middot;
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
