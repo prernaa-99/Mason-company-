@@ -278,32 +278,42 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* The routine as one run of display type rather than ten cells.
-                A cell wide enough for "Night-time use" is far too wide for
-                "Sitting", so a grid here spends most of its area on nothing.
-                Set as a line, the words themselves fill the measure, and the
-                whole scope of the work is taken in at a glance. */}
-            <p className="reveal mt-16 eyebrow">
-              Our work covers the full bathroom routine
-            </p>
-            <ul className="reveal mt-6 flex flex-wrap items-baseline gap-x-4 gap-y-2 font-display text-2xl font-bold leading-snug tracking-tight text-cream sm:text-3xl lg:text-[2.5rem]">
-              {ROUTINE.map((moment, i) => (
-                <li key={moment}>
-                  {moment}
-                  {i < ROUTINE.length - 1 && (
-                    <span aria-hidden="true" className="ml-4 text-forest-700">
-                      &middot;
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ul>
+            {/* Photo beside the list, not a grid of ten cells and a photo band
+                stacked under it. A cell wide enough for "Night-time use" is far
+                too wide for "Sitting", so a grid spent most of its area on
+                nothing; here the spare width goes to the picture, which can use
+                it, and the ten moments stay a tight scannable column. */}
+            <div className="mt-16 grid gap-10 lg:grid-cols-2 lg:gap-16">
+              <PhotoSlot
+                label="Installer at work — hands, a grab bar going in, close and unstaged"
+                className="reveal h-[38vh] min-h-[280px] w-full lg:h-auto"
+                sizes="(max-width: 1024px) 100vw, 620px"
+              />
 
-            <PhotoSlot
-              label="Installer at work — hands, a grab bar going in, close and unstaged"
-              className="reveal mt-10 h-[34vh] min-h-[240px] w-full"
-              sizes="(max-width: 1280px) 100vw, 1280px"
-            />
+              <div>
+                <p className="reveal eyebrow">
+                  Our work covers the full bathroom routine
+                </p>
+                {/* rows-5 + flow-col so the numbering runs down the first
+                    column and continues down the second, rather than
+                    zig-zagging across the pair */}
+                <ul className="reveal mt-5 grid gap-x-12 sm:grid-flow-col sm:grid-rows-5">
+                  {ROUTINE.map((moment, i) => (
+                    <li
+                      key={moment}
+                      className="flex items-center gap-4 border-b border-line py-3.5"
+                    >
+                      <span className="font-mono-label text-[0.65rem] text-sand-400">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="font-display text-base font-semibold leading-snug text-cream">
+                        {moment}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </Reveal>
         </section>
 
