@@ -4,8 +4,9 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import Cta from "@/components/Cta";
+import PackageCard from "@/components/PackageCard";
 import { KIT } from "@/components/kit";
-import { PACKAGE_ROWS, PACKAGES } from "@/components/packages-data";
+import { PACKAGES } from "@/components/packages-data";
 
 export const metadata: Metadata = {
   title: "Packages - Mason Company",
@@ -16,37 +17,10 @@ export const metadata: Metadata = {
 /* One page, one surface, one language: paper, hairlines, mono labels, display
    type.
 
-   This was a Standard-vs-Advanced comparison table, and it read as padding:
-   eight mark cells, seven of them yes, and only one row in four that actually
-   differs. So the offer is stated in its true shape instead — everything the
-   two packages share, once, and then the single thing that separates them,
-   given room to be a sentence rather than a lone tick. */
-
-const check = (
-  <svg
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    aria-hidden="true"
-    className="mt-0.5 shrink-0 text-forest-700"
-  >
-    <path
-      d="M5 12.5l4 4 10-10"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const dash = (
-  <span
-    aria-hidden="true"
-    className="mt-2.5 h-0.5 w-4 shrink-0 rounded-full bg-sand-200"
-  />
-);
+   The choice was a Standard-vs-Advanced comparison table, and it read as
+   padding: eight mark cells, seven of them yes, and only one row in four that
+   actually differed. It is two PackageCards now, the same ones the homepage
+   section uses. */
 
 export default function PackagesPage() {
   return (
@@ -67,83 +41,18 @@ export default function PackagesPage() {
           </p>
 
           {/* ---- the choice ----
-              Same card language as the homepage section, on the light surface:
-              the featured one is tinted and ringed rather than badged. Each
-              card carries the whole row list, so the reason to pick one is a
-              line you can read in place rather than a tick in a far-off
-              column. */}
+              The same PackageCard the homepage section uses. Each card carries
+              the whole row list, so the reason to pick one is a line you can
+              read in place rather than a tick in a far-off column. */}
           <Reveal className="mt-14 lg:mt-20">
             <div className="grid gap-6 lg:grid-cols-2">
               {PACKAGES.map((p) => (
-                <div
+                <PackageCard
                   key={p.name}
-                  className={`reveal flex flex-col rounded-3xl p-7 lg:p-9 ${
-                    p.featured
-                      ? "bg-accent-tint ring-2 ring-forest-200"
-                      : "bg-sand-100"
-                  }`}
-                >
-                  <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
-                    <h2 className="h-display text-3xl text-cream sm:text-4xl">
-                      {p.name}
-                    </h2>
-                    {p.featured && (
-                      <span className="rounded-full bg-forest-700 px-3 py-1 text-[0.7rem] font-semibold text-sand-100">
-                        Most popular
-                      </span>
-                    )}
-                  </div>
-
-                  <p className="mt-4 max-w-md text-base leading-relaxed text-cream-dim sm:text-lg">
-                    {p.bestFor}
-                  </p>
-
-                  {/* Weighting matches the homepage cards exactly: the first
-                      row and the one that differs carry the emphasis, the
-                      middle rows recede, an absence is muted rather than
-                      struck through. */}
-                  <ul className="mt-7 space-y-3 border-t border-sand-200 pt-7">
-                    {PACKAGE_ROWS.map((row, i) => {
-                      const on = p.featured ? row.advanced : row.standard;
-                      const differentiator = row.standard !== row.advanced;
-                      return (
-                        <li key={row.label} className="flex items-start gap-3">
-                          {on ? check : dash}
-                          <span
-                            className={
-                              !on
-                                ? "text-sand-400"
-                                : differentiator || i === 0
-                                  ? "font-semibold text-cream"
-                                  : "text-sand-600"
-                            }
-                          >
-                            {row.label}
-                          </span>
-                          <span className="sr-only">
-                            {on ? "Included" : "Not included"}
-                          </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-
-                  <p className="mt-5 max-w-md text-sm leading-relaxed text-sand-600">
-                    {p.outcome}
-                  </p>
-
-                  {/* mt-auto so both buttons sit on the same line however the
-                      copy above wraps */}
-                  <div className="mt-auto pt-8">
-                    <Cta
-                      href="#book"
-                      size="block"
-                      variant={p.featured ? "solid" : "outline"}
-                    >
-                      {p.cta}
-                    </Cta>
-                  </div>
-                </div>
+                  pkg={p}
+                  headingLevel={2}
+                  className="reveal"
+                />
               ))}
             </div>
           </Reveal>

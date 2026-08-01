@@ -1,30 +1,6 @@
 import Reveal from "./Reveal";
-import Cta from "./Cta";
-import { ArrowForward } from "./Icon";
-import { PACKAGE_ROWS, PACKAGES } from "./packages-data";
-
-const check = (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    className="shrink-0 text-forest-700"
-  >
-    <path
-      d="M5 12.5l4 4 10-10"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-/* Following the masonco plan section: the kit collapses to a single line and
-   the space goes on check/dash rows. Only the last row differs between the two
-   packages — everything above it is deliberately identical. */
-const dash = <span className="h-0.5 w-4 shrink-0 rounded-full bg-sand-200" />;
+import PackageCard from "./PackageCard";
+import { PACKAGES } from "./packages-data";
 
 export default function Packages() {
   return (
@@ -49,83 +25,18 @@ export default function Packages() {
           </p>
         </div>
 
-        <div className="mt-8 grid gap-6 lg:mt-6 lg:min-h-0 lg:flex-1 lg:grid-cols-[1fr_1.12fr]">
+        {/* Equal columns — the cards are the same object as on /packages
+            now, and the old 1.12fr lean only widened the featured one. */}
+        <div className="mt-8 grid gap-6 lg:mt-6 lg:min-h-0 lg:flex-1 lg:grid-cols-2">
           {PACKAGES.map((p) => (
-            <div
-              key={p.name}
-              className={`reveal relative flex flex-col rounded-3xl bg-sand-50 p-6 lg:p-7 ${
-                p.featured ? "ring-2 ring-forest-200 lg:p-8" : ""
-              }`}
-            >
-              {p.featured && (
-                <span className="absolute right-6 top-6 rounded-full bg-forest-50 px-3.5 py-1 text-[0.7rem] font-semibold text-forest-700 lg:right-7 lg:top-7">
-                  Most complete
-                </span>
-              )}
-
-              <p className="text-xs uppercase tracking-[0.18em] text-sand-400">
-                {p.badge}
-              </p>
-              <h3 className="mt-1.5 font-display text-4xl text-cream lg:text-5xl">
-                {p.name}
-              </h3>
-              <p className="mt-3 max-w-sm text-sm leading-relaxed text-sand-600">
-                {p.bestFor}
-              </p>
-
-              <Cta
-                href="#book"
-                size="block"
-                variant={p.featured ? "solid" : "outline"}
-                className="mt-6"
-              >
-                {p.cta}
-              </Cta>
-
-              <ul className="mt-7 space-y-2.5 border-t border-sand-200 pt-6">
-                {PACKAGE_ROWS.map((row, i) => {
-                  const on = p.featured ? row.advanced : row.standard;
-                  const differentiator = row.standard !== row.advanced;
-                  return (
-                    <li
-                      key={row.label}
-                      className={`flex items-center gap-2.5 text-sm ${
-                        !on
-                          ? "text-sand-400"
-                          : differentiator || i === 0
-                            ? "font-semibold text-cream"
-                            : "text-sand-600"
-                      }`}
-                    >
-                      {on ? check : dash}
-                      <span>{row.label}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-
-              <p className="mt-6 max-w-sm text-sm leading-relaxed text-sand-600">
-                {p.outcome}
-              </p>
-
-              <a
-                href="#book"
-                className="group mt-auto inline-flex items-center gap-1.5 pt-7 text-sm text-sand-600 transition-colors duration-150 hover:text-cream"
-              >
-                Need a custom quote?
-                <ArrowForward
-                  size={15}
-                  className="transition-transform duration-200 group-hover:translate-x-1"
-                />
-              </a>
-            </div>
+            <PackageCard key={p.name} pkg={p} tone="green" className="reveal" />
           ))}
         </div>
 
         <p className="reveal mt-5 text-xs leading-relaxed text-sand-100/60 lg:hidden">
           Both packages are planned for real bathroom movement and installed by
-          trained Mason experts - so the result feels safe, thoughtful,
-          and still beautifully at home.
+          trained Mason experts - so the result feels safe, thoughtful, and
+          still beautifully at home.
         </p>
       </Reveal>
     </section>
