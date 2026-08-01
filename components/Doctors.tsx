@@ -115,7 +115,11 @@ export default function Doctors() {
                   <p className="font-display text-base font-bold leading-tight text-cream">
                     {doc.name}
                   </p>
-                  <p className="mt-0.5 text-xs leading-snug text-sand-600">
+                  {/* Reserve two lines for the credentials in the 3-up grid —
+                      Dr. Rajiv's wrap, and without the reservation the other
+                      two captions sit a line higher than his. Stacked on
+                      mobile there's nothing to line up against, so no min. */}
+                  <p className="mt-0.5 text-xs leading-snug text-sand-600 md:min-h-[2lh]">
                     {doc.creds}
                   </p>
                   <p className="mt-0.5 text-xs leading-snug text-sand-400">
