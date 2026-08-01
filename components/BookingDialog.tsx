@@ -129,6 +129,16 @@ export default function BookingProvider({
 
     if (isOpen) {
       if (!el.open) el.showModal();
+      // showModal() focuses the first focusable child, which here is the close
+      // button — so the sheet opened with a green focus ring drawn around the
+      // X, reading as a selected state nobody chose. Moving focus to the
+      // dialog itself keeps the ring off (a programmatic focus on a
+      // tabindex="-1" container does not match :focus-visible) while still
+      // putting the tab sequence inside the dialog, which is the part that
+      // actually matters.
+      // preventScroll: focus() scrolls its target into view by default, and
+      // the page behind is mid-scroll when the sheet opens.
+      el.focus({ preventScroll: true });
       smoothScroll.current?.stop();
     } else {
       if (el.open) el.close();
@@ -208,6 +218,9 @@ export default function BookingProvider({
       <dialog
         ref={dialogRef}
         aria-labelledby="booking-title"
+        /* Focusable only programmatically — the target for the el.focus()
+           above, and never a stop in the tab order. */
+        tabIndex={-1}
         onClick={(e) => {
           // click on the backdrop (the dialog element itself) dismisses
           if (e.target === dialogRef.current) close();
@@ -487,8 +500,15 @@ export default function BookingProvider({
 
               {/* Pinned. The hairline is what marks it as pinned rather than
                   merely last — without it, fields scrolling under the button
-                  look truncated instead of continuing. */}
-              <div className="shrink-0 border-t border-sand-200 pt-5">
+                  look truncated instead of continuing.
+
+                  Two lines of "we only use these details to arrange your visit"
+                  used to sit under the button. On a sheet the vertical budget
+                  is the whole design, and reassurance that costs 56px of it is
+                  reassurance the sheet cannot afford — the service-area line is
+                  already carrying that job, in place beside the field it
+                  answers. pt-4 now the button is the only thing here. */}
+              <div className="shrink-0 border-t border-sand-200 pt-4">
                 <button
                   type="submit"
                   disabled={busy}
@@ -496,13 +516,6 @@ export default function BookingProvider({
                 >
                   {busy ? "Sending…" : "Request my visit"}
                 </button>
-
-                {/* One line of reassurance, balanced so a wrap splits evenly
-                    instead of stranding a word. */}
-                <p className="mt-4 text-balance text-center text-xs leading-relaxed text-sand-400">
-                  We only use these details to arrange your visit. No spam, and
-                  the visit is free.
-                </p>
               </div>
             </form>
           )}

@@ -100,6 +100,14 @@ select:focus-visible {
   outline: none;
 }
 
+/* …and dialogs, which are containers rather than controls. The booking sheet
+   takes focus itself on open so that showModal() doesn't hand it to the close
+   button (see BookingDialog) — but a ring drawn around the whole sheet says no
+   more than one drawn around the X did. Same reason this lives unlayered. */
+dialog:focus-visible {
+  outline: none;
+}
+
 /* Default hairline colour for anything with a border but no explicit one.
    MUST stay inside @layer base: unlayered, this beats every border-* utility
    in @layer utilities no matter how specific, so border-sand-200,

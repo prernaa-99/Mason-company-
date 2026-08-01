@@ -270,7 +270,14 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={busy}
-            className={ctaClass({ className: "shrink-0 disabled:opacity-70" })}
+            /* justify-center: stacked, this is a flex item in a column, so it
+               stretches to the full width while its own justify-content stays
+               at the default — label and arrow bunched against the left edge of
+               a 277px button. A no-op from sm, where shrink-0 in a row sizes it
+               to its content again. */
+            className={ctaClass({
+              className: "shrink-0 justify-center disabled:opacity-70",
+            })}
           >
             {busy ? "Sending…" : "Send my enquiry"}
             <ArrowForward
