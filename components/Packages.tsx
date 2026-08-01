@@ -1,7 +1,7 @@
 import Reveal from "./Reveal";
 import Cta from "./Cta";
 import { ArrowForward } from "./Icon";
-import { PACKAGE_ROWS } from "./packages-data";
+import { PACKAGE_ROWS, PACKAGES } from "./packages-data";
 
 const check = (
   <svg
@@ -20,29 +20,6 @@ const check = (
     />
   </svg>
 );
-
-const packages = [
-  {
-    name: "Standard",
-    badge: "The complete kit",
-    featured: false,
-    bestFor:
-      "The full safety upgrade, installed, inspected and handed over in one go.",
-    outcome:
-      "A complete everyday safety upgrade for steadier movement, better grip, and more confidence at home.",
-    cta: "Book Standard",
-  },
-  {
-    name: "Advanced",
-    badge: "The complete kit, plus a year of cover",
-    featured: true,
-    bestFor:
-      "The same installation, with a safety check-up a year on to catch anything that has worked loose.",
-    outcome:
-      "The same upgrade, looked after - so it stays as safe as the day it was fitted.",
-    cta: "Book Advanced",
-  },
-];
 
 /* Following the masonco plan section: the kit collapses to a single line and
    the space goes on check/dash rows. Only the last row differs between the two
@@ -73,7 +50,7 @@ export default function Packages() {
         </div>
 
         <div className="mt-8 grid gap-6 lg:mt-6 lg:min-h-0 lg:flex-1 lg:grid-cols-[1fr_1.12fr]">
-          {packages.map((p) => (
+          {PACKAGES.map((p) => (
             <div
               key={p.name}
               className={`reveal relative flex flex-col rounded-3xl bg-sand-50 p-6 lg:p-7 ${

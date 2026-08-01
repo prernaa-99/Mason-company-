@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import Cta from "@/components/Cta";
 import { KIT } from "@/components/kit";
-import { PACKAGE_ROWS } from "@/components/packages-data";
+import { PACKAGE_ROWS, PACKAGES } from "@/components/packages-data";
 
 export const metadata: Metadata = {
   title: "Packages - Mason Company",
@@ -14,22 +14,23 @@ export const metadata: Metadata = {
 };
 
 /* One page, one surface, one language: paper, hairlines, mono labels, display
-   type. No coloured bands and no cards — the comparison table and the kit list
-   are the same object twice, which is what stops the page reading as a stack of
-   unrelated blocks.
+   type.
 
-   The table is deliberately narrower than the headline above it. A four-row
-   table stretched to the full 1280px measure leaves the marks stranded a screen
-   away from their labels. */
-
-/* Both the table rows and the CTA row use this, so the columns line up. The
-   mark columns are fixed; the label column takes whatever is left. 13rem is
-   set by the widest thing that has to fit in a mark column — the "Book
-   Standard" pill, which needs ~183px and wrapped onto two lines at 11rem. */
-const ROW = "grid grid-cols-[1fr_3.5rem_3.5rem] sm:grid-cols-[1fr_13rem_13rem]";
+   This was a Standard-vs-Advanced comparison table, and it read as padding:
+   eight mark cells, seven of them yes, and only one row in four that actually
+   differs. So the offer is stated in its true shape instead — everything the
+   two packages share, once, and then the single thing that separates them,
+   given room to be a sentence rather than a lone tick. */
 
 const check = (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+  <svg
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    aria-hidden="true"
+    className="mt-0.5 shrink-0 text-forest-700"
+  >
     <path
       d="M5 12.5l4 4 10-10"
       stroke="currentColor"
@@ -41,22 +42,11 @@ const check = (
 );
 
 const dash = (
-  <span aria-hidden="true" className="h-0.5 w-4 rounded-full bg-sand-200" />
+  <span
+    aria-hidden="true"
+    className="mt-2.5 h-0.5 w-4 shrink-0 rounded-full bg-sand-200"
+  />
 );
-
-/** `included` drives the accessible text; the tick alone says nothing aloud. */
-function Mark({ on, tint }: { on: boolean; tint?: boolean }) {
-  return (
-    <div
-      className={`grid place-items-center py-4 ${
-        tint ? "bg-accent-tint" : ""
-      } ${on ? "text-forest-700" : ""}`}
-    >
-      {on ? check : dash}
-      <span className="sr-only">{on ? "Included" : "Not included"}</span>
-    </div>
-  );
-}
 
 export default function PackagesPage() {
   return (
@@ -64,11 +54,9 @@ export default function PackagesPage() {
       <Nav />
       <main>
         <section className="mx-auto max-w-7xl px-6 pt-32 pb-16 lg:px-10 lg:pt-40 lg:pb-24">
-          {/* Header runs to the page measure, so the eyebrow and headline sit
-              on the same left edge as every other page's. Only the two content
-              blocks below are centred on the narrower max-w-5xl column — a
-              four-row table stretched across the full 1280px leaves the marks
-              stranded a screen away from their labels. */}
+          {/* Everything on this page sits on the one page measure, so the
+              eyebrow, headline, cards and kit list all share a left and right
+              edge. */}
           <p className="eyebrow mb-5">Packages</p>
           <h1 className="h-display text-5xl text-cream sm:text-6xl lg:text-7xl">
             One complete <span className="accent-word">kit</span>.
@@ -78,84 +66,85 @@ export default function PackagesPage() {
             upgrades. Only what happens a year later separates them.
           </p>
 
-          {/* ---- the comparison ---- */}
-          <Reveal className="mx-auto mt-14 max-w-5xl lg:mt-20">
-            <div className="reveal">
-              {/* Column heads. The Advanced column carries a tint that runs the
-                  full height of the table, rounded at top and bottom, so the
-                  featured package is one continuous object rather than a badge
-                  stuck on a card. */}
-              <div className={`${ROW} border-b-2 border-cream`}>
-                <div className="py-4 pr-4">
-                  <span className="eyebrow">What you get</span>
-                </div>
-                <div className="grid place-items-center py-4">
-                  <span className="font-display text-sm font-extrabold uppercase tracking-[0.12em] text-cream sm:text-base">
-                    Standard
-                  </span>
-                </div>
-                <div className="grid place-items-center rounded-t-2xl bg-accent-tint py-4">
-                  <span className="font-display text-sm font-extrabold uppercase tracking-[0.12em] text-forest-700 sm:text-base">
-                    Advanced
-                  </span>
-                  <span className="mt-0.5 hidden text-[0.65rem] text-forest-700/70 sm:block">
-                    Most popular
-                  </span>
-                </div>
-              </div>
-
-              {PACKAGE_ROWS.map((row) => {
-                const differentiator = row.standard !== row.advanced;
-                return (
-                  <div
-                    key={row.label}
-                    className={`${ROW} border-b border-sand-200`}
-                  >
-                    <div
-                      className={`py-4 pr-4 text-sm leading-snug sm:text-base ${
-                        differentiator
-                          ? "font-semibold text-cream"
-                          : "text-sand-600"
-                      }`}
-                    >
-                      {row.label}
-                    </div>
-                    <Mark on={row.standard} />
-                    <Mark on={row.advanced} tint />
+          {/* ---- the choice ----
+              Same card language as the homepage section, on the light surface:
+              the featured one is tinted and ringed rather than badged. Each
+              card carries the whole row list, so the reason to pick one is a
+              line you can read in place rather than a tick in a far-off
+              column. */}
+          <Reveal className="mt-14 lg:mt-20">
+            <div className="grid gap-6 lg:grid-cols-2">
+              {PACKAGES.map((p) => (
+                <div
+                  key={p.name}
+                  className={`reveal flex flex-col rounded-3xl p-7 lg:p-9 ${
+                    p.featured
+                      ? "bg-accent-tint ring-2 ring-forest-200"
+                      : "bg-sand-100"
+                  }`}
+                >
+                  <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+                    <h2 className="h-display text-3xl text-cream sm:text-4xl">
+                      {p.name}
+                    </h2>
+                    {p.featured && (
+                      <span className="rounded-full bg-forest-700 px-3 py-1 text-[0.7rem] font-semibold text-sand-100">
+                        Most popular
+                      </span>
+                    )}
                   </div>
-                );
-              })}
 
-              {/* Buttons sit under their own column from sm up. Below that the
-                  mark columns are 3.5rem wide and could never hold a button, so
-                  the CTAs stack full width beneath the table instead. */}
-              <div className={`${ROW} hidden sm:grid`}>
-                <div />
-                <div className="grid place-items-center px-2 py-7">
-                  <Cta
-                    href="#book"
-                    size="compact"
-                    variant="outline"
-                    className="whitespace-nowrap"
-                  >
-                    Book Standard
-                  </Cta>
-                </div>
-                <div className="grid place-items-center rounded-b-2xl bg-accent-tint px-2 py-7">
-                  <Cta href="#book" size="compact" className="whitespace-nowrap">
-                    Book Advanced
-                  </Cta>
-                </div>
-              </div>
+                  <p className="mt-4 max-w-md text-base leading-relaxed text-cream-dim sm:text-lg">
+                    {p.bestFor}
+                  </p>
 
-              <div className="mt-6 grid gap-3 sm:hidden">
-                <Cta href="#book" size="block" variant="outline">
-                  Book Standard
-                </Cta>
-                <Cta href="#book" size="block">
-                  Book Advanced
-                </Cta>
-              </div>
+                  {/* Weighting matches the homepage cards exactly: the first
+                      row and the one that differs carry the emphasis, the
+                      middle rows recede, an absence is muted rather than
+                      struck through. */}
+                  <ul className="mt-7 space-y-3 border-t border-sand-200 pt-7">
+                    {PACKAGE_ROWS.map((row, i) => {
+                      const on = p.featured ? row.advanced : row.standard;
+                      const differentiator = row.standard !== row.advanced;
+                      return (
+                        <li key={row.label} className="flex items-start gap-3">
+                          {on ? check : dash}
+                          <span
+                            className={
+                              !on
+                                ? "text-sand-400"
+                                : differentiator || i === 0
+                                  ? "font-semibold text-cream"
+                                  : "text-sand-600"
+                            }
+                          >
+                            {row.label}
+                          </span>
+                          <span className="sr-only">
+                            {on ? "Included" : "Not included"}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+
+                  <p className="mt-5 max-w-md text-sm leading-relaxed text-sand-600">
+                    {p.outcome}
+                  </p>
+
+                  {/* mt-auto so both buttons sit on the same line however the
+                      copy above wraps */}
+                  <div className="mt-auto pt-8">
+                    <Cta
+                      href="#book"
+                      size="block"
+                      variant={p.featured ? "solid" : "outline"}
+                    >
+                      {p.cta}
+                    </Cta>
+                  </div>
+                </div>
+              ))}
             </div>
           </Reveal>
 
