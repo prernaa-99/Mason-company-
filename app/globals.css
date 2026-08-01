@@ -341,22 +341,27 @@ html.lenis body {
    rising from the bottom edge on a phone, a panel settling in the middle on a
    pointer. Both run on open — a <dialog> goes display:none -> block when
    showModal() fires, which is enough to start a keyframe. */
+/* transform, not the standalone translate/scale properties. Those are newer
+   and this runs on a top-layer <dialog>, which is exactly the kind of place
+   an older iOS Safari drops them — and a sheet that fails to animate back to
+   0 is a sheet stuck off the bottom of the screen. transform is the boring
+   choice and there is nothing to gain from the other one here. */
 @keyframes sheet-in {
   from {
-    translate: 0 100%;
+    transform: translateY(100%);
   }
   to {
-    translate: 0 0;
+    transform: translateY(0);
   }
 }
 
 @keyframes panel-in {
   from {
     opacity: 0;
-    scale: 0.97;
+    transform: scale(0.97);
   }
   to {
     opacity: 1;
-    scale: 1;
+    transform: scale(1);
   }
 }

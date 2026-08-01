@@ -224,17 +224,33 @@ export default function BookingProvider({
            fields scroll, the submit does not. Capped at 88dvh, a box that
            scrolls as a whole puts the one button the sheet exists for below
            the fold on any short viewport, with nothing to say it is there. */
-        className="m-0 mt-auto flex max-h-[88dvh] w-full max-w-none animate-[sheet-in_320ms_cubic-bezier(0.22,1,0.36,1)] flex-col overflow-hidden rounded-t-3xl bg-sand-50 p-0 text-cream backdrop:bg-cream/70 backdrop:backdrop-blur-sm motion-reduce:animate-none sm:m-auto sm:max-h-[calc(100dvh-2rem)] sm:w-[calc(100%-2rem)] sm:max-w-md sm:animate-[panel-in_200ms_ease-out] sm:rounded-3xl"
+        /* svh, not dvh. dvh tracks Safari's collapsing toolbars, so the sheet
+           would resize under the thumb as the page behind it moves; svh is the
+           smallest the viewport ever gets, which is the one height that always
+           fits above the browser chrome. */
+        className="m-0 mt-auto flex max-h-[88svh] w-full max-w-none animate-[sheet-in_320ms_cubic-bezier(0.22,1,0.36,1)] flex-col overflow-hidden rounded-t-3xl bg-sand-50 p-0 text-cream backdrop:bg-cream/70 backdrop:backdrop-blur-sm motion-reduce:animate-none sm:m-auto sm:max-h-[calc(100svh-2rem)] sm:w-[calc(100%-2rem)] sm:max-w-md sm:animate-[panel-in_200ms_ease-out] sm:rounded-3xl"
       >
         {/* Grabber. Purely a signal — the sheet is dismissed by the close
             button, the backdrop or Escape, not by dragging — but it is the
             one mark that tells you at a glance this is a sheet and not the
             page having jumped. */}
-        <div aria-hidden="true" className="flex justify-center pt-3 sm:hidden">
+        <div
+          aria-hidden="true"
+          className="flex shrink-0 justify-center pt-3 sm:hidden"
+        >
           <span className="h-1 w-10 rounded-full bg-sand-200" />
         </div>
 
-        <div className="flex min-h-0 flex-1 flex-col p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:p-8">
+        {/* flex-auto (flex: 1 1 auto), never flex-1 (flex: 1 1 0%), on this and
+            the two boxes inside it. The dialog's own height is content-based
+            with only a cap above it, and Safari does not give a zero-basis
+            child any intrinsic contribution in an auto-height column — so on
+            iOS the whole form collapsed to nothing and the sheet opened as a
+            bare title bar. An auto basis means the content still measures
+            itself; min-h-0 keeps it able to shrink and scroll once the cap
+            bites. Chrome sized it from content either way, which is why this
+            only showed up on the phone. */}
+        <div className="flex min-h-0 flex-auto flex-col p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:p-8">
           <div className="flex shrink-0 items-start justify-between gap-4">
             {/* Both states are title -> content -> button, so the header is the
                 same height either way and the close button never shifts. */}
@@ -296,7 +312,7 @@ export default function BookingProvider({
             <form
               onSubmit={onSubmit}
               noValidate
-              className="mt-6 flex min-h-0 flex-1 flex-col"
+              className="mt-6 flex min-h-0 flex-auto flex-col"
             >
               {/* data-lenis-prevent: Lenis binds wheel on the window and
                   preventDefaults it, so a wheel over this box scrolled
@@ -314,7 +330,7 @@ export default function BookingProvider({
                    instead of sitting on it — the rule needs air on both
                    sides, and the scrollport's own end is the only place to
                    put the space above it. */
-                className="-mx-1 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1 pb-5"
+                className="-mx-1 min-h-0 flex-auto overflow-y-auto overscroll-contain px-1 pb-5"
               >
                 <div>
                   <label htmlFor="name" className={LABEL}>
