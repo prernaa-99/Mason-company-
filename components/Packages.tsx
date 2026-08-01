@@ -8,7 +8,7 @@ export default function Packages() {
       id="packages"
       /* min-h, not h: a hard height plus overflow-hidden clipped the bottom of
          the cards once the rows and outcome copy went in. */
-      className="relative bg-forest-700 py-24 lg:min-h-screen lg:py-0"
+      className="relative bg-forest-700 py-16 sm:py-24 lg:min-h-screen lg:py-0"
     >
       <Reveal className="mx-auto flex h-full max-w-7xl flex-col px-6 lg:px-10 lg:pb-24 lg:pt-24">
         <div className="max-w-2xl">
@@ -27,9 +27,21 @@ export default function Packages() {
 
         {/* Equal columns — the cards are the same object as on /packages
             now, and the old 1.12fr lean only widened the featured one. */}
+        {/* Stacked below lg, the featured card is pulled to the top. Source
+            order is Standard then Advanced because side by side that reads
+            left-to-right as base then upgrade — but in a single column the
+            first card is simply the one you see, and burying the recommended
+            package under a full card's scroll is the wrong way round. Order
+            only, not the data: /packages renders the same two cards from the
+            same array. */}
         <div className="mt-8 grid gap-6 lg:mt-6 lg:min-h-0 lg:flex-1 lg:grid-cols-2">
           {PACKAGES.map((p) => (
-            <PackageCard key={p.name} pkg={p} tone="green" className="reveal" />
+            <PackageCard
+              key={p.name}
+              pkg={p}
+              tone="green"
+              className={`reveal ${p.featured ? "order-first lg:order-none" : ""}`}
+            />
           ))}
         </div>
 

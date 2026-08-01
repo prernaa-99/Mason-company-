@@ -69,7 +69,13 @@ export default function Doctors() {
     <section
       id="doctors"
       ref={container}
-      className="flex min-h-screen flex-col justify-center overflow-hidden bg-sand-100 px-6 py-16 sm:px-10 lg:px-16"
+      /* border-t like every other sand-100 section: Process is the same
+         colour, so without a hairline the two run together and the padding
+         between them reads as one section that trailed off rather than two
+         that meet. The sections that skip the rule (FAQ, Booking's card) are
+         the ones that follow a dark green break, where the colour change is
+         the divider. */
+      className="flex min-h-screen flex-col justify-center overflow-hidden border-t border-line bg-sand-100 px-6 py-16 sm:px-10 lg:px-16"
     >
       <div className="mx-auto w-full max-w-6xl">
         {/* Header — left-aligned in a max-w-2xl block, matching every other

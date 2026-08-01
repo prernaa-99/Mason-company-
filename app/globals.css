@@ -310,3 +310,29 @@ html.lenis body {
     transform: none;
   }
 }
+
+/* Mobile menu rows — rise and fade as the panel opens. A keyframe rather than
+   a transition because the rows mount with the panel: a transition needs a
+   from-state that has already been painted, which mounting doesn't give you
+   without a state flag and a spare frame. Each row carries its own
+   animation-delay inline; fill-mode both keeps it hidden until its turn. */
+@keyframes menu-row-in {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.menu-row {
+  animation: menu-row-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-row {
+    animation: none;
+  }
+}

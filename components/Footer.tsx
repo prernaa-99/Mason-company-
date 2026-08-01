@@ -94,14 +94,23 @@ export default function Footer() {
               compromise
             </span>
           </h2>
-          <Cta href="/#book" variant="light" className="shrink-0">
+          <Cta
+            href="/#book"
+            variant="light"
+            className="w-full shrink-0 justify-center sm:w-auto"
+          >
             Book a free visit
           </Cta>
         </div>
 
         {/* Columns */}
-        <div className="ft-reveal grid grid-cols-2 gap-10 py-14 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-          <div className="col-span-2 lg:col-span-1">
+        {/* One column below sm. Two columns at 390px leaves each about 155px,
+            which is narrower than the link text: "About Mason Company",
+            "Doctor Recommendations" and "Refund & Cancellation Policy" each
+            broke onto a second line, so the rows lost the even 12px rhythm
+            that makes a list scannable and turned into ragged blocks. */}
+        <div className="ft-reveal grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div className="sm:col-span-2 lg:col-span-1">
             <Link
               href="/"
               aria-label="Mason Company - home"

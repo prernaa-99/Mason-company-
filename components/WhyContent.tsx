@@ -269,9 +269,16 @@ export default function WhyContent() {
             Don&rsquo;t leave a link in the chain to{" "}
             <span className="accent-word">chance</span>.
           </h2>
-          <div className="reveal mt-9 flex flex-wrap justify-center gap-3">
-            <Cta href="/#book">Book a Safety Visit</Cta>
-            <Cta href="/#packages" variant="outline">
+          {/* Stacked full-width below sm — same reason as the hero's pair. */}
+          <div className="reveal mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
+            <Cta href="/#book" className="w-full justify-center sm:w-auto">
+              Book a Safety Visit
+            </Cta>
+            <Cta
+              href="/#packages"
+              variant="outline"
+              className="w-full justify-center sm:w-auto"
+            >
               See the packages
             </Cta>
           </div>

@@ -36,9 +36,16 @@ export default function Booking() {
             callback - one accountable Mason team handles the rest.
           </p>
 
-          <div className="reveal mt-9 flex flex-wrap items-center justify-center gap-3">
-            <Cta href="#book">Book a Safety Visit</Cta>
-            <Cta href="#book" variant="outlineLight">
+          {/* Stacked full-width below sm — same reason as the hero's pair. */}
+          <div className="reveal mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
+            <Cta href="#book" className="w-full justify-center sm:w-auto">
+              Book a Safety Visit
+            </Cta>
+            <Cta
+              href="#book"
+              variant="outlineLight"
+              className="w-full justify-center sm:w-auto"
+            >
               Request a Callback
             </Cta>
           </div>

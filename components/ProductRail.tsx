@@ -109,7 +109,11 @@ export default function ProductRail() {
         {KIT.map((it) => (
           <article
             key={it.title}
-            className="rail-card group relative aspect-[3/4] h-[clamp(200px,35vh,370px)] shrink-0 overflow-hidden rounded-xl [scroll-snap-align:start]"
+            /* Shorter cards below sm: 35vh is 295px on a 844px phone, and the
+               hero needs those 25px back to fit one screen. The 3/4 aspect
+               means height also sets how many cards you see, and at 32vh you
+               still get a card and a half — enough to read as a rail. */
+            className="rail-card group relative aspect-[3/4] h-[clamp(200px,35vh,370px)] shrink-0 overflow-hidden rounded-xl [scroll-snap-align:start] max-sm:h-[clamp(180px,32vh,300px)]"
           >
             <Image
               src={it.img}
@@ -133,25 +137,29 @@ export default function ProductRail() {
         ))}
         </div>
 
-        {/* arrows overlaid on the card edges, vertically centred */}
+        {/* Arrows overlaid on the card edges, vertically centred — desktop
+            only. On a phone the rail is already swipeable, so the discs buy
+            nothing and cost a lot: at that card width they cover a third of
+            the photo either side and sit right across the label. A pointer
+            has no swipe, which is the only reason they exist at all. */}
         <button
           onClick={() => page(-1)}
           aria-label="Previous"
-          className="absolute left-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-line-strong bg-ink/60 text-cream-dim backdrop-blur-sm transition-colors duration-150 hover:bg-ink/85 lg:left-4"
+          className="absolute left-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-line-strong bg-ink/60 text-cream-dim backdrop-blur-sm transition-colors duration-150 hover:bg-ink/85 sm:grid lg:left-4"
         >
           <ChevronLeft />
         </button>
         <button
           onClick={() => page(1)}
           aria-label="Next"
-          className="absolute right-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-line-strong bg-ink/60 text-cream-dim backdrop-blur-sm transition-colors duration-150 hover:bg-ink/85 lg:right-4"
+          className="absolute right-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-line-strong bg-ink/60 text-cream-dim backdrop-blur-sm transition-colors duration-150 hover:bg-ink/85 sm:grid lg:right-4"
         >
           <ChevronRight />
         </button>
       </div>
 
       {/* progress bar centred below */}
-      <div className="mx-auto mt-6 h-[3px] w-40 overflow-hidden rounded-full bg-line">
+      <div className="mx-auto mt-4 h-[3px] w-40 overflow-hidden rounded-full bg-line sm:mt-6">
         <div
           ref={barRef}
           className="h-full w-1/3 rounded-full bg-cream-dim transition-transform duration-100 ease-out"

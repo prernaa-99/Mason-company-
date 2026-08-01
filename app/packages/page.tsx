@@ -51,7 +51,10 @@ export default function PackagesPage() {
                   key={p.name}
                   pkg={p}
                   headingLevel={2}
-                  className="reveal"
+                  /* Featured first in the single-column stack — same as the
+                     homepage section, so the two never disagree about which
+                     package leads. */
+                  className={`reveal ${p.featured ? "order-first lg:order-none" : ""}`}
                 />
               ))}
             </div>

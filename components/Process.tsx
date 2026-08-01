@@ -137,7 +137,7 @@ export default function Process() {
     <section
       id="process"
       ref={ref}
-      className="border-t border-line bg-sand-100 py-24 lg:h-screen lg:py-0"
+      className="border-t border-line bg-sand-100 py-16 sm:py-24 lg:h-screen lg:py-0"
     >
       <div className="mx-auto grid h-full max-w-7xl gap-12 px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14 lg:px-10 lg:pb-10 lg:pt-24">
         {/* left — heading + live progress */}
@@ -152,7 +152,13 @@ export default function Process() {
             package booking all the way to final handover.
           </p>
 
-          <div className="proc-head mt-8 flex items-end gap-3">
+          {/* Counter and progress rule are desktop instruments: they track the
+              pinned lg:h-screen layout as it scrolls. Below lg there is no pin,
+              so the count sat frozen at 01 beside a "/ 06" broken over two
+              lines, above a rule that never filled — directly on top of the
+              same 01–06 printed on every step card. Two readings of the same
+              number, one of them inert. */}
+          <div className="proc-head mt-8 hidden items-end gap-3 lg:flex">
             <span className="proc-count font-display text-6xl font-bold leading-none text-cream">
               01
             </span>
@@ -162,13 +168,18 @@ export default function Process() {
               steps
             </span>
           </div>
-          <div className="proc-head relative mt-5 h-px w-48 bg-line">
+          <div className="proc-head relative mt-5 hidden h-px w-48 bg-line lg:block">
             <span className="proc-progress absolute inset-y-0 left-0 w-full origin-left scale-x-0 bg-clay" />
           </div>
 
-          <Cta href="#book" className="proc-head mt-8">
-            Book a Safety Visit
-          </Cta>
+          {/* Desktop keeps the CTA in the left column, where it sits beside
+              the staircase rather than before it. Stacked, that same position
+              puts "book now" between the promise of six clear steps and the
+              six steps themselves — asking for the decision before showing
+              the thing that earns it. */}
+          <div className="proc-head mt-8 hidden lg:block">
+            <Cta href="#book">Book a Safety Visit</Cta>
+          </div>
         </div>
 
         {/* right — descending staircase */}
@@ -193,6 +204,17 @@ export default function Process() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Below lg only — a third grid child, so the gap-12 rhythm carries it
+            without a margin of its own. Two elements rather than one moved by
+            order: the CTA belongs inside the left column on desktop, and a
+            single element cannot be both a child of that column and a sibling
+            of the staircase. */}
+        <div className="lg:hidden">
+          <Cta href="#book" className="w-full justify-center sm:w-auto">
+            Book a Safety Visit
+          </Cta>
         </div>
       </div>
     </section>
