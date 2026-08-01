@@ -241,7 +241,14 @@ export default function BookingProvider({
            would resize under the thumb as the page behind it moves; svh is the
            smallest the viewport ever gets, which is the one height that always
            fits above the browser chrome. */
-        className="m-0 mt-auto flex max-h-[88svh] w-full max-w-none animate-[sheet-in_320ms_cubic-bezier(0.22,1,0.36,1)] flex-col overflow-hidden rounded-t-3xl bg-sand-50 p-0 text-cream backdrop:bg-cream/70 backdrop:backdrop-blur-sm motion-reduce:animate-none sm:m-auto sm:max-h-[calc(100svh-2rem)] sm:w-[calc(100%-2rem)] sm:max-w-md sm:animate-[panel-in_200ms_ease-out] sm:rounded-3xl"
+        /* open:flex, never a bare flex. The browser hides a closed dialog with
+           `dialog:not([open]) { display: none }` — a UA rule, which any author
+           display utility outrides. So an unconditional flex left the sheet
+           rendered in normal flow at the end of the document, sitting below the
+           footer as a 587px slab of form. Gating it on [open] means the UA rule
+           still governs the closed state, and the open state is a flex column
+           the way it needs to be. */
+        className="m-0 mt-auto max-h-[88svh] w-full max-w-none animate-[sheet-in_320ms_cubic-bezier(0.22,1,0.36,1)] flex-col overflow-hidden rounded-t-3xl bg-sand-50 p-0 text-cream backdrop:bg-cream/70 backdrop:backdrop-blur-sm open:flex motion-reduce:animate-none sm:m-auto sm:max-h-[calc(100svh-2rem)] sm:w-[calc(100%-2rem)] sm:max-w-md sm:animate-[panel-in_200ms_ease-out] sm:rounded-3xl"
       >
         {/* Grabber. Purely a signal — the sheet is dismissed by the close
             button, the backdrop or Escape, not by dragging — but it is the
