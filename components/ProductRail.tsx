@@ -50,9 +50,16 @@ export default function ProductRail() {
   // A gesture belongs to the rail OR to the page, never both. We watch the first
   // few pixels, decide which way it's going, and only then take it over — a
   // drag that starts vertical is handed straight back so the page scrolls.
+  //
+  // Touch is excluded: the browser does it better. This handler writes
+  // scrollLeft once per pointermove, which tracks the finger but stops dead the
+  // instant it lifts — no flick, no momentum, no rubber-band at the ends. Those
+  // are the things that make a rail feel like a rail on a phone, and none of
+  // them can be faked convincingly from a move handler. A mouse has no flick to
+  // lose, so click-drag on desktop still comes through here.
   const onDown = (e: React.PointerEvent) => {
     const el = scrollerRef.current;
-    if (!el) return;
+    if (!el || e.pointerType === "touch") return;
     drag.current = {
       down: true,
       locked: false,
@@ -102,9 +109,21 @@ export default function ProductRail() {
           onPointerUp={onUp}
           onPointerCancel={onUp}
           /* overscroll-x-contain: hitting either end must not chain the scroll
-             up to the page. touch-pan-y: on touch the browser only ever owns the
-             vertical axis; horizontal is ours. */
-          className="flex cursor-grab gap-4 overflow-x-auto overscroll-x-contain pb-1 touch-pan-y [scrollbar-width:none] select-none active:cursor-grabbing [scroll-snap-type:x_proximity] [&::-webkit-scrollbar]:hidden"
+             up to the page.
+
+             touch-auto, where this used to say touch-pan-y: the browser now
+             owns both axes on touch, which is what buys the momentum and the
+             rubber-band. It can do that safely because the rail has no vertical
+             overflow of its own, so a vertical swipe over it still scrolls the
+             page.
+
+             Snapping is desktop-only. Proximity snap plus a drag that ends
+             abruptly is what made this move a card at a time: you let go, and
+             the rail stepped to the nearest card start rather than coasting to
+             where you left it. On a pointer it is still worth having, because
+             the arrows page by 80% of the width and snap tidies where they
+             land. */
+          className="flex cursor-grab touch-auto gap-4 overflow-x-auto overscroll-x-contain pb-1 [scroll-snap-type:none] [scrollbar-width:none] select-none active:cursor-grabbing sm:[scroll-snap-type:x_proximity] [&::-webkit-scrollbar]:hidden"
         >
         {KIT.map((it) => (
           <article
