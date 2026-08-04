@@ -18,7 +18,9 @@ export default function Booking() {
   return (
     <section
       id="book"
-      className="border-t border-line bg-sand-100 px-0 py-0 sm:px-6 sm:py-16 lg:px-10 lg:py-24"
+      /* py-0 below sm is the full-bleed card, not a gap — from sm up this
+         picks up the page's section rhythm like everything else. */
+      className="border-t border-line bg-sand-100 px-0 py-0 sm:px-6 sm:py-20 lg:px-10 lg:py-24"
     >
       <Reveal className="relative mx-auto max-w-7xl overflow-hidden rounded-none border-0 sm:rounded-3xl sm:border sm:border-line">
         {/* background image */}
@@ -51,7 +53,7 @@ export default function Booking() {
             padding stops setting the height. svh rather than dvh so it doesn't
             grow and shrink as the phone's toolbars collapse. From sm it goes
             back to being sized by its own padding. */}
-        <div className="relative flex min-h-svh flex-col justify-center px-6 py-12 text-center sm:block sm:min-h-0 sm:px-12 sm:py-20 lg:py-28">
+        <div className="relative flex min-h-svh flex-col justify-center px-6 py-12 text-center sm:block sm:min-h-0 sm:px-12 sm:py-14 lg:py-16">
           <p className="reveal eyebrow on-dark mb-6">Book a Safety Visit</p>
           <h2 className="reveal mx-auto max-w-3xl h-display text-4xl leading-[1.05] text-white sm:text-5xl lg:text-6xl">
             Book the visit. We&rsquo;ll handle the{" "}

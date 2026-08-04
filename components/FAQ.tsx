@@ -151,7 +151,7 @@ export default function FAQ() {
       ref={container}
       /* No overflow-hidden: an ancestor with it becomes the scroll container
          for descendants, which silently kills the sticky header below. */
-      className="flex min-h-screen flex-col justify-center bg-sand-100 px-6 py-16 sm:px-10 lg:px-16"
+      className="flex flex-col bg-sand-100 px-6 py-14 sm:px-10 sm:py-20 lg:px-16 lg:py-24"
     >
       <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         {/* Header — sticks beside the accordion so the left gutter isn't empty

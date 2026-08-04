@@ -77,7 +77,8 @@ export default function Testimonials() {
     <section
       id="testimonials"
       ref={container}
-      className="flex min-h-screen flex-col justify-center overflow-hidden bg-forest-700 px-6 py-16 sm:px-10 lg:px-16"
+      /* Sized by its padding — see Doctors. */
+      className="flex flex-col overflow-hidden bg-forest-700 px-6 py-14 sm:px-10 sm:py-20 lg:px-16 lg:py-24"
     >
       <div className="mx-auto w-full max-w-6xl">
         {/* Header — left-aligned in a max-w-2xl block, matching every other

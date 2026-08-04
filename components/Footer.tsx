@@ -83,11 +83,15 @@ export default function Footer() {
   return (
     <footer
       ref={container}
-      className="bg-cream px-6 pb-10 pt-20 sm:px-10 lg:px-16"
+      /* pt matches the section rhythm; pb doesn't, deliberately. Every other
+         section's bottom padding is half of a gap to the next section — here
+         there is no next section, so 40px below the legal line is the page
+         edge, and a matching 80px would just be dead screen. */
+      className="bg-cream px-6 pb-10 pt-14 sm:px-10 sm:pt-20 lg:px-16 lg:pt-24"
     >
       <div className="mx-auto w-full max-w-6xl">
         {/* Closing CTA */}
-        <div className="ft-reveal flex flex-col items-start justify-between gap-8 border-b border-white/10 pb-14 lg:flex-row lg:items-end">
+        <div className="ft-reveal flex flex-col items-start justify-between gap-8 border-b border-white/10 pb-12 lg:flex-row lg:items-end">
           <h2 className="max-w-2xl font-display text-3xl font-extrabold leading-[1.08] tracking-tight text-sand-100 sm:text-4xl lg:text-5xl">
             A safer bathroom, without the{" "}
             <span className="font-serif font-normal italic text-forest-200">
@@ -109,7 +113,7 @@ export default function Footer() {
             "Doctor Recommendations" and "Refund & Cancellation Policy" each
             broke onto a second line, so the rows lost the even 12px rhythm
             that makes a list scannable and turned into ragged blocks. */}
-        <div className="ft-reveal grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="ft-reveal grid grid-cols-1 gap-10 py-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="sm:col-span-2 lg:col-span-1">
             <Link
               href="/"

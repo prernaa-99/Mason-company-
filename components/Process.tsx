@@ -137,9 +137,9 @@ export default function Process() {
     <section
       id="process"
       ref={ref}
-      className="border-t border-line bg-sand-100 py-16 sm:py-24 lg:h-screen lg:py-0"
+      className="border-t border-line bg-sand-100 py-14 sm:py-20 lg:h-screen lg:py-0"
     >
-      <div className="mx-auto grid h-full max-w-7xl gap-12 px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14 lg:px-10 lg:pb-10 lg:pt-24">
+      <div className="mx-auto grid h-full max-w-7xl gap-12 px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14 lg:px-10 lg:py-24">
         {/* left — heading + live progress */}
         <div>
           <p className="proc-head eyebrow mb-5">Our process</p>

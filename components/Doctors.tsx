@@ -75,7 +75,11 @@ export default function Doctors() {
          that meet. The sections that skip the rule (FAQ, Booking's card) are
          the ones that follow a dark green break, where the colour change is
          the divider. */
-      className="flex min-h-screen flex-col justify-center overflow-hidden border-t border-line bg-sand-100 px-6 py-16 sm:px-10 lg:px-16"
+      /* Padding sets the height, not the viewport. min-h-screen here only ever
+         added slack — the content is already within 30px of a screen at
+         861px tall, and on a taller monitor the centring pushed the extra
+         height out as dead margin at both ends. */
+      className="flex flex-col overflow-hidden border-t border-line bg-sand-100 px-6 py-14 sm:px-10 sm:py-20 lg:px-16 lg:py-24"
     >
       <div className="mx-auto w-full max-w-6xl">
         {/* Header — left-aligned in a max-w-2xl block, matching every other

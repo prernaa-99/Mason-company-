@@ -58,16 +58,15 @@ export default function Safer() {
   );
 
   return (
-    /* min-h-screen from sm only. On a phone the headline and CTA come to
-       257px, so a full-viewport section left ~395px of flat green with the
-       type floating in the middle of it — the emptiest screen on the page.
-       At desktop widths the same content fills the measure and the full
-       height reads as a deliberate break; below that, the padding is the
-       statement. (min-h-screen is also vh, which on a phone is taller than
-       what you can actually see.) */
+    /* Sized by its padding, not by the viewport. This used to be min-h-screen
+       from sm up, and the headline and CTA only come to ~245px — so at desktop
+       the section held 278px of flat green above the type and 282px below it,
+       the emptiest screen on the page, and it got worse the taller the monitor
+       was. The colour change is what makes this read as a break; the height was
+       never doing that work. The page's one section rhythm is the statement. */
     <section
       ref={container}
-      className="flex items-center justify-center bg-forest-700 px-6 py-16 sm:min-h-screen sm:py-24"
+      className="flex items-center justify-center bg-forest-700 px-6 py-14 sm:py-20 lg:py-24"
     >
       <div className="mx-auto w-full max-w-6xl text-center">
         {/* Below sm the clamp bottomed out at 32px, where neither sentence

@@ -142,9 +142,9 @@ export default function Transformations() {
   return (
     <section
       id="transformations"
-      className="border-t border-line bg-sand-100 py-16 sm:py-24 lg:h-screen lg:overflow-hidden lg:py-0"
+      className="border-t border-line bg-sand-100 py-14 sm:py-20 lg:h-screen lg:overflow-hidden lg:py-0"
     >
-      <Reveal className="mx-auto flex h-full max-w-7xl flex-col px-6 lg:px-10 lg:pb-12 lg:pt-28">
+      <Reveal className="mx-auto flex h-full max-w-7xl flex-col px-6 lg:px-10 lg:py-24">
         <div className="max-w-2xl">
           <p className="reveal eyebrow mb-5">Transformations</p>
           <h2 className="reveal h-display text-3xl text-cream sm:text-4xl lg:text-5xl">
