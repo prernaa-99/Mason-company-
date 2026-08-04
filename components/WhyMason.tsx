@@ -63,8 +63,8 @@ export default function WhyMason() {
 
       const mm = gsap.matchMedia();
 
-      // ---- desktop: stack in the centre, deal outward into a 3x2 grid,
-      //      once, and then stay dealt ----
+      // ---- desktop: stack in the centre, deal outward into a 3x2 grid as the
+      //      pinned section scrolls — forwards only ----
       mm.add("(min-width: 1024px)", () => {
         const grid = ref.current!.querySelector<HTMLElement>(".wm-grid")!;
         const cards = gsap.utils.toArray<HTMLElement>(".wm-card");
@@ -80,28 +80,15 @@ export default function WhyMason() {
           gsap.set(el, { zIndex: 10 + (cards.length - dealRank[i]) })
         );
 
-        /* Plays itself once, on its own clock — no scrub, so scrolling back up
-           leaves the cards where they landed instead of collecting them into
-           the stack again.
-
-           The pin goes with the scrub rather than being a separate decision:
-           its only job was to hold the section still for the 1700px the deal
-           was scrubbed across. Kept without the scrub it would be 1700px of
-           scrolling against a section that had already finished moving, which
-           is worse than what it replaced. Losing it also takes 1700px off the
-           page.
-
-           Triggered off the grid, not the section: the section is a full
-           viewport tall and the cards sit in its lower two thirds, so firing
-           on the section's own top dealt them out below the fold. */
+        /* Paused, and driven by hand below rather than handed to ScrollTrigger
+           as a scrubbed animation. The deal still tracks the pinned scroll
+           exactly as it did — that part was right, and it is what keeps the
+           cards from opening before you have arrived at the section. What was
+           wrong is only that a scrub is symmetric: running the scroll backwards
+           ran the deal backwards and collected the cards into the stack again. */
         const tl = gsap.timeline({
+          paused: true,
           defaults: { ease: "power3.out" },
-          scrollTrigger: {
-            trigger: grid,
-            start: "top 78%",
-            once: true,
-            invalidateOnRefresh: true,
-          },
         });
 
         cards.forEach((el, i) => {
@@ -123,6 +110,58 @@ export default function WhyMason() {
             { autoAlpha: 1, y: 0, duration: 0.3, immediateRender: true },
             at + 0.4
           );
+        });
+
+        /* The one-way playhead. `furthest` is the deepest the scroll has ever
+           taken the deal, and the timeline is only ever moved to that — so
+           scrolling back up through the pin leaves every card where it landed
+           and the section can be read at leisure.
+
+           quickTo rather than a new tween each frame: it retargets a single
+           tween, which is the mechanism scrub uses internally, and gives back
+           the half-second catch-up that `scrub: 1` had. Without it the cards
+           would track the scroll rigidly and the deal would feel snappier
+           than the one being replaced. */
+        const playhead = { p: 0 };
+        const scrubTo = gsap.quickTo(playhead, "p", {
+          duration: 0.5,
+          ease: "power3",
+          onUpdate: () => tl.progress(playhead.p),
+        });
+        let furthest = 0;
+
+        ScrollTrigger.create({
+          trigger: ref.current,
+          start: "top top",
+          end: "+=1700",
+          pin: true,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            if (self.progress > furthest) {
+              furthest = self.progress;
+              scrubTo(furthest);
+              return;
+            }
+            /* Reversed. Freezing the deal exactly where it stood strands
+               whichever cards were still in flight — mid-air, at 0.98 scale,
+               with their text still faded out — and that is the state the
+               section keeps until you scroll down through the pin again. So
+               a genuine reversal finishes the deal instead. The 0.04 margin
+               is there because scroll jitters by a pixel constantly, and
+               without it the first stray frame would count as going back. */
+            if (furthest > 0 && furthest < 1 && self.progress < furthest - 0.04) {
+              furthest = 1;
+              scrubTo(1);
+            }
+          },
+          /* A resize changes the grid, and the stacked position is measured
+             from it. invalidate() drops the recorded offsets so the next
+             render measures again; re-setting progress is what forces that
+             render, since the playhead itself hasn't moved. */
+          onRefresh: () => {
+            tl.invalidate();
+            tl.progress(playhead.p);
+          },
         });
       });
 
