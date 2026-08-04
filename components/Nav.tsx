@@ -120,7 +120,7 @@ export default function Nav() {
                 : "origin-left scale-100"
             }`}
           >
-            <MasonWordmark size={20} />
+            <MasonWordmark size={28} />
           </Link>
 
           <div className="hidden items-center gap-8 lg:flex">
