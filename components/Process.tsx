@@ -70,26 +70,23 @@ export default function Process() {
 
         gsap.set(treads, { opacity: 0, y: 36, x: -28 });
 
-        /* One beat per step, and one more at the end for the settle. The
-           staircase is worth 240px of scroll a beat either way, so the extra
-           beat buys the finished state its own moment rather than taking one
-           away from the steps. */
+        /* One beat per step, and the settle rides the last one rather than
+           taking a beat of its own. Given its own beat, "five dim, six lit"
+           became a state you arrived at and then had to scroll past to light
+           the rest — a stage, when it should only ever have been the moment
+           the flight completes. */
         const BEAT = 0.6;
-        const beats = steps.length + 1;
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: ref.current,
             start: "top top",
-            end: "+=" + beats * 240,
+            end: "+=" + steps.length * 240,
             pin: true,
             scrub: 1,
             anticipatePin: 1,
             onUpdate: (self) => {
-              /* One beat per step, so the elapsed beat is the step number.
-                 Clamped because the timeline runs a beat past the last reveal
-                 for the settle, and the counter should read 06 throughout it
-                 rather than ticking on to a step that doesn't exist. */
+              // one beat per step, so the elapsed beat is the step number
               const n = Math.min(
                 steps.length,
                 Math.floor((self.progress * tl.duration()) / BEAT) + 1
@@ -99,12 +96,14 @@ export default function Process() {
           },
         });
 
-        // progress bar spans the flight, full exactly as the settle begins
+        // progress bar spans the flight
         tl.to(
           ".proc-progress",
           { scaleX: 1, ease: "none", duration: steps.length * BEAT },
           0
         );
+
+        const last = steps.length - 1;
 
         // reveal each tread, then dim the previous one so only "now" is bright
         treads.forEach((t, i) => {
@@ -114,7 +113,12 @@ export default function Process() {
             { opacity: 1, y: 0, x: 0, duration: 0.5, ease: "power3.out" },
             at
           );
-          if (i > 0) {
+          /* Every arrival dims the one before it except the last, which has
+             the settle below landing on the same beat instead. Dimming there
+             too would put the fifth tread down to 0.32 and pull it straight
+             back up in the same half second — a flicker on the one beat that
+             should read as the staircase completing. */
+          if (i > 0 && i < last) {
             tl.to(
               treads[i - 1],
               { opacity: 0.32, duration: 0.4, ease: "none" },
@@ -123,16 +127,16 @@ export default function Process() {
           }
         });
 
-        /* The settle. Dimming the previous tread is what makes the sequence
-           read as "this step, now" while it is running, but nothing ever undid
-           it — so the flight ended with five of the six greyed out and only
-           the last one lit, as if most of the process were already behind you.
-           Six steps you can read together is the point of the section; the
-           step-by-step is how it gets there, not where it lands. */
+        /* The settle, on the same beat as the final step rather than after it.
+           Dimming the previous tread is what makes the sequence read as "this
+           step, now" while it runs, but that is how it gets to the end, not
+           where it should rest — so the sixth step arriving lights the whole
+           flight at once. Six steps you can read together is the point of the
+           section; nothing further should be needed to get there. */
         tl.to(
           treads,
-          { opacity: 1, duration: 0.45, ease: "power2.out" },
-          steps.length * BEAT
+          { opacity: 1, duration: 0.5, ease: "power2.out" },
+          last * BEAT
         );
       });
 
