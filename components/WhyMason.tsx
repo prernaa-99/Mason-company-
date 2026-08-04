@@ -133,7 +133,19 @@ export default function WhyMason() {
         ScrollTrigger.create({
           trigger: ref.current,
           start: "top top",
-          end: "+=1700",
+          /* One viewport, not the 1700px this used to hold. A pin costs the
+             same scroll in both directions, but the deal only runs in one of
+             them now — so 1700px, which is 2.16 screens at this height, was
+             2.16 screens of a completely static page on the way back up. That
+             is the "stuck" feeling, and it is the pin's length causing it
+             rather than anything about the animation.
+
+             One screen is the floor for any pinned section: enough for the
+             deal to scrub across unhurried going down, and the least it can
+             cost coming back up. As a percentage rather than a pixel count so
+             it holds for one screen on every display instead of two on a
+             laptop and one on a monitor. */
+          end: "+=100%",
           pin: true,
           anticipatePin: 1,
           onUpdate: (self) => {
