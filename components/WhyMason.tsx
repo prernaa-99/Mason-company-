@@ -201,11 +201,24 @@ export default function WhyMason() {
         </div>
 
         {/* deck → 3x2 grid */}
-        <div className="wm-grid relative mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-0 lg:flex-1 lg:grid-cols-3 lg:content-center">
+        {/* lg:mt-10 rather than lg:mt-0 — the grid had no space under the sub
+            copy at all, and the rows stretch to whatever is left rather than
+            being centred at a fixed height. Centring two 240px rows inside the
+            420px that remains on a 787px viewport overflowed by 76px, and
+            content-center splits an overflow evenly: 38px pushed up under the
+            sub copy, 38px clipped off the bottom by overflow-hidden. Letting
+            the rows divide the space means the cards fit any viewport and grow
+            on a tall one, instead of being a fixed height that only happens to
+            fit at 861px. */}
+        <div className="wm-grid relative mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:flex-1 lg:grid-cols-3">
           {reasons.map((r, i) => (
             <article
               key={r.title}
-              className="wm-card flex min-h-[220px] flex-col justify-center rounded-2xl border border-line bg-ink-raised p-7 will-change-transform lg:min-h-[240px]"
+              /* lg:min-h-0 hands the height back to the grid row. The 220px
+                 floor is a mobile concern, where each card is its own row and
+                 nothing else sets a height; at lg it was fighting the row it
+                 sits in and winning, which is what caused the overflow. */
+              className="wm-card flex min-h-[220px] flex-col justify-center rounded-2xl border border-line bg-ink-raised p-7 will-change-transform lg:min-h-0"
             >
               <span className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-cream-faint">
                 {r.tag}
