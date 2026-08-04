@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { smoothScroll } from "./SmoothScroll";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -130,22 +131,36 @@ export default function WhyMason() {
         });
         let furthest = 0;
 
+        /* Back to the 1700px it always held. The deal is scrubbed across the
+           pin, so the pin's length *is* the speed the cards open at — cutting
+           it to one screen made them open roughly twice as fast, which is not
+           a separate bug from the shortening, it is the shortening. */
+        let released = false;
+
+        /* Releasing the pin drops its 1700px spacer, which would throw the
+           scroll position 1700px down the page. It doesn't, because a section
+           pinned at start + k renders exactly like an unpinned one at start —
+           identical pixels — so putting the scroll back to start cancels the
+           spacer out. Both happen in one synchronous block, so the browser
+           only ever paints the corrected position. */
+        const release = (st: ScrollTrigger) => {
+          released = true;
+          const y = st.start;
+          st.kill();
+          const lenis = smoothScroll.current;
+          if (lenis) lenis.scrollTo(y, { immediate: true });
+          else window.scrollTo(0, y);
+          ScrollTrigger.refresh();
+        };
+
         ScrollTrigger.create({
           trigger: ref.current,
           start: "top top",
-          /* One viewport, not the 1700px this used to hold. A pin costs the
-             same scroll in both directions, but the deal only runs in one of
-             them now — so 1700px, which is 2.16 screens at this height, was
-             2.16 screens of a completely static page on the way back up. That
-             is the "stuck" feeling, and it is the pin's length causing it
-             rather than anything about the animation.
-
-             One screen is the floor for any pinned section: enough for the
-             deal to scrub across unhurried going down, and the least it can
-             cost coming back up. As a percentage rather than a pixel count so
-             it holds for one screen on every display instead of two on a
-             laptop and one on a monitor. */
-          end: "+=100%",
+          /* Back to the 1700px it always held. The deal is scrubbed across the
+             pin, so the pin's length *is* the speed the cards open at — cutting
+             it to one screen didn't just shorten the hold, it made the cards
+             open twice as fast. Those are the same knob, not two. */
+          end: "+=1700",
           pin: true,
           anticipatePin: 1,
           onUpdate: (self) => {
@@ -154,6 +169,7 @@ export default function WhyMason() {
               scrubTo(furthest);
               return;
             }
+
             /* Reversed. Freezing the deal exactly where it stood strands
                whichever cards were still in flight — mid-air, at 0.98 scale,
                with their text still faded out — and that is the state the
@@ -164,6 +180,16 @@ export default function WhyMason() {
             if (furthest > 0 && furthest < 1 && self.progress < furthest - 0.04) {
               furthest = 1;
               scrubTo(1);
+            }
+
+            /* And once it is done, the pin has nothing left to show going up,
+               so it stops charging scroll for it. A pin costs the same
+               distance in both directions; with a one-way animation behind it
+               the whole 1700px was dead screen on the way back — the second
+               or so of feeling stuck. Making the pin one-way too is what lets
+               the deal keep its full 1700px going down. */
+            if (!released && furthest >= 1 && self.direction === -1) {
+              release(self);
             }
           },
           /* A resize changes the grid, and the stacked position is measured
