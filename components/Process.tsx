@@ -70,35 +70,45 @@ export default function Process() {
 
         gsap.set(treads, { opacity: 0, y: 36, x: -28 });
 
+        /* One beat per step, and one more at the end for the settle. The
+           staircase is worth 240px of scroll a beat either way, so the extra
+           beat buys the finished state its own moment rather than taking one
+           away from the steps. */
+        const BEAT = 0.6;
+        const beats = steps.length + 1;
+
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: ref.current,
             start: "top top",
-            end: "+=" + steps.length * 240,
+            end: "+=" + beats * 240,
             pin: true,
             scrub: 1,
             anticipatePin: 1,
             onUpdate: (self) => {
-              // active step tracks the highlighted tread (0 -> 1, 1 -> last)
+              /* One beat per step, so the elapsed beat is the step number.
+                 Clamped because the timeline runs a beat past the last reveal
+                 for the settle, and the counter should read 06 throughout it
+                 rather than ticking on to a step that doesn't exist. */
               const n = Math.min(
                 steps.length,
-                Math.max(1, Math.round((steps.length - 1) * self.progress) + 1)
+                Math.floor((self.progress * tl.duration()) / BEAT) + 1
               );
               if (countEl) countEl.textContent = "0" + n;
             },
           },
         });
 
-        // progress bar spans the whole flight
+        // progress bar spans the flight, full exactly as the settle begins
         tl.to(
           ".proc-progress",
-          { scaleX: 1, ease: "none", duration: steps.length * 0.6 },
+          { scaleX: 1, ease: "none", duration: steps.length * BEAT },
           0
         );
 
         // reveal each tread, then dim the previous one so only "now" is bright
         treads.forEach((t, i) => {
-          const at = i * 0.6;
+          const at = i * BEAT;
           tl.to(
             t,
             { opacity: 1, y: 0, x: 0, duration: 0.5, ease: "power3.out" },
@@ -112,6 +122,18 @@ export default function Process() {
             );
           }
         });
+
+        /* The settle. Dimming the previous tread is what makes the sequence
+           read as "this step, now" while it is running, but nothing ever undid
+           it — so the flight ended with five of the six greyed out and only
+           the last one lit, as if most of the process were already behind you.
+           Six steps you can read together is the point of the section; the
+           step-by-step is how it gets there, not where it lands. */
+        tl.to(
+          treads,
+          { opacity: 1, duration: 0.45, ease: "power2.out" },
+          steps.length * BEAT
+        );
       });
 
       // ---- mobile: no pin, simple staggered reveal ----
