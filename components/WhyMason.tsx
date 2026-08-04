@@ -63,7 +63,8 @@ export default function WhyMason() {
 
       const mm = gsap.matchMedia();
 
-      // ---- desktop: stack in the centre, deal outward into a 3x2 grid ----
+      // ---- desktop: stack in the centre, deal outward into a 3x2 grid,
+      //      once, and then stay dealt ----
       mm.add("(min-width: 1024px)", () => {
         const grid = ref.current!.querySelector<HTMLElement>(".wm-grid")!;
         const cards = gsap.utils.toArray<HTMLElement>(".wm-card");
@@ -79,15 +80,26 @@ export default function WhyMason() {
           gsap.set(el, { zIndex: 10 + (cards.length - dealRank[i]) })
         );
 
+        /* Plays itself once, on its own clock — no scrub, so scrolling back up
+           leaves the cards where they landed instead of collecting them into
+           the stack again.
+
+           The pin goes with the scrub rather than being a separate decision:
+           its only job was to hold the section still for the 1700px the deal
+           was scrubbed across. Kept without the scrub it would be 1700px of
+           scrolling against a section that had already finished moving, which
+           is worse than what it replaced. Losing it also takes 1700px off the
+           page.
+
+           Triggered off the grid, not the section: the section is a full
+           viewport tall and the cards sit in its lower two thirds, so firing
+           on the section's own top dealt them out below the fold. */
         const tl = gsap.timeline({
           defaults: { ease: "power3.out" },
           scrollTrigger: {
-            trigger: ref.current,
-            start: "top top",
-            end: "+=1700",
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
+            trigger: grid,
+            start: "top 78%",
+            once: true,
             invalidateOnRefresh: true,
           },
         });
