@@ -35,8 +35,13 @@ async function requestLocation(): Promise<string | null> {
   return null;
 }
 
-/** No endpoint exists yet — nothing is sent anywhere. Wire this up. */
-async function submitBooking(values: BookingValues): Promise<void> {
+/** No endpoint exists yet — nothing is sent anywhere. Wire this up.
+ *
+ *  Exported because the Safer strip's inline form books the same visit. Two
+ *  surfaces, one request: a second stub next to this one is a second thing to
+ *  remember when the endpoint finally lands, and the one that gets forgotten
+ *  fails silently. */
+export async function submitBooking(values: BookingValues): Promise<void> {
   console.info("[booking] submit", values);
 }
 

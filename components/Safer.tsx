@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Cta from "./Cta";
+import VisitForm from "./VisitForm";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -12,6 +12,11 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
  * The turn. Stats ends on the cost of a fall and this answers it — which is
  * why the headline opens on "But". Sits between Stats and WhyMason: fear,
  * relief, then the rational case. Also the page's first dark break.
+ *
+ * It also now takes the booking. The strip used to end on a button that opened
+ * the dialog; the form it opened is small enough to stand in the section
+ * instead, so the one place on the page where the promise is stated outright is
+ * also the first place you can act on it — without a click in between.
  */
 export default function Safer() {
   const container = useRef<HTMLElement>(null);
@@ -24,7 +29,7 @@ export default function Safer() {
         // set + to, ending in clearProps: a reverted or interrupted .from()
         // strands the lines under their mask and the headline disappears.
         gsap.set(".safer-line", { yPercent: 110 });
-        gsap.set(".safer-cta", { y: 28, opacity: 0 });
+        gsap.set(".safer-rise", { y: 28, opacity: 0 });
 
         gsap
           .timeline({
@@ -42,11 +47,12 @@ export default function Safer() {
             clearProps: "transform",
           })
           .to(
-            ".safer-cta",
+            ".safer-rise",
             {
               y: 0,
               opacity: 1,
               duration: 0.7,
+              stagger: 0.1,
               ease: "power3.out",
               clearProps: "opacity,transform",
             },
@@ -68,39 +74,54 @@ export default function Safer() {
       ref={container}
       className="flex items-center justify-center bg-forest-700 px-6 py-14 sm:py-20 lg:py-24"
     >
-      <div className="mx-auto w-full max-w-6xl text-center">
-        {/* Below sm the clamp bottomed out at 32px, where neither sentence
-            fit its line — so "safer" and "home" each dropped onto a line of
-            their own and the block zigzagged long-tiny-long-tiny. Those two
-            words are the whole point of the headline; stranded and centred
-            they read as captions instead of the end of a sentence.
+      {/* Text first, form second — in the DOM and in both layouts. The headline
+          is what earns the form, so it leads whether the two are side by side
+          or stacked, and nothing has to be moved out of source order to get
+          there. */}
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="text-center lg:text-left">
+          {/* Below sm the clamp bottomed out at 32px, where neither sentence
+              fit its line — so "safer" and "home" each dropped onto a line of
+              their own and the block zigzagged long-tiny-long-tiny. Those two
+              words are the whole point of the headline; stranded and centred
+              they read as captions instead of the end of a sentence.
 
-            Same fix as the hero: 7.3vw with a wider measure (-mx-2) and
-            tighter tracking, so each sentence holds one line and lands on its
-            accent word where it was written to. */}
-        <h2 className="font-display text-[7.3vw] font-extrabold leading-[1.12] tracking-tight text-sand-100 max-sm:-mx-2 max-sm:tracking-[-0.045em] sm:text-[clamp(2rem,5vw,3.5rem)]">
-          <span className="block overflow-hidden pb-1">
-            <span className="safer-line block">
-              Make your bathroom{" "}
-              <span className="accent-word on-dark">safer</span>
-            </span>
-          </span>
-          <span className="block overflow-hidden pb-1">
-            <span className="safer-line block">
-              while it still feels like{" "}
-              <span className="accent-word on-dark">home</span>
-            </span>
-          </span>
-        </h2>
+              Same fix as the hero: 7.3vw with a wider measure (-mx-2) and
+              tighter tracking, so each sentence holds one line and lands on its
+              accent word where it was written to.
 
-        <div className="safer-cta mt-12">
-          <Cta
-            href="#book"
-            variant="light"
-            className="w-full justify-center sm:w-auto"
-          >
-            Book a Safety Visit
-          </Cta>
+              The lg step down from 3.5rem is the column: the headline used to
+              have the full 1152px to run across and now has half of it beside
+              the form, where 56px puts three words on a line and turns two
+              sentences into five. */}
+          <h2 className="font-display text-[7.3vw] font-extrabold leading-[1.12] tracking-tight text-sand-100 max-sm:-mx-2 max-sm:tracking-[-0.045em] sm:text-[clamp(2rem,5vw,3.5rem)] lg:text-[clamp(1.85rem,2.9vw,2.6rem)]">
+            <span className="block overflow-hidden pb-1">
+              <span className="safer-line block">
+                Make your bathroom{" "}
+                <span className="accent-word on-dark">safer</span>
+              </span>
+            </span>
+            <span className="block overflow-hidden pb-1">
+              <span className="safer-line block">
+                while it still feels like{" "}
+                <span className="accent-word on-dark">home</span>
+              </span>
+            </span>
+          </h2>
+
+          {/* white/90 rather than the sand-100 of the headline: a step back
+              from it, and still clear of the 4.5:1 floor on forest-700. */}
+          <p className="safer-rise mx-auto mt-6 max-w-md text-base leading-relaxed text-white/90 lg:mx-0">
+            Leave your details and a Mason advisor will call to arrange the
+            visit. Full refund any time before installation.
+          </p>
+        </div>
+
+        {/* Capped and centred until lg. Below the breakpoint this card has the
+            whole 1152px to itself, and a stack of three inputs run to that
+            width reads as a page, not a form. */}
+        <div className="safer-rise mx-auto w-full max-w-xl lg:max-w-none">
+          <VisitForm />
         </div>
       </div>
     </section>
