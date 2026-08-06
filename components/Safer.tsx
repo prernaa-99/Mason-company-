@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import PhotoSlot from "./PhotoSlot";
 import VisitForm from "./VisitForm";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -115,6 +116,23 @@ export default function Safer() {
             Leave your details and a Mason advisor will call to arrange the
             visit. Full refund any time before installation.
           </p>
+
+          {/* The column is two short blocks against a form that runs to ~590px,
+              so without this the left half is mostly empty green. A person
+              rather than a bathroom: every other photo on the page is the work,
+              and this is the one section that is about who it is for.
+
+              object-[50%_70%] because the source is a 2:3 portrait and the
+              hands — the whole subject — sit low in it. Centred, a wide box
+              crops to the forearm and cuts the fingers off. */}
+          <PhotoSlot
+            src="/images/care-2.jpg"
+            label="An older person at ease at home"
+            alt="An older person's hands resting in their lap"
+            sizes="(min-width: 1024px) 45vw, (min-width: 640px) 36rem, 100vw"
+            position="object-[50%_70%]"
+            className="safer-rise mx-auto mt-9 aspect-[16/10] w-full max-w-xl lg:mx-0 lg:max-w-none"
+          />
         </div>
 
         {/* Capped and centred until lg. Below the breakpoint this card has the

@@ -10,11 +10,12 @@ import {
 } from "react";
 import { ctaClass } from "./Cta";
 import { smoothScroll } from "./SmoothScroll";
-import ServiceArea from "./ServiceArea";
+import LocationField from "./LocationField";
 
 /* ===========================================================================
-   INTEGRATION POINTS — the only two places that talk to anything external.
-   Everything else in this file is UI.
+   INTEGRATION POINT — the only place in this file that talks to anything
+   external. Everything else here is UI. The location capture used to sit
+   beside it and now lives in LocationField, next to the four states it drives.
    =========================================================================== */
 
 export type BookingValues = {
@@ -24,16 +25,6 @@ export type BookingValues = {
   /** Whatever your location code hands back. Null when not captured. */
   location: string | null;
 };
-
-/**
- * Drop your existing location code in here. Return a short label to show the
- * user (village/area/city, a formatted address — whatever you resolve to), or
- * null if it could not be captured. The UI already handles idle, pending,
- * captured and unavailable states around it.
- */
-async function requestLocation(): Promise<string | null> {
-  return null;
-}
 
 /** No endpoint exists yet — nothing is sent anywhere. Wire this up.
  *
@@ -119,9 +110,9 @@ export default function BookingProvider({
   const errors: Errors = submitted ? validate({ name, mobile, email }) : {};
 
   const [location, setLocation] = useState<string | null>(null);
-  const [locState, setLocState] = useState<
-    "idle" | "pending" | "set" | "unavailable"
-  >("idle");
+  /* Bumped on reset to remount LocationField, which owns its own capture
+     state — clearing the label here is only half of it. */
+  const [locKey, setLocKey] = useState(0);
 
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
@@ -166,7 +157,7 @@ export default function BookingProvider({
     setEmail("");
     setSubmitted(false);
     setLocation(null);
-    setLocState("idle");
+    setLocKey((k) => k + 1);
     setDone(false);
   };
 
@@ -182,21 +173,6 @@ export default function BookingProvider({
       setDone(true);
     } finally {
       setBusy(false);
-    }
-  };
-
-  const onLocation = async () => {
-    setLocState("pending");
-    try {
-      const label = await requestLocation();
-      if (label) {
-        setLocation(label);
-        setLocState("set");
-      } else {
-        setLocState("unavailable");
-      }
-    } catch {
-      setLocState("unavailable");
     }
   };
 
@@ -453,61 +429,14 @@ export default function BookingProvider({
                   </p>
                 </div>
 
-                {/* Location — optional. The button calls requestLocation() at the
-                  top of this file; all four states are already designed. */}
-                <div className="mt-3">
-                  <span className={LABEL}>Location</span>
-                  <div className="mt-2 rounded-xl border border-sand-200 bg-white p-3">
-                    {locState === "set" && location ? (
-                      <div className="flex items-center justify-between gap-3">
-                        <span className="text-sm text-cream">{location}</span>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setLocation(null);
-                            setLocState("idle");
-                          }}
-                          className="shrink-0 text-xs font-semibold text-sand-400 transition-colors duration-150 hover:text-cream"
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    ) : (
-                      <>
-                        <button
-                          type="button"
-                          onClick={onLocation}
-                          disabled={locState === "pending"}
-                          className="flex w-full items-center gap-2.5 text-left text-sm font-semibold text-forest-700 transition-opacity duration-150 disabled:opacity-60"
-                        >
-                          <svg
-                            viewBox="0 0 24 24"
-                            className="h-[18px] w-[18px] shrink-0"
-                            fill="currentColor"
-                            aria-hidden="true"
-                          >
-                            <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" />
-                          </svg>
-                          {locState === "pending"
-                            ? "Getting your location…"
-                            : "Use my current location"}
-                        </button>
-                        {locState === "unavailable" && (
-                          <p className="mt-2 text-xs leading-relaxed text-sand-400">
-                            Couldn&rsquo;t get your location. You can still book
-                            - we&rsquo;ll confirm the address on the call.
-                          </p>
-                        )}
-                      </>
-                    )}
-                  </div>
-
-                  {/* Here rather than under the button: "do you even come to my
-                    city?" is a question about this field, and answering it in
-                    place keeps five lines of centred small print from piling up
-                    after the CTA. */}
-                  <ServiceArea className="mt-2" />
-                </div>
+                {/* Location — optional. LocationField owns the capture and
+                    all four of its states; this only keeps the label for
+                    submit. */}
+                <LocationField
+                  key={locKey}
+                  onChange={setLocation}
+                  className="mt-3"
+                />
               </div>
 
               {/* Pinned. The hairline is what marks it as pinned rather than

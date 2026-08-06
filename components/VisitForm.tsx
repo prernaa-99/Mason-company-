@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ctaClass } from "./Cta";
 import { EMAIL, submitBooking, toTenDigits } from "./BookingDialog";
-import ServiceArea from "./ServiceArea";
+import LocationField from "./LocationField";
 
 /* The booking form, in the page rather than over it.
 
@@ -53,6 +53,11 @@ export default function VisitForm() {
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
 
+  const [location, setLocation] = useState<string | null>(null);
+  /* Bumped on reset to remount LocationField, which owns its own capture
+     state — clearing the label here is only half of it. */
+  const [locKey, setLocKey] = useState(0);
+
   // Nothing is flagged until the first submit attempt — validating on blur
   // scolds people for fields they have simply not finished yet. Derived rather
   // than stored, so once errors ARE showing they clear live as you fix them.
@@ -68,15 +73,11 @@ export default function VisitForm() {
 
     setBusy(true);
     try {
-      /* location: null — the strip has no location capture. The dialog's is a
-         four-state geolocation prompt, which is a lot to put in front of
-         someone who has not asked for a form yet; ServiceArea below answers
-         the question it exists for, and the call confirms the address. */
       await submitBooking({
         name: values.name,
         mobile: `+91${values.mobile}`,
         email: values.email,
-        location: null,
+        location,
       });
       setDone(true);
     } finally {
@@ -193,18 +194,16 @@ export default function VisitForm() {
           </p>
         </div>
 
+        {/* Location — optional, and it brings the service-area line with it. */}
+        <LocationField key={locKey} onChange={setLocation} className="mt-3" />
+
         <button
           type="submit"
           disabled={busy}
-          className={`${ctaClass({ size: "block" })} mt-4 disabled:opacity-70`}
+          className={`${ctaClass({ size: "block" })} mt-5 disabled:opacity-70`}
         >
           {busy ? "Sending…" : "Request my visit"}
         </button>
-
-        {/* Under the button, not beside a location field it no longer has —
-            this is the last word before you commit, and "do you even come to
-            my city?" is the question that stops people committing. */}
-        <ServiceArea className="mt-4" />
       </form>
 
       {done && (
@@ -227,6 +226,8 @@ export default function VisitForm() {
               onClick={() => {
                 setValues(EMPTY);
                 setSubmitted(false);
+                setLocation(null);
+                setLocKey((k) => k + 1);
                 setDone(false);
               }}
               className={ctaClass({ variant: "outline" })}
