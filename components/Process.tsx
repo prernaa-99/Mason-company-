@@ -70,11 +70,7 @@ export default function Process() {
 
         gsap.set(treads, { opacity: 0, y: 36, x: -28 });
 
-        /* One beat per step, and the settle rides the last one rather than
-           taking a beat of its own. Given its own beat, "five dim, six lit"
-           became a state you arrived at and then had to scroll past to light
-           the rest — a stage, when it should only ever have been the moment
-           the flight completes. */
+        // one beat per step — the counter below reads the step number off it
         const BEAT = 0.6;
 
         const tl = gsap.timeline({
@@ -103,41 +99,17 @@ export default function Process() {
           0
         );
 
-        const last = steps.length - 1;
-
-        // reveal each tread, then dim the previous one so only "now" is bright
+        /* Each tread arrives and stays at full strength. Earlier this dimmed
+           the previous step so only "now" was bright, but the flight is meant
+           to be read as it builds — a step you have already passed is still
+           part of what the section is showing you, not backdrop. */
         treads.forEach((t, i) => {
-          const at = i * BEAT;
           tl.to(
             t,
             { opacity: 1, y: 0, x: 0, duration: 0.5, ease: "power3.out" },
-            at
+            i * BEAT
           );
-          /* Every arrival dims the one before it except the last, which has
-             the settle below landing on the same beat instead. Dimming there
-             too would put the fifth tread down to 0.32 and pull it straight
-             back up in the same half second — a flicker on the one beat that
-             should read as the staircase completing. */
-          if (i > 0 && i < last) {
-            tl.to(
-              treads[i - 1],
-              { opacity: 0.32, duration: 0.4, ease: "none" },
-              at
-            );
-          }
         });
-
-        /* The settle, on the same beat as the final step rather than after it.
-           Dimming the previous tread is what makes the sequence read as "this
-           step, now" while it runs, but that is how it gets to the end, not
-           where it should rest — so the sixth step arriving lights the whole
-           flight at once. Six steps you can read together is the point of the
-           section; nothing further should be needed to get there. */
-        tl.to(
-          treads,
-          { opacity: 1, duration: 0.5, ease: "power2.out" },
-          last * BEAT
-        );
       });
 
       // ---- mobile: no pin, simple staggered reveal ----
