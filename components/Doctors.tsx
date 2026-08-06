@@ -1,15 +1,27 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const DOCTORS = [
+/* `photo` is optional: a doctor who has one gets their face in the caption,
+   and the rest keep the initials disc, which is the same 12x12 circle. Both
+   sit in the same slot, so a card gaining a photo later doesn't move. */
+const DOCTORS: {
+  initials: string;
+  photo?: string;
+  name: string;
+  creds: string;
+  meta: string;
+  quote: string;
+}[] = [
   {
     initials: "AG",
+    photo: "/images/dr-ashok-gupta.jpg",
     name: "Dr. Ashok Gupta",
     creds: "MBBS (UCMS), MRSH (London)",
     meta: "40+ years of experience",
@@ -18,6 +30,7 @@ const DOCTORS = [
   },
   {
     initials: "RG",
+    photo: "/images/dr-rajiv-goyal.jpg",
     name: "Dr. Rajiv Goyal",
     creds: "MBBS, MD - Dermatology, Venereology & Leprosy",
     meta: "Dermatologist · 22 years overall experience",
@@ -118,9 +131,23 @@ export default function Doctors() {
               </blockquote>
 
               <figcaption className="mt-6 flex items-center gap-4 border-t border-sand-200 pt-6">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-forest-700 font-display text-sm font-bold text-sand-100">
-                  {doc.initials}
-                </span>
+                {doc.photo ? (
+                  <Image
+                    src={doc.photo}
+                    alt={doc.name}
+                    width={96}
+                    height={96}
+                    /* No `sizes`: at "48px" Next served a 48-wide file, which
+                       is exactly right for a 1x screen and mush on every other
+                       one. Left to width/height it builds a 1x/2x srcset off
+                       the 96 instead, so the disc stays sharp on retina. */
+                    className="h-12 w-12 shrink-0 rounded-full object-cover"
+                  />
+                ) : (
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-forest-700 font-display text-sm font-bold text-sand-100">
+                    {doc.initials}
+                  </span>
+                )}
                 <div>
                   <p className="font-display text-base font-bold leading-tight text-cream">
                     {doc.name}
