@@ -270,9 +270,12 @@ export default function BookingProvider({
                     .
                   </>
                 ) : (
-                  /* Deliberately plain and identical to the button that opened
-                     it — the title confirms the action you just took. */
-                  "Book a Safety Visit"
+                  /* Deliberately plain, and the same words as the button that
+                     opened it — the title confirms the action you just took.
+                     It is also the honest description of what this sheet does:
+                     it takes a number and someone rings it. Nothing here books
+                     anything by itself. */
+                  "Request a Callback"
                 )}
               </h2>
             </div>
@@ -455,7 +458,7 @@ export default function BookingProvider({
                   disabled={busy}
                   className={`${ctaClass({ size: "block" })} disabled:opacity-70`}
                 >
-                  {busy ? "Sending…" : "Request my visit"}
+                  {busy ? "Sending…" : "Request my callback"}
                 </button>
               </div>
             </form>

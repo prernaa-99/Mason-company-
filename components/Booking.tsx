@@ -63,20 +63,21 @@ export default function Booking() {
               and 4.78:1 over the lit part of the photo, and costs nothing —
               the paragraph still sits back from the headline's full white. */}
           <p className="reveal mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/90 sm:text-lg">
-            Act before a fall changes everything. Choose a package or request a
-            callback - one accountable Mason team handles the rest.
+            {/* Was "choose a package or request a callback", written when there
+                were two buttons here to choose between. One of them opens the
+                same sheet as the other, so the sentence was offering a fork
+                that did not exist. */}
+            Act before a fall changes everything. Leave your number and one
+            accountable Mason team handles the rest.
           </p>
 
-          {/* Stacked full-width below sm — same reason as the hero's pair. */}
-          <div className="reveal mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
+          {/* One button, because there was only ever one action. The pair here
+              read as a choice - a solid "Book a Safety Visit" beside an outline
+              "Request a Callback" - and both opened the identical sheet. A
+              choice that resolves to the same screen either way costs the
+              reader a decision and returns nothing for it. */}
+          <div className="reveal mt-9 flex justify-center">
             <Cta href="#book" className="w-full justify-center sm:w-auto">
-              Book a Safety Visit
-            </Cta>
-            <Cta
-              href="#book"
-              variant="outlineLight"
-              className="w-full justify-center sm:w-auto"
-            >
               Request a Callback
             </Cta>
           </div>
