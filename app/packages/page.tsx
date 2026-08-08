@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
-import Cta from "@/components/Cta";
+import ScrollCue from "@/components/ScrollCue";
+import PhotoSlot from "@/components/PhotoSlot";
+import VisitForm from "@/components/VisitForm";
 import PackageCard from "@/components/PackageCard";
 import { KIT } from "@/components/kit";
 import { PACKAGES } from "@/components/packages-data";
@@ -11,47 +12,105 @@ import { PACKAGES } from "@/components/packages-data";
 export const metadata: Metadata = {
   title: "Packages - Mason Company",
   description:
-    "Standard and Advanced install the same complete bathroom safety kit - 12 upgrades, fitted by trained Mason experts. Advanced adds a one-year safety check-up.",
+    "Book a free bathroom safety visit, or choose Standard or Advanced outright. Both install the same 12 upgrades, fitted by trained Mason experts.",
 };
 
-/* One page, one surface, one language: paper, hairlines, mono labels, display
-   type.
+/* Three blocks, in the order the decision is actually made.
 
-   The choice was a Standard-vs-Advanced comparison table, and it read as
-   padding: eight mark cells, seven of them yes, and only one row in four that
-   actually differed. It is two PackageCards now, the same ones the homepage
-   section uses. */
+   The page used to open by naming the kit and only reached a booking form six
+   sections later, on the assumption that the reader arrives ready to compare.
+   Most don't - they arrive not knowing what their bathroom needs, which is the
+   thing an assessment answers and a comparison table cannot. So the free visit
+   is the offer at the top and the form is on screen with it; the two packages
+   are the alternative for the reader who has already decided; and the kit list
+   is the evidence under both, stated once because both packages install it.
+
+   Surfaces alternate - sunken, paper, sunken - so each hand-off is a colour
+   change rather than a gap, and nothing bottoms out on empty paper. */
 
 export default function PackagesPage() {
   return (
     <>
       <Nav />
       <main>
-        <section className="mx-auto max-w-7xl px-6 pt-32 pb-16 lg:px-10 lg:pt-40 lg:pb-24">
-          {/* Everything on this page sits on the one page measure, so the
-              eyebrow, headline, cards and kit list all share a left and right
-              edge. */}
-          <p className="eyebrow mb-5">Packages</p>
-          <h1 className="h-display text-5xl text-cream sm:text-6xl lg:text-7xl">
-            One complete <span className="accent-word">kit</span>.
-          </h1>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-cream-dim sm:text-lg">
-            Standard and Advanced install exactly the same {KIT.length}{" "}
-            upgrades. Only what happens a year later separates them.
-          </p>
+        {/* ---------- 1. BOOK THE VISIT ----------
+            Headline left, form right, on the sunken surface so the sand-50
+            card lifts off it. Text before form in the DOM and in both layouts:
+            the headline is what earns the form. */}
+        <section className="border-b border-line bg-sand-100 px-6 pt-24 pb-14 lg:px-10 lg:pt-28 lg:pb-20">
+          <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <p className="eyebrow mb-4">Free &amp; no obligation</p>
+              {/* The lg step down from text-6xl is the column: the h1 has half
+                  the page beside the form, and 60px there puts three words on
+                  a line. */}
+              <h1 className="h-display text-4xl text-cream sm:text-5xl lg:text-[clamp(2.5rem,3.8vw,3.5rem)]">
+                Book a bathroom <span className="accent-word">safety</span>{" "}
+                visit.
+              </h1>
+              <p className="mt-4 max-w-md text-base leading-relaxed text-cream-dim sm:text-lg">
+                We walk the bathroom with you first, then recommend Standard or
+                Advanced. Full refund any time before installation.
+              </p>
 
-          {/* ---- the choice ----
-              The same PackageCard the homepage section uses. Each card carries
-              the whole row list, so the reason to pick one is a line you can
-              read in place rather than a tick in a far-off column. */}
-          <Reveal className="mt-14 lg:mt-20">
+              {/* Directly under the sentence it answers, not under the photo.
+                  Below the picture it landed at ~790px on a 1440x900 laptop -
+                  on the fold line, under the heaviest element on the page, and
+                  the one reader it exists for (already decided, doesn't want
+                  the visit) never saw it. Here it is the next thing after
+                  "Standard or Advanced", which is the moment the question
+                  occurs to them. */}
+              <ScrollCue href="#packages" className="mt-6">
+                Or choose a package now
+              </ScrollCue>
+
+              {/* Two short blocks against a form that runs past 600px, so
+                  without a picture the left half is mostly empty paper - the
+                  same problem, and the same fix, as the Safer strip. */}
+              <PhotoSlot
+                src="/images/bath-2.jpg"
+                label="A finished bathroom, grab rail fitted"
+                alt="A bathroom after a Mason safety install"
+                sizes="(min-width: 1024px) 45vw, (min-width: 640px) 36rem, 100vw"
+                /* Above the fold and the page's LCP - without this it waits
+                   in the lazy queue behind the form. */
+                priority
+                className="mt-8 aspect-[16/10] w-full max-w-xl lg:max-w-none"
+              />
+            </div>
+
+            {/* The ring is the page's, not the form's: VisitForm also sits on
+                forest green in the Safer strip, where a hairline would be
+                invisible. Same radius as the card it wraps, no padding, so the
+                stroke lands exactly on its edge. */}
+            <div className="mx-auto w-full max-w-xl rounded-3xl ring-1 ring-line lg:max-w-none">
+              <VisitForm />
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- 2. THE TWO PACKAGES ----------
+            For the reader who has decided already. A label and a hairline
+            rather than a heading - the cards carry their own h2s, and a
+            section title above them would be a third name for the same
+            thing. */}
+        <section
+          id="packages"
+          className="mx-auto max-w-7xl px-6 py-14 lg:px-10 lg:py-20"
+        >
+          <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 border-b border-sand-200 pb-4">
+            <p className="eyebrow">Choose a package</p>
+            <p className="eyebrow">Same for both packages</p>
+          </div>
+
+          <Reveal className="mt-8">
             <div className="grid gap-6 lg:grid-cols-2">
               {PACKAGES.map((p) => (
                 <PackageCard
                   key={p.name}
                   pkg={p}
                   headingLevel={2}
-                  /* Featured first in the single-column stack — same as the
+                  /* Featured first in the single-column stack - same as the
                      homepage section, so the two never disagree about which
                      package leads. */
                   className={`reveal ${p.featured ? "order-first lg:order-none" : ""}`}
@@ -60,75 +119,57 @@ export default function PackagesPage() {
             </div>
           </Reveal>
 
-          {/* ---- the kit ----
-              The block runs to the page measure so the heading rule reaches
-              the right gutter; the list underneath is pulled back to max-w-5xl.
-              Left-aligned throughout, so "The 12 upgrades." starts on the same
-              edge as the h1 above it. */}
-          <Reveal className="mt-24 lg:mt-32">
-            <div className="reveal flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 border-b-2 border-cream pb-4">
-              <h2 className="h-display text-3xl text-cream sm:text-4xl">
-                The {KIT.length} <span className="accent-word">upgrades</span>.
+          <div className="mt-8">
+            <ScrollCue href="#kit">See what gets installed</ScrollCue>
+          </div>
+        </section>
+
+        {/* ---------- 3. WHAT WE INSTALL ----------
+            Sunken again, and stated once: the list is identical in both
+            packages, so printing it per card would only invite the reader to
+            hunt for the difference between two identical columns.
+
+            Names and tags, no thumbnails. The photographs are on the cards and
+            in the block above; here the reader is counting, and twelve rows
+            you can take in at a glance beat twelve you have to scroll. */}
+        <section
+          id="kit"
+          className="border-t border-line bg-sand-100 px-6 py-14 lg:px-10 lg:py-20"
+        >
+          <Reveal className="mx-auto max-w-7xl">
+            <div className="reveal flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
+              {/* The chip is the section's real h2, styled as a label - it is
+                  a count, and set as display type it would compete with the
+                  h1 for the page. */}
+              <h2 className="inline-flex items-center rounded-full border border-dashed border-forest-200 bg-accent-tint px-4 py-2 font-mono-label text-[0.7rem] uppercase tracking-[0.18em] text-forest-700">
+                What we install &middot; {KIT.length}
               </h2>
               <p className="eyebrow">Identical in both packages</p>
             </div>
 
-            {/* Two across from lg up — six rows of two, on the page measure so
-                the second column's hairline ends level with the heading rule
-                above it. Not at sm: halving a 640px column leaves ~140px for
-                the title, and these run long ("Toilet seat / raised seat /
-                commode support"). Grid rather than columns so a wrapped title
-                lifts both cells in its row and the hairlines stay level across
-                the gutter. */}
-            <ul className="reveal lg:grid lg:grid-cols-2 lg:gap-x-20">
-              {KIT.map((item, i) => (
+            {/* Three across from lg, two from sm. Grid rather than columns so
+                a title that wraps lifts its whole row and the hairlines stay
+                level across the gutters. */}
+            <ul className="reveal mt-8 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-14">
+              {KIT.map((item) => (
                 <li
                   key={item.title}
-                  className="flex items-center gap-4 border-b border-sand-200 py-4 sm:gap-6"
+                  className="flex items-center justify-between gap-4 border-b border-dashed border-sand-200 py-3.5"
                 >
-                  <span className="w-6 shrink-0 font-mono-label text-xs text-sand-400">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  {/* alt is empty on purpose - the title sits right beside it,
-                      so a screen reader would otherwise hear it twice. */}
-                  <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg sm:h-16 sm:w-16">
-                    <Image
-                      src={item.img}
-                      alt=""
-                      fill
-                      sizes="64px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    {/* the label rides above the title on mobile, where there is
-                        no room for it in its own column */}
-                    <p className="font-mono-label text-[0.6rem] uppercase tracking-[0.18em] text-sand-400 sm:hidden">
-                      {item.label}
-                    </p>
-                    <h3 className="font-display text-base font-semibold leading-snug text-cream sm:text-lg">
-                      {item.title}
-                    </h3>
-                  </div>
-                  <span className="hidden shrink-0 font-mono-label text-[0.65rem] uppercase tracking-[0.18em] text-sand-400 sm:block">
+                  <h3 className="text-sm leading-snug font-semibold text-cream sm:text-base">
+                    {item.title}
+                  </h3>
+                  <span className="shrink-0 rounded-full bg-sand-200 px-3 py-1 font-mono-label text-[0.6rem] uppercase tracking-[0.16em] text-sand-600">
                     {item.label}
                   </span>
                 </li>
               ))}
             </ul>
 
-            {/* Stacked below sm so the CTA gets the full column, same as
-                every other CTA on a phone. flex-wrap alone left it at its
-                content width with the reassurance line dropped underneath. */}
-            <div className="reveal mt-10 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-4">
-              <Cta href="/#book" className="w-full justify-center sm:w-auto">
-                Book a Safety Visit
-              </Cta>
-              <p className="max-w-sm text-sm leading-relaxed text-cream-dim">
-                Not sure which package? The visit is free - we&rsquo;ll walk the
-                bathroom with you and say what it actually needs.
-              </p>
-            </div>
+            <p className="reveal mt-8 max-w-lg text-sm leading-relaxed text-sand-600">
+              All {KIT.length} are fitted, tested and handed over on the same
+              visit - there is no shorter version of the kit.
+            </p>
           </Reveal>
         </section>
       </main>

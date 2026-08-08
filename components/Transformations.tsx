@@ -3,12 +3,7 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import Reveal from "./Reveal";
-
-const gallery = [
-  { img: "/images/bath-2.jpg", label: "Guest bathroom · Bengaluru" },
-  { img: "/images/shower-2.jpg", label: "Walk-in shower · Goa" },
-  { img: "/images/bath-4.jpg", label: "Master bathroom · Bengaluru" },
-];
+import { GALLERY } from "./gallery-data";
 
 function BeforeAfter() {
   const [pos, setPos] = useState(52);
@@ -161,7 +156,7 @@ export default function Transformations() {
           <BeforeAfter />
 
           <div className="grid gap-6">
-            {gallery.map((g) => (
+            {GALLERY.map((g) => (
               <figure
                 key={g.label}
                 className="group relative flex-1 overflow-hidden rounded-2xl border border-line"

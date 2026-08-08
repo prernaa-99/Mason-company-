@@ -354,6 +354,21 @@ html.lenis body {
    an older iOS Safari drops them — and a sheet that fails to animate back to
    0 is a sheet stuck off the bottom of the screen. transform is the boring
    choice and there is nothing to gain from the other one here. */
+/* Scroll cue — the chevron drifts down and resets, which is the whole job:
+   a static arrow reads as decoration, a moving one reads as "there is more
+   this way". Small travel and a long pause between passes, so it sits at the
+   bottom of a section without competing with anything in it. */
+@keyframes cue-nudge {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  80% {
+    transform: translateY(4px);
+  }
+}
+
 @keyframes sheet-in {
   from {
     transform: translateY(100%);
