@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
@@ -129,9 +130,12 @@ export default function PackagesPage() {
             packages, so printing it per card would only invite the reader to
             hunt for the difference between two identical columns.
 
-            Names and tags, no thumbnails. The photographs are on the cards and
-            in the block above; here the reader is counting, and twelve rows
-            you can take in at a glance beat twelve you have to scroll. */}
+            Every row carries the thing itself and how many of it turn up. Two
+            columns rather than three: a photograph, a title that runs to
+            "Toilet seat / raised seat / commode support" and a count need
+            about 570px between them, and at three across the titles broke to
+            three lines each and the rows grew taller than the ones they were
+            meant to save space over. */}
         <section
           id="kit"
           className="border-t border-line bg-sand-100 px-6 py-14 lg:px-10 lg:py-20"
@@ -147,20 +151,46 @@ export default function PackagesPage() {
               <p className="eyebrow">Identical in both packages</p>
             </div>
 
-            {/* Three across from lg, two from sm. Grid rather than columns so
-                a title that wraps lifts its whole row and the hairlines stay
-                level across the gutters. */}
-            <ul className="reveal mt-8 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-14">
+            {/* Grid rather than columns so a title that wraps lifts its whole
+                row and the hairlines stay level across the gutter. */}
+            <ul className="reveal mt-8 grid lg:grid-cols-2 lg:gap-x-14">
               {KIT.map((item) => (
                 <li
                   key={item.title}
-                  className="flex items-center justify-between gap-4 border-b border-dashed border-sand-200 py-3.5"
+                  className="flex items-center gap-4 border-b border-dashed border-sand-200 py-3"
                 >
-                  <h3 className="text-sm leading-snug font-semibold text-cream sm:text-base">
-                    {item.title}
-                  </h3>
-                  <span className="shrink-0 rounded-full bg-sand-200 px-3 py-1 font-mono-label text-[0.6rem] uppercase tracking-[0.16em] text-sand-600">
-                    {item.label}
+                  {/* alt is empty on purpose - the title sits right beside it,
+                      so a screen reader would otherwise hear it twice. */}
+                  <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg sm:h-14 sm:w-14">
+                    <Image
+                      src={item.img}
+                      alt=""
+                      fill
+                      sizes="56px"
+                      className="object-cover"
+                    />
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <p className="font-mono-label text-[0.6rem] uppercase tracking-[0.18em] text-sand-400">
+                      {item.label}
+                    </p>
+                    <h3 className="text-sm leading-snug font-semibold text-cream sm:text-base">
+                      {item.title}
+                    </h3>
+                  </div>
+
+                  {/* The count. Tabular figures and a fixed min-width so a 1
+                      and a 12 sit on the same right edge down the column
+                      rather than shuffling by a digit. */}
+                  <span
+                    aria-hidden="true"
+                    className="min-w-9 shrink-0 rounded-full bg-sand-200 px-2.5 py-1 text-center font-mono-label text-sm tabular-nums text-cream"
+                  >
+                    {item.qty}
+                  </span>
+                  <span className="sr-only">
+                    {item.qty} included
                   </span>
                 </li>
               ))}
