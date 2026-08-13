@@ -73,24 +73,11 @@ export default function Process() {
         // one beat per step — the counter below reads the step number off it
         const BEAT = 0.6;
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: ref.current,
-            start: "top top",
-            end: "+=" + steps.length * 240,
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-            onUpdate: (self) => {
-              // one beat per step, so the elapsed beat is the step number
-              const n = Math.min(
-                steps.length,
-                Math.floor((self.progress * tl.duration()) / BEAT) + 1
-              );
-              if (countEl) countEl.textContent = "0" + n;
-            },
-          },
-        });
+        // The flight is built by a paused timeline we drive by hand, rather
+        // than a scrubbed one. A scrub binds progress straight to scroll
+        // position, so scrolling back up runs the build in reverse; here the
+        // staircase is meant to assemble once and stay assembled.
+        const tl = gsap.timeline({ paused: true });
 
         // progress bar spans the flight
         tl.to(
@@ -109,6 +96,36 @@ export default function Process() {
             { opacity: 1, y: 0, x: 0, duration: 0.5, ease: "power3.out" },
             i * BEAT
           );
+        });
+
+        // No pin: a pin holds the section in place for its whole scroll range
+        // in both directions, so scrolling back up gets trapped grinding through
+        // the pinned zone. Instead the build rides the section's own scroll-
+        // through, so scrolling up is just ordinary scrolling past a finished
+        // staircase.
+        //
+        // maxP only ever climbs: we set the timeline to the furthest point
+        // scroll has reached, never back. So scrolling down builds the flight,
+        // and scrolling back up holds it at its end state instead of undoing
+        // it. Fast scrolls still finish it because progress reaches 1.
+        let maxP = 0;
+        ScrollTrigger.create({
+          trigger: ref.current,
+          // maps the build across the section's own passage through the
+          // viewport, so it starts as the cards rise into view and finishes
+          // before they leave the top — no pin, no fixed scroll budget.
+          start: "top 80%",
+          end: "bottom 20%",
+          onUpdate: (self) => {
+            if (self.progress > maxP) maxP = self.progress;
+            tl.progress(maxP);
+            // one beat per step, so the furthest beat reached is the step number
+            const n = Math.min(
+              steps.length,
+              Math.floor((maxP * tl.duration()) / BEAT) + 1
+            );
+            if (countEl) countEl.textContent = "0" + n;
+          },
         });
       });
 
@@ -135,7 +152,7 @@ export default function Process() {
     <section
       id="process"
       ref={ref}
-      className="border-t border-line bg-sand-100 py-14 sm:py-20 lg:h-screen lg:py-0"
+      className="border-t border-line bg-sand-100 py-14 sm:py-20 lg:py-0"
     >
       <div className="mx-auto grid h-full max-w-7xl gap-12 px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14 lg:px-10 lg:py-24">
         {/* left — heading + live progress */}
