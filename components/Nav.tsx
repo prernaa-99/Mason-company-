@@ -70,6 +70,16 @@ export default function Nav() {
      overshoot. */
   const EASE = "duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";
 
+  /* The home page opens on a full-bleed dark cinematic hero, and while the bar
+     is transparent over it the default near-black type is invisible. So at the
+     top of "/" the bar switches to light type; the moment it collapses (bg
+     fades to pale) it hands back to dark. Colour transitions run on the same
+     EASE as the collapse so the two never disagree mid-flight — the flash that
+     would otherwise show dark text on the dark photo before the pale bar
+     arrives. Only "/" has the hero; every other page keeps the dark type. Not
+     while the menu is open: that panel is its own pale surface. */
+  const overHero = pathname === "/" && !scrolled && !menuOpen;
+
   return (
     /* Full-bleed bar sitting on the viewport edge — not an inset pill.
        Named properties, never transition-all: all would animate whatever else
@@ -114,11 +124,11 @@ export default function Nav() {
             aria-label="Mason Company - home"
             /* origin-left so the collapse pulls the mark toward the gutter
                rather than shrinking it about its own middle */
-            className={`text-cream transition-[color,transform] hover:text-accent ${EASE} ${
+            className={`transition-[color,transform] ${EASE} ${
               scrolled && !menuOpen
                 ? "origin-left scale-[0.92]"
                 : "origin-left scale-100"
-            }`}
+            } ${overHero ? "text-white hover:text-accent-soft" : "text-cream hover:text-accent"}`}
           >
             <MasonWordmark size={28} />
           </Link>
@@ -128,7 +138,11 @@ export default function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-sm text-cream-dim transition-colors hover:text-cream"
+                className={`text-sm transition-colors ${EASE} ${
+                  overHero
+                    ? "text-white/75 hover:text-white"
+                    : "text-cream-dim hover:text-cream"
+                }`}
               >
                 {l.label}
               </Link>
@@ -146,15 +160,27 @@ export default function Nav() {
           <a
             href={PHONE_HREF}
             aria-label={`Call Mason Company on ${PHONE_DISPLAY}`}
-            className="flex items-center gap-2 text-sm text-cream-dim transition-colors duration-200 hover:text-cream"
+            className={`flex items-center gap-2 text-sm transition-colors ${EASE} ${
+              overHero ? "text-white/80 hover:text-white" : "text-cream-dim hover:text-cream"
+            }`}
           >
-            <Call size={16} className="text-accent" />
+            <Call
+              size={16}
+              className={`transition-colors ${EASE} ${
+                overHero ? "text-accent-soft" : "text-accent"
+              }`}
+            />
             {/* tabular-nums so the digits sit on an even rhythm rather than
                 the proportional spacing the UI face gives them */}
             <span className="tabular-nums">{PHONE_DISPLAY}</span>
           </a>
 
-          <span aria-hidden="true" className="h-5 w-px bg-line-strong" />
+          <span
+            aria-hidden="true"
+            className={`h-5 w-px transition-colors ${EASE} ${
+              overHero ? "bg-white/25" : "bg-line-strong"
+            }`}
+          />
 
           <Cta href="/#book" size="compact">
             Book a Safety Visit
@@ -173,7 +199,9 @@ export default function Nav() {
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
-          className="-mr-2 grid h-11 w-11 shrink-0 place-items-center rounded-full text-cream transition-colors duration-200 hover:text-accent lg:hidden"
+          className={`-mr-2 grid h-11 w-11 shrink-0 place-items-center rounded-full transition-colors ${EASE} lg:hidden ${
+            overHero ? "text-white hover:text-accent-soft" : "text-cream hover:text-accent"
+          }`}
         >
           <span aria-hidden="true" className="relative block h-2 w-[22px]">
             {/* Both bars stay put and animate on translate/rotate alone —
