@@ -223,25 +223,31 @@ export default function Hero() {
               the text itself — putting both on one element let the padding eat
               into the measure and crushed the headline. */}
           <div className="pr-6 pl-[max(1.5rem,calc((100vw_-_80rem)/2_+_1.5rem))] lg:pr-0 lg:pl-[max(2.5rem,calc((100vw_-_80rem)/2_+_2.5rem))]">
-            <div className="max-w-xl">
-              <p className="flex items-center gap-3 font-mono-label text-[0.72rem] uppercase tracking-[0.2em] text-white/70">
-                <span aria-hidden="true" className="h-px w-8 bg-white/40" />
+            {/* Centred while the layout is stacked (below lg); left-aligned once
+                the split kicks in. */}
+            <div className="mx-auto max-w-xl text-center lg:mx-0 lg:text-left">
+              <p className="flex items-center justify-center gap-3 font-mono-label text-[0.72rem] uppercase tracking-[0.2em] text-white/70 lg:justify-start">
+                <span aria-hidden="true" className="hidden h-px w-8 bg-white/40 lg:block" />
                 Bathroom safety for ageing parents
               </p>
 
-              <h1 className="mt-5 text-balance font-display text-[10vw] font-extrabold leading-[1.02] tracking-[-0.03em] sm:text-5xl lg:text-6xl xl:text-7xl">
-                <span className="block">
+              {/* Below lg the two sentences flow as one run so text-balance can
+                  even out the centred lines — forcing a block per sentence made
+                  each wrap on its own and the centred result read as broken. The
+                  deliberate two-line split returns at lg, where it's left-aligned. */}
+              <h1 className="mt-3 text-balance font-display text-[9vw] font-extrabold leading-[1.05] tracking-[-0.03em] sm:mt-5 sm:text-5xl sm:leading-[1.02] lg:text-6xl xl:text-7xl">
+                <span className="lg:block">
                   Most <span className="accent-word on-dark">falls</span> happen here.
-                </span>
-                <span className="block">We make sure yours don&rsquo;t.</span>
+                </span>{" "}
+                <span className="lg:block">We make sure yours don&rsquo;t.</span>
               </h1>
 
-              <p className="mt-6 max-w-md text-base leading-relaxed text-white/75">
+              <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-white/75 sm:mt-6 lg:mx-0">
                 You can&rsquo;t always be there - safety can be. Premium,
                 doctor-informed, expertly-installed bathroom safety.
               </p>
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <div className="mt-9 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:justify-center sm:items-center lg:justify-start">
                 <Cta href="#book" className="w-full justify-center sm:w-auto">
                   Book a Safety Visit
                 </Cta>
@@ -288,8 +294,9 @@ export default function Hero() {
             </div>
 
             {/* CONTROLS — arrows, progress line and slide number, all sat
-                directly below the carousel. */}
-            <div className="hero-controls flex items-center gap-5 px-6 sm:gap-8 sm:px-10 lg:pr-10 lg:pl-0">
+                directly below the carousel. Desktop only: on a phone the rail is
+                swiped, so the discs and readout just eat vertical room. */}
+            <div className="hero-controls hidden items-center gap-5 px-6 sm:gap-8 sm:px-10 lg:flex lg:pr-10 lg:pl-0">
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => page(-1)}
