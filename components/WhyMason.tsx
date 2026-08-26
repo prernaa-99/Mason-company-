@@ -256,7 +256,12 @@ export default function WhyMason() {
                  floor is a mobile concern, where each card is its own row and
                  nothing else sets a height; at lg it was fighting the row it
                  sits in and winning, which is what caused the overflow. */
-              className="wm-card flex min-h-[220px] flex-col justify-center rounded-2xl border border-line bg-ink-raised p-7 will-change-transform lg:min-h-0"
+              /* justify-center centres each card's content in its own height,
+                 which reads fine on mobile where every card is its own row, but
+                 across a desktop row of equal-height cells it drifts the shorter
+                 cards down — a two-line card's eyebrow sits below a three-line
+                 one's. lg:justify-start tops them all to the same line. */
+              className="wm-card flex min-h-[220px] flex-col justify-center rounded-2xl border border-line bg-ink-raised p-7 will-change-transform lg:min-h-0 lg:justify-start"
             >
               <span className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-cream-faint">
                 {r.tag}

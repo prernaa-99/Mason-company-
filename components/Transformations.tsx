@@ -54,7 +54,7 @@ function BeforeAfter() {
          divider sideways scrolled the page at the same time. pan-y hands it
          back the vertical axis only: a swipe up or down over the image still
          scrolls the page, a sideways drag is ours alone. */
-      className="relative aspect-[16/10] w-full touch-pan-y cursor-ew-resize select-none overflow-hidden rounded-2xl border border-line lg:aspect-auto lg:h-full lg:cursor-none"
+      className="relative aspect-[16/9] w-full touch-pan-y cursor-ew-resize select-none overflow-hidden rounded-2xl border border-line lg:aspect-auto lg:h-full lg:cursor-none"
     >
       {/* custom drag cursor (desktop) */}
       <div
@@ -133,13 +133,47 @@ function el(e: React.PointerEvent) {
   return e.currentTarget as HTMLElement;
 }
 
+// One finished-bathroom tile. The frame ratio is passed in per position so the
+// mosaic keeps its varied, masonry rhythm instead of a uniform grid.
+function Tile({
+  img,
+  label,
+  className,
+  sizes,
+}: {
+  img: string;
+  label: string;
+  className: string;
+  sizes: string;
+}) {
+  return (
+    <figure
+      className={`group relative overflow-hidden rounded-2xl border border-line ${className}`}
+    >
+      <Image
+        src={img}
+        alt={label}
+        fill
+        sizes={sizes}
+        className="object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      {/* same dark ramp as the hero rail — `ink` is paper here, so the old
+          from-ink/90 faded these photos out to white */}
+      <div className="photo-scrim absolute inset-0" />
+      <figcaption className="absolute bottom-4 left-4 text-sm font-semibold text-white">
+        {label}
+      </figcaption>
+    </figure>
+  );
+}
+
 export default function Transformations() {
   return (
     <section
       id="transformations"
-      className="border-t border-line bg-sand-100 py-14 sm:py-20 lg:h-screen lg:overflow-hidden lg:py-0"
+      className="border-t border-line bg-sand-100 py-14 sm:py-20 lg:py-28"
     >
-      <Reveal className="mx-auto flex h-full max-w-7xl flex-col px-6 lg:px-10 lg:py-24">
+      <Reveal className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-2xl">
           <p className="reveal eyebrow mb-5">Transformations</p>
           <h2 className="reveal h-display text-3xl text-cream sm:text-4xl lg:text-5xl">
@@ -152,33 +186,27 @@ export default function Transformations() {
           </p>
         </div>
 
-        <div className="reveal mt-14 grid gap-6 lg:mt-10 lg:min-h-0 lg:flex-1 lg:grid-cols-[2fr_1fr]">
-          <BeforeAfter />
-
-          <div className="grid gap-6">
-            {GALLERY.map((g) => (
-              <figure
-                key={g.label}
-                className="group relative flex-1 overflow-hidden rounded-2xl border border-line"
-              >
-                <div className="relative aspect-[16/10] lg:aspect-auto lg:h-full">
-                  <Image
-                    src={g.img}
-                    alt={g.label}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  {/* same dark ramp as the hero rail — `ink` is paper here, so
-                      the old from-ink/90 faded these photos out to white */}
-                  <div className="photo-scrim absolute inset-0" />
-                  <figcaption className="absolute bottom-4 left-4 text-sm font-semibold text-white">
-                    {g.label}
-                  </figcaption>
-                </div>
-              </figure>
-            ))}
+        {/* A fixed-aspect mosaic that resolves to one clean rectangle. The
+            drag comparison is the wide anchor across the top-left; one photo
+            sits beside it and three run along the bottom. Every tile fills its
+            grid cell (object-cover), so the block is edge-to-edge with no
+            ragged step — the reference layout, exactly. On mobile it collapses
+            to the slider full-width over a 2×2 of photos. */}
+        <div className="reveal mt-14 grid grid-cols-2 gap-4 sm:gap-6 lg:mt-12 lg:aspect-[5/4] lg:grid-cols-3 lg:grid-rows-2">
+          <div className="col-span-2 lg:row-start-1">
+            <BeforeAfter />
           </div>
+
+          {GALLERY.map((g, i) => (
+            <Tile
+              key={g.label}
+              {...g}
+              className={`aspect-[3/4] lg:aspect-auto lg:h-full ${
+                i === 0 ? "lg:col-start-3 lg:row-start-1" : "lg:row-start-2"
+              }`}
+              sizes="(max-width: 1024px) 50vw, 33vw"
+            />
+          ))}
         </div>
       </Reveal>
     </section>
