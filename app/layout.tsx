@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo, Fraunces, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import ScrollRestoration from "@/components/ScrollRestoration";
 import BookingProvider from "@/components/BookingDialog";
 
 /* Display — big impactful headlines. The dominant typeface. */
@@ -51,6 +52,8 @@ export default function RootLayout({
     >
       <body className="grain min-h-full bg-ink text-cream">
         <SmoothScroll>
+          {/* remembers scroll position so back/forward lands where you were */}
+          <ScrollRestoration />
           {/* mounts the booking form once, for every "Book a Safety Visit" CTA */}
           <BookingProvider>{children}</BookingProvider>
         </SmoothScroll>
