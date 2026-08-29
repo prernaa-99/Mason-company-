@@ -13,17 +13,15 @@ import { CARE_EMAIL } from "./contact-details";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 // Homepage anchors are absolute (/#packages, not #packages) because this footer
-// also renders on /why and /about, where a bare hash would go nowhere.
-// TODO: privacy / terms / refund have no pages yet — they are inert until built.
+// also renders on /why and /about, where a bare hash would go nowhere. Every
+// link here resolves to a real page or a real on-page section — no dead ends.
 const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
     title: "Explore",
     links: [
       { label: "Transformations", href: "/#transformations" },
       { label: "Packages", href: "/packages" },
-      { label: "Compare Packages", href: "/packages" },
-      { label: "Standard Package", href: "/packages" },
-      { label: "Advanced Package", href: "/packages" },
+      { label: "What We Install", href: "/packages#kit" },
       { label: "Our Process", href: "/#process" },
     ],
   },
@@ -40,11 +38,10 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
     title: "Support",
     links: [
-      { label: "Book a Safety Visit", href: "/#book" },
       { label: "Contact", href: "/contact" },
-      { label: "Privacy Policy", href: "#" },
-      { label: "Terms & Conditions", href: "#" },
-      { label: "Refund & Cancellation Policy", href: "#" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms & Conditions", href: "/terms" },
+      { label: "Refund & Cancellation Policy", href: "/refund" },
     ],
   },
 ];
