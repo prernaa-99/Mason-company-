@@ -1,19 +1,26 @@
 "use client";
 
-import Image from "next/image";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Cta from "./Cta";
 
 /* The full-bleed backdrop. A real Mason install — a fitter fixing a grab bar
-   while the parents look on — framed with the subject to the right and the bare
-   tiled wall to the left, so the left-heavy scrim can darken the wall and the
-   headline holds over it. Static: the photo sits behind, the text over it. */
+   while the parents look on. Two crops of the same scene, art-directed by a
+   <picture>: a landscape frame on desktop (subject right, bare wall left for the
+   headline to sit over), and a portrait frame on mobile where the whole scene
+   fits a tall viewport without cropping the couple out. The <picture> media
+   query means the browser downloads only the crop it needs, not both. */
 const BACKGROUND = {
-  src: "/images/hero-install.jpg",
-  alt: "",
+  /** below lg — portrait, fills a tall phone screen */
+  mobile: "/images/hero-install-portrait.jpg",
+  /** lg and up — landscape, subject to the right of the headline */
+  desktop: "/images/hero-install.jpg",
 };
+
+/** The lg breakpoint (1024px), where the layout switches to the left-aligned
+    split — the same point we switch to the landscape crop. */
+const DESKTOP_MEDIA = "(min-width: 1024px)";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -53,14 +60,16 @@ export default function Hero() {
     >
       {/* full-bleed backdrop + left-heavy scrim */}
       <div aria-hidden="true" className="hero-bg absolute inset-0 -z-20">
-        <Image
-          src={BACKGROUND.src}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
+        <picture>
+          <source media={DESKTOP_MEDIA} srcSet={BACKGROUND.desktop} />
+          <img
+            src={BACKGROUND.mobile}
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+            className="h-full w-full object-cover"
+          />
+        </picture>
       </div>
       <div
         aria-hidden="true"
