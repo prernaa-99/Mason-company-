@@ -42,10 +42,20 @@ export default function Stats() {
             </h2>
           </div>
 
-          {/* cost figure — accent-muted brand moment */}
-          <div className="reveal rounded-2xl bg-accent-muted px-7 py-6">
+          {/* cost figure — deep-brick danger surface.
+
+              This is the cost of a fall, not our price — and it is the only
+              large rupee figure on the site, so a skimmer can read it as what
+              we charge. A red card (deep muted brick, not the alarm-bright
+              brick token) says "cost/loss, not offer" before a word is read;
+              the label names it the cost of *doing nothing* and the figure is
+              struck through, so it reads as the number you avoid rather than
+              one you pay. Kept to label + figure (no extra line) so the card
+              stays the height of the heading block it sits level with in the
+              items-end row. */}
+          <div className="reveal rounded-2xl bg-brick-deep px-7 py-6">
             <p className="text-xs uppercase tracking-[0.16em] text-on-accent/75">
-              Recovery cost of one fall
+              The cost of doing nothing
             </p>
             {/* "Potential ... ₹3L–₹10L" asked the reader to hold a qualifier
                 and a range at once. One number they can carry, with the
@@ -54,9 +64,14 @@ export default function Stats() {
               <span className="mr-2 align-middle text-lg font-semibold text-on-accent/70">
                 Up to
               </span>
-              {/* nbsp so a 320px phone breaks after "Up to" rather than
-                  stranding "lakh" on its own line away from the number */}
-              &#8377;10&nbsp;lakh
+              {/* Struck through: the whole point is that this is the number
+                  you don't pay if the fall never happens. Only the figure is
+                  struck, not the "Up to" qualifier. nbsp so a 320px phone
+                  breaks after "Up to" rather than stranding "lakh" away from
+                  the number. */}
+              <span className="align-middle line-through decoration-[3px] decoration-on-accent">
+                &#8377;10&nbsp;lakh
+              </span>
             </p>
           </div>
         </div>
