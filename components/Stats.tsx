@@ -76,22 +76,29 @@ export default function Stats() {
           </div>
         </div>
 
-        <div className="reveal mt-14 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+        {/* 2×2 on phones so the section doesn't scroll for four full-width
+            cells; 4 across from lg. Mobile cells run tighter — less padding,
+            a step down in the figure — so two fit a ~360px row without the
+            number crowding its own cell. */}
+        <div className="reveal mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line lg:mt-14 lg:grid-cols-4">
           {stats.map((s, i) => (
             <div
               key={i}
-              className="bg-ink-raised p-7"
+              className="bg-ink-raised p-5 sm:p-7"
             >
-              <div className="font-display text-5xl font-bold text-accent">
+              <div className="font-display text-4xl font-bold text-accent sm:text-5xl">
                 {s.prefix && (
-                  <span className="mr-1.5 align-middle text-xl font-semibold text-accent/70">
+                  <span className="mr-1.5 align-middle whitespace-nowrap text-base font-semibold text-accent/70 sm:text-xl">
                     {s.prefix}
                   </span>
                 )}
                 {s.value}
               </div>
-              <p className="mt-5 text-sm font-semibold text-cream">{s.label}</p>
-              <p className="mt-2 text-sm leading-relaxed text-cream-dim">
+              <p className="mt-4 text-sm font-semibold text-cream sm:mt-5">{s.label}</p>
+              {/* Hidden on phones: in the 2×2 the figure and label carry the
+                  point, and four descriptions there were the bulk of the
+                  scroll this pass set out to cut. Back from sm up. */}
+              <p className="mt-2 hidden text-sm leading-relaxed text-cream-dim sm:block">
                 {s.copy}
               </p>
             </div>
