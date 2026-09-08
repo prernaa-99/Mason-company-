@@ -53,8 +53,11 @@ const QUESTIONS: Question[] = [
    the check-up starts paying for itself. */
 const THRESHOLD = 3;
 
-const ADVANCED = PACKAGES.find((p) => p.featured)!;
-const STANDARD = PACKAGES.find((p) => !p.featured)!;
+/* Keyed on identity (`advanced`), not promotion (`popular`): the advisor is
+   reasoning about the year-on check-up, which is the Advanced package whether
+   or not it happens to be the card being pushed. */
+const ADVANCED = PACKAGES.find((p) => p.advanced)!;
+const STANDARD = PACKAGES.find((p) => !p.advanced)!;
 
 /** The line under the verdict. Reads back the answer that drove it, so the
  *  recommendation is arguable rather than oracular.

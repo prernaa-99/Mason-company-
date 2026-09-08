@@ -115,7 +115,7 @@ export default function PackagesPage() {
                   /* Featured first in the single-column stack - same as the
                      homepage section, so the two never disagree about which
                      package leads. */
-                  className={`reveal ${p.featured ? "order-first lg:order-none" : ""}`}
+                  className={`reveal ${p.popular ? "order-first lg:order-none" : ""}`}
                 />
               ))}
             </div>

@@ -40,7 +40,7 @@ export default function Packages() {
               key={p.name}
               pkg={p}
               tone="green"
-              className={`reveal ${p.featured ? "order-first lg:order-none" : ""}`}
+              className={`reveal ${p.popular ? "order-first lg:order-none" : ""}`}
             />
           ))}
         </div>

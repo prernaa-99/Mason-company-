@@ -22,15 +22,18 @@ type Skin = {
   cta: "solid" | "outline" | "outlineLight";
 };
 
-/* On paper, both cards are light and the featured one carries the forest tint.
+/* On paper, both cards are light and the promoted one carries the forest tint.
 
    On the green section that stops working: two near-white cards on forest-700
    read as equals however the tint is nudged, because both are simply "a light
    card". So the plain one recedes into the green instead — a ghost panel with
    light type, the way Cta's outlineLight variant already handles buttons on
-   this surface — and the featured one stays a solid bright card, which is how
+   this surface — and the promoted one stays a solid bright card, which is how
    Testimonials treats cards on forest. Hierarchy comes from the two being
-   different kinds of object, not two shades of the same one. */
+   different kinds of object, not two shades of the same one.
+
+   Takes `popular` (promotion), not `advanced` (identity): the skin follows
+   which card is being pushed, not which package has the check-up. */
 function skin(tone: Tone, featured: boolean): Skin {
   if (tone === "green" && !featured) {
     return {
@@ -78,8 +81,8 @@ export default function PackageCard({
   className?: string;
 }) {
   const Heading = `h${headingLevel}` as "h2" | "h3";
-  const s = skin(tone, pkg.featured);
-  const light = tone === "green" && !pkg.featured;
+  const s = skin(tone, pkg.popular);
+  const light = tone === "green" && !pkg.popular;
 
   return (
     <div
@@ -96,7 +99,7 @@ export default function PackageCard({
         >
           {pkg.name}
         </Heading>
-        {pkg.featured && (
+        {pkg.popular && (
           <span className="rounded-full bg-forest-700 px-3 py-1.5 text-[0.7rem] font-semibold leading-none text-sand-100">
             Most popular
           </span>
@@ -113,7 +116,7 @@ export default function PackageCard({
           rows recede, an absence is muted rather than struck through. */}
       <ul className={`mt-7 space-y-3 border-t pt-7 ${s.rule}`}>
         {PACKAGE_ROWS.map((row, i) => {
-          const on = pkg.featured ? row.advanced : row.standard;
+          const on = pkg.advanced ? row.advanced : row.standard;
           const differentiator = row.standard !== row.advanced;
           return (
             <li key={row.label} className="flex items-start gap-3">

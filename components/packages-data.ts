@@ -28,7 +28,14 @@ export const PACKAGE_ROWS: PackageRow[] = [
 export type Package = {
   name: string;
   badge: string;
-  featured: boolean;
+  /* Identity, not promotion. Fixes which PACKAGE_ROWS column the card reads
+     (Advanced gets the check-up row), and which package the advisor treats as
+     "the one with the year-on cover". Never flip this to re-style a card. */
+  advanced: boolean;
+  /* Promotion. Which card gets the bright "Most popular" treatment and leads
+     the stack. Independent of `advanced` on purpose, so the promoted card can
+     be changed without rewriting either card's feature list. */
+  popular: boolean;
   bestFor: string;
   outcome: string;
   cta: string;
@@ -40,7 +47,8 @@ export const PACKAGES: Package[] = [
   {
     name: "Standard",
     badge: "The complete kit",
-    featured: false,
+    advanced: false,
+    popular: true,
     bestFor:
       "The full safety upgrade, installed, inspected and handed over in one go.",
     outcome:
@@ -50,7 +58,8 @@ export const PACKAGES: Package[] = [
   {
     name: "Advanced",
     badge: "The complete kit, plus a year of cover",
-    featured: true,
+    advanced: true,
+    popular: false,
     bestFor:
       "The same installation, with a safety check-up a year on to catch anything that has worked loose.",
     outcome:
