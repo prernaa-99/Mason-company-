@@ -7,6 +7,7 @@ import ScrollCue from "@/components/ScrollCue";
 import PhotoSlot from "@/components/PhotoSlot";
 import VisitForm from "@/components/VisitForm";
 import PackageCard from "@/components/PackageCard";
+import PackageAdvisor from "@/components/PackageAdvisor";
 import { KIT } from "@/components/kit";
 import { PACKAGES } from "@/components/packages-data";
 
@@ -117,6 +118,15 @@ export default function PackagesPage() {
                   className={`reveal ${p.featured ? "order-first lg:order-none" : ""}`}
                 />
               ))}
+            </div>
+          </Reveal>
+
+          {/* The cards are for the reader who has decided; this is for the one
+              who cannot, and it lifts off the paper the way the VisitForm card
+              does on the sunken surface above. */}
+          <Reveal className="mt-6">
+            <div className="reveal">
+              <PackageAdvisor />
             </div>
           </Reveal>
 
