@@ -22,7 +22,7 @@ export const PACKAGE_ROWS: PackageRow[] = [
     advanced: true,
   },
   { label: "Inspection and final walkthrough", standard: true, advanced: true },
-  { label: "One-year safety check-up visit", standard: false, advanced: true },
+  { label: "Two-year safety check-up visit", standard: false, advanced: true },
 ];
 
 export type Package = {
@@ -64,13 +64,13 @@ export const PACKAGES: Package[] = [
   },
   {
     name: "Advanced",
-    badge: "The complete kit, plus a year of cover",
+    badge: "The complete kit, plus two years of cover",
     price: "₹37,000",
     wasPrice: "₹44,000",
     advanced: true,
     popular: false,
     bestFor:
-      "The same installation, with a safety check-up a year on to catch anything that has worked loose.",
+      "The same installation, with a safety check-up two years on to catch anything that has worked loose.",
     outcome:
       "The same upgrade, looked after - so it stays as safe as the day it was fitted.",
     cta: "Book Advanced",

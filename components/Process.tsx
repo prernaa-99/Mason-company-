@@ -162,7 +162,7 @@ export default function Process() {
             From booking to a <span className="accent-word">safer</span>{" "}
             bathroom.
           </h2>
-          <p className="proc-head mt-6 max-w-md text-base leading-relaxed text-cream-dim">
+          <p className="proc-head mt-3 max-w-md text-base leading-relaxed text-cream-dim lg:mt-6">
             Six clear steps, handled by one accountable Mason team - from
             package booking all the way to final handover.
           </p>
