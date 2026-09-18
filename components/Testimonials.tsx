@@ -11,10 +11,9 @@ const TESTIMONIALS = [
   {
     name: "Anita Mehra",
     role: "Daughter",
-    city: "Bengaluru",
+    city: "Goa",
     quote:
       "We wanted the bathroom to be safer for my father, but we were worried it would look too clinical. Mason made the space feel more secure without changing the warmth of the home.",
-    tag: "Safer movement, premium finish",
   },
   {
     name: "Rohan Kapoor",
@@ -22,15 +21,13 @@ const TESTIMONIALS = [
     city: "Goa",
     quote:
       "The process was clear from the first call. The team explained the package, inspected the bathroom, and installed everything neatly. My mother now has support exactly where she needs it.",
-    tag: "Clear process, confident handover",
   },
   {
     name: "Neha Shah",
     role: "Daughter-in-law",
-    city: "Bengaluru",
+    city: "Goa",
     quote:
       "The biggest relief was not having to coordinate multiple vendors. Mason handled the planning, products, installation, and walkthrough as one complete solution.",
-    tag: "One accountable team",
   },
   {
     name: "Vikram Rao",
@@ -38,7 +35,6 @@ const TESTIMONIALS = [
     city: "Goa",
     quote:
       "The before-and-after difference was obvious. The bathroom feels safer, but it still looks like a well-designed home bathroom, not a medical facility.",
-    tag: null,
   },
 ];
 
@@ -111,25 +107,18 @@ export default function Testimonials() {
                 {t.quote}
               </blockquote>
 
-              <figcaption className="mt-5 flex items-center justify-between gap-4 border-t border-sand-200 pt-5">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest-700 font-display text-sm font-bold text-sand-100">
-                    {t.name.charAt(0)}
-                  </span>
-                  <div>
-                    <p className="font-display text-sm font-bold leading-tight text-cream">
-                      {t.name}
-                    </p>
-                    <p className="text-xs text-sand-600">
-                      {t.role} &middot; {t.city}
-                    </p>
-                  </div>
+              <figcaption className="mt-5 flex items-center gap-3 border-t border-sand-200 pt-5">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest-700 font-display text-sm font-bold text-sand-100">
+                  {t.name.charAt(0)}
+                </span>
+                <div>
+                  <p className="font-display text-sm font-bold leading-tight text-cream">
+                    {t.name}
+                  </p>
+                  <p className="text-xs text-sand-600">
+                    {t.role} &middot; {t.city}
+                  </p>
                 </div>
-                {t.tag && (
-                  <span className="hidden shrink-0 rounded-full bg-forest-50 px-3 py-1 text-xs font-semibold text-forest-700 sm:inline-block">
-                    {t.tag}
-                  </span>
-                )}
               </figcaption>
             </figure>
           ))}
