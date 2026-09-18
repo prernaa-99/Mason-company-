@@ -35,18 +35,35 @@ export default function LocationField({
   onChange,
   className = "",
 }: {
-  /** Fires with the resolved label, or null when cleared. */
+  /** Fires with the resolved location, or null when empty. When the reader
+      both types an address and captures a location, the two are joined. */
   onChange: (location: string | null) => void;
   className?: string;
 }) {
-  const [location, setLocation] = useState<string | null>(null);
+  const [address, setAddress] = useState("");
+  const [captured, setCaptured] = useState<string | null>(null);
   const [state, setState] = useState<"idle" | "pending" | "set" | "unavailable">(
     "idle"
   );
 
-  const set = (value: string | null) => {
-    setLocation(value);
-    onChange(value);
+  /* One field to the parent: the typed address and the captured label, joined
+     when both are present. Keeps the single-string contract the two forms
+     already submit. */
+  const emit = (nextAddress: string, nextCaptured: string | null) => {
+    const combined = [nextAddress.trim(), nextCaptured]
+      .filter(Boolean)
+      .join(" · ");
+    onChange(combined || null);
+  };
+
+  const onAddress = (value: string) => {
+    setAddress(value);
+    emit(value, captured);
+  };
+
+  const setCapturedLabel = (value: string | null) => {
+    setCaptured(value);
+    emit(address, value);
   };
 
   const onRequest = async () => {
@@ -54,7 +71,7 @@ export default function LocationField({
     try {
       const label = await requestLocation();
       if (label) {
-        set(label);
+        setCapturedLabel(label);
         setState("set");
       } else {
         setState("unavailable");
@@ -66,51 +83,73 @@ export default function LocationField({
 
   return (
     <div className={className}>
-      <span className={LABEL}>Location</span>
-      <div className="mt-2 rounded-xl border border-sand-200 bg-white p-3">
-        {state === "set" && location ? (
-          <div className="flex items-center justify-between gap-3">
-            <span className="text-sm text-cream">{location}</span>
-            <button
-              type="button"
-              onClick={() => {
-                set(null);
-                setState("idle");
-              }}
-              className="shrink-0 text-xs font-semibold text-sand-400 transition-colors duration-150 hover:text-cream"
+      {/* Heading, with the browser-capture offered as a tertiary CTA beside it —
+          typing the address is the primary path; this is the shortcut. */}
+      <div className="flex items-center justify-between gap-3">
+        <span className={LABEL}>Location</span>
+        {state !== "set" && (
+          <button
+            type="button"
+            onClick={onRequest}
+            disabled={state === "pending"}
+            className="flex shrink-0 items-center gap-1.5 text-xs font-semibold text-forest-700 transition-opacity duration-150 hover:opacity-80 disabled:opacity-60"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="h-4 w-4 shrink-0"
+              fill="currentColor"
+              aria-hidden="true"
             >
-              Remove
-            </button>
-          </div>
-        ) : (
-          <>
-            <button
-              type="button"
-              onClick={onRequest}
-              disabled={state === "pending"}
-              className="flex w-full items-center gap-2.5 text-left text-sm font-semibold text-forest-700 transition-opacity duration-150 disabled:opacity-60"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                className="h-[18px] w-[18px] shrink-0"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" />
-              </svg>
-              {state === "pending"
-                ? "Getting your location…"
-                : "Use my current location"}
-            </button>
-            {state === "unavailable" && (
-              <p className="mt-2 text-xs leading-relaxed text-sand-400">
-                Couldn&rsquo;t get your location. You can still book - we&rsquo;ll
-                confirm the address on the call.
-              </p>
-            )}
-          </>
+              <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" />
+            </svg>
+            {state === "pending" ? "Getting location…" : "Use my current location"}
+          </button>
         )}
       </div>
+
+      {/* Type it — an address the advisor can find, in the reader's own words. */}
+      <textarea
+        value={address}
+        onChange={(e) => onAddress(e.target.value)}
+        rows={2}
+        placeholder="House / flat no., street, area"
+        className="mt-2 w-full resize-none rounded-xl border border-sand-200 bg-white p-3 text-base text-cream placeholder:text-sand-400 focus:outline-none focus:ring-2 focus:ring-forest-700/30"
+      />
+
+      {/* Captured area, once the browser hands one back — a line the reader can
+          clear, sitting under the address it complements. */}
+      {state === "set" && captured && (
+        <div className="mt-2 flex items-center justify-between gap-3">
+          <span className="flex items-center gap-1.5 text-sm text-sand-600">
+            <svg
+              viewBox="0 0 24 24"
+              className="h-4 w-4 shrink-0 text-forest-700"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" />
+            </svg>
+            {captured}
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setCapturedLabel(null);
+              setState("idle");
+            }}
+            className="shrink-0 text-xs font-semibold text-sand-400 transition-colors duration-150 hover:text-cream"
+          >
+            Remove
+          </button>
+        </div>
+      )}
+
+      {state === "unavailable" && (
+        <p className="mt-2 text-xs leading-relaxed text-sand-400">
+          Couldn&rsquo;t get your location. You can still book - we&rsquo;ll
+          confirm the address on the call.
+        </p>
+      )}
 
       {/* Here rather than under the submit: "do you even come to my city?" is a
           question about this field, and answering it in place keeps five lines

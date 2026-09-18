@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import Link from "next/link";
 import { ctaClass } from "./Cta";
 import { smoothScroll } from "./SmoothScroll";
 import LocationField from "./LocationField";
@@ -364,72 +365,77 @@ export default function BookingProvider({
                   </p>
                 </div>
 
-                <div className="mt-3">
-                  <label htmlFor="mobile" className={LABEL}>
-                    Mobile number
-                    <span aria-hidden="true" className="text-brick">
-                      *
-                    </span>
-                  </label>
-                  <div className={`${GROUP} ${groupBorder("mobile")}`}>
-                    <span
-                      aria-hidden="true"
-                      className="shrink-0 select-none text-base text-sand-600"
+                {/* Mobile and email share a row on wider screens — an even
+                    split so the +91 number never crops — and stack on phones
+                    where side-by-side would crowd both. */}
+                <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="mobile" className={LABEL}>
+                      Mobile number
+                      <span aria-hidden="true" className="text-brick">
+                        *
+                      </span>
+                    </label>
+                    <div className={`${GROUP} ${groupBorder("mobile")}`}>
+                      <span
+                        aria-hidden="true"
+                        className="shrink-0 select-none text-base text-sand-600"
+                      >
+                        +91
+                      </span>
+                      <span aria-hidden="true" className="h-5 w-px bg-sand-200" />
+                      <input
+                        id="mobile"
+                        name="mobile"
+                        type="tel"
+                        inputMode="numeric"
+                        autoComplete="tel"
+                        required
+                        value={mobile}
+                        onChange={(e) => setMobile(toTenDigits(e.target.value))}
+                        aria-invalid={!!errors.mobile}
+                        aria-describedby={describedBy("mobile")}
+                        placeholder="98765 43210"
+                        className="w-full min-w-0 bg-transparent text-base text-cream placeholder:text-sand-400 focus:outline-none"
+                      />
+                    </div>
+                    <p
+                      id="mobile-error"
+                      aria-live="polite"
+                      className="mt-1.5 min-h-4 text-xs leading-4 text-brick"
                     >
-                      +91
-                    </span>
-                    <span aria-hidden="true" className="h-5 w-px bg-sand-200" />
-                    <input
-                      id="mobile"
-                      name="mobile"
-                      type="tel"
-                      inputMode="numeric"
-                      autoComplete="tel"
-                      required
-                      value={mobile}
-                      onChange={(e) => setMobile(toTenDigits(e.target.value))}
-                      aria-invalid={!!errors.mobile}
-                      aria-describedby={describedBy("mobile")}
-                      placeholder="98765 43210"
-                      className="w-full bg-transparent text-base text-cream placeholder:text-sand-400 focus:outline-none"
-                    />
+                      {errors.mobile}
+                    </p>
                   </div>
-                  <p
-                    id="mobile-error"
-                    aria-live="polite"
-                    className="mt-1.5 min-h-4 text-xs leading-4 text-brick"
-                  >
-                    {errors.mobile}
-                  </p>
-                </div>
 
-                <div className="mt-3">
-                  <label htmlFor="email" className={LABEL}>
-                    Email address
-                    <span aria-hidden="true" className="text-brick">
-                      *
-                    </span>
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    aria-invalid={!!errors.email}
-                    aria-describedby={describedBy("email")}
-                    placeholder="priya@example.com"
-                    className={`${INPUT} ${fieldBorder("email")}`}
-                  />
-                  <p
-                    id="email-error"
-                    aria-live="polite"
-                    className="mt-1.5 min-h-4 text-xs leading-4 text-brick"
-                  >
-                    {errors.email}
-                  </p>
+                  <div>
+                    <label htmlFor="email" className={LABEL}>
+                      Email address
+                      <span aria-hidden="true" className="text-brick">
+                        *
+                      </span>
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      aria-invalid={!!errors.email}
+                      aria-describedby={describedBy("email")}
+                      placeholder="priya@example.com"
+                      className={`${INPUT} ${fieldBorder("email")}`}
+                    />
+                    <p
+                      id="email-error"
+                      aria-live="polite"
+                      className="mt-1.5 min-h-4 text-xs leading-4 text-brick"
+                    >
+                      {errors.email}
+                    </p>
+                  </div>
                 </div>
 
                 {/* Location — optional. LocationField owns the capture and
@@ -460,6 +466,17 @@ export default function BookingProvider({
                 >
                   {busy ? "Sending…" : "Request my callback"}
                 </button>
+                <p className="mt-3 text-xs leading-relaxed text-sand-600">
+                  By submitting, you agree to our{" "}
+                  <Link href="/privacy" className="font-semibold text-cream underline underline-offset-2 hover:no-underline">
+                    Privacy Policy
+                  </Link>{" "}
+                  and{" "}
+                  <Link href="/terms" className="font-semibold text-cream underline underline-offset-2 hover:no-underline">
+                    Terms
+                  </Link>
+                  .
+                </p>
               </div>
             </form>
           )}

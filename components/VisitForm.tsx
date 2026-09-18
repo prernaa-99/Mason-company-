@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ctaClass } from "./Cta";
 import { EMAIL, submitBooking, toTenDigits } from "./BookingDialog";
 import LocationField from "./LocationField";
@@ -134,64 +135,69 @@ export default function VisitForm() {
           </p>
         </div>
 
-        <div className="mt-3">
-          <label htmlFor="visit-mobile" className={LABEL}>
-            Mobile number
-            <span aria-hidden="true" className="text-brick">
-              *
-            </span>
-          </label>
-          <div className={`${GROUP} ${groupBorder("mobile")}`}>
-            <span
-              aria-hidden="true"
-              className="shrink-0 select-none text-base text-sand-600"
-            >
-              +91
-            </span>
-            <span aria-hidden="true" className="h-5 w-px bg-sand-200" />
-            <input
-              id="visit-mobile"
-              name="mobile"
-              type="tel"
-              inputMode="numeric"
-              autoComplete="tel"
-              required
-              value={values.mobile}
-              onChange={(e) => set("mobile", toTenDigits(e.target.value))}
-              aria-invalid={!!errors.mobile}
-              aria-describedby={describedBy("mobile")}
-              placeholder="98765 43210"
-              className="w-full bg-transparent text-base text-cream placeholder:text-sand-400 focus:outline-none"
-            />
+        {/* Mobile and email share a row on wider screens — an even split so the
+            +91 number never crops — and stack on phones where side-by-side
+            would crowd both. */}
+        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div>
+            <label htmlFor="visit-mobile" className={LABEL}>
+              Mobile number
+              <span aria-hidden="true" className="text-brick">
+                *
+              </span>
+            </label>
+            <div className={`${GROUP} ${groupBorder("mobile")}`}>
+              <span
+                aria-hidden="true"
+                className="shrink-0 select-none text-base text-sand-600"
+              >
+                +91
+              </span>
+              <span aria-hidden="true" className="h-5 w-px bg-sand-200" />
+              <input
+                id="visit-mobile"
+                name="mobile"
+                type="tel"
+                inputMode="numeric"
+                autoComplete="tel"
+                required
+                value={values.mobile}
+                onChange={(e) => set("mobile", toTenDigits(e.target.value))}
+                aria-invalid={!!errors.mobile}
+                aria-describedby={describedBy("mobile")}
+                placeholder="98765 43210"
+                className="w-full min-w-0 bg-transparent text-base text-cream placeholder:text-sand-400 focus:outline-none"
+              />
+            </div>
+            <p id="visit-mobile-error" aria-live="polite" className={ERROR}>
+              {errors.mobile}
+            </p>
           </div>
-          <p id="visit-mobile-error" aria-live="polite" className={ERROR}>
-            {errors.mobile}
-          </p>
-        </div>
 
-        <div className="mt-3">
-          <label htmlFor="visit-email" className={LABEL}>
-            Email address
-            <span aria-hidden="true" className="text-brick">
-              *
-            </span>
-          </label>
-          <input
-            id="visit-email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            value={values.email}
-            onChange={(e) => set("email", e.target.value)}
-            aria-invalid={!!errors.email}
-            aria-describedby={describedBy("email")}
-            placeholder="priya@example.com"
-            className={`${INPUT} ${border("email")}`}
-          />
-          <p id="visit-email-error" aria-live="polite" className={ERROR}>
-            {errors.email}
-          </p>
+          <div>
+            <label htmlFor="visit-email" className={LABEL}>
+              Email address
+              <span aria-hidden="true" className="text-brick">
+                *
+              </span>
+            </label>
+            <input
+              id="visit-email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              value={values.email}
+              onChange={(e) => set("email", e.target.value)}
+              aria-invalid={!!errors.email}
+              aria-describedby={describedBy("email")}
+              placeholder="priya@example.com"
+              className={`${INPUT} ${border("email")}`}
+            />
+            <p id="visit-email-error" aria-live="polite" className={ERROR}>
+              {errors.email}
+            </p>
+          </div>
         </div>
 
         {/* Location — optional, and it brings the service-area line with it. */}
@@ -204,6 +210,18 @@ export default function VisitForm() {
         >
           {busy ? "Sending…" : "Request my visit"}
         </button>
+
+        <p className="mt-3 text-xs leading-relaxed text-sand-600">
+          By submitting, you agree to our{" "}
+          <Link href="/privacy" className="font-semibold text-cream underline underline-offset-2 hover:no-underline">
+            Privacy Policy
+          </Link>{" "}
+          and{" "}
+          <Link href="/terms" className="font-semibold text-cream underline underline-offset-2 hover:no-underline">
+            Terms
+          </Link>
+          .
+        </p>
       </form>
 
       {done && (

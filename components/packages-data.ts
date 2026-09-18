@@ -28,6 +28,11 @@ export const PACKAGE_ROWS: PackageRow[] = [
 export type Package = {
   name: string;
   badge: string;
+  /* Current price and the higher price it replaced, both already formatted for
+     display (with the ₹ and grouping) so the card just prints them. `wasPrice`
+     is struck through beside `price`. */
+  price: string;
+  wasPrice: string;
   /* Identity, not promotion. Fixes which PACKAGE_ROWS column the card reads
      (Advanced gets the check-up row), and which package the advisor treats as
      "the one with the year-on cover". Never flip this to re-style a card. */
@@ -47,6 +52,8 @@ export const PACKAGES: Package[] = [
   {
     name: "Standard",
     badge: "The complete kit",
+    price: "₹30,000",
+    wasPrice: "₹35,000",
     advanced: false,
     popular: true,
     bestFor:
@@ -58,6 +65,8 @@ export const PACKAGES: Package[] = [
   {
     name: "Advanced",
     badge: "The complete kit, plus a year of cover",
+    price: "₹37,000",
+    wasPrice: "₹44,000",
     advanced: true,
     popular: false,
     bestFor:

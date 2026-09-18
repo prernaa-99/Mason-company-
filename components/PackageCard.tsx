@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Cta from "./Cta";
 import { PACKAGE_ROWS, type Package } from "./packages-data";
 
@@ -83,6 +84,9 @@ export default function PackageCard({
   const Heading = `h${headingLevel}` as "h2" | "h3";
   const s = skin(tone, pkg.popular);
   const light = tone === "green" && !pkg.popular;
+  /* The homepage section is the one that links out to the full comparison —
+     on /packages itself the reader is already there, so the row stays plain. */
+  const onHome = tone === "green";
 
   return (
     <div
@@ -105,6 +109,21 @@ export default function PackageCard({
           </span>
         )}
       </div>
+
+      {/* Price under the name: the current figure in display type, the higher
+          one it replaced struck through and muted beside it. */}
+      <p className="mt-4 flex items-baseline gap-2.5">
+        <span
+          className={`h-display text-3xl sm:text-4xl ${
+            light ? "text-sand-100" : "text-cream"
+          }`}
+        >
+          {pkg.price}
+        </span>
+        <span className={`text-lg line-through ${s.rowOff}`}>
+          {pkg.wasPrice}
+        </span>
+      </p>
 
       <p
         className={`mt-4 max-w-md text-base leading-relaxed sm:text-lg ${s.lede}`}
@@ -153,6 +172,17 @@ export default function PackageCard({
                 }
               >
                 {row.label}
+                {/* Tertiary link out to the full comparison, on the upgrades
+                    row where the reader is most likely to want the detail. */}
+                {onHome && i === 0 && (
+                  <Link
+                    href="/packages"
+                    className={`ml-2 inline-flex items-center gap-0.5 whitespace-nowrap text-xs font-semibold underline-offset-2 hover:underline ${s.mark}`}
+                  >
+                    Learn more
+                    <span aria-hidden="true">&rarr;</span>
+                  </Link>
+                )}
               </span>
               <span className="sr-only">
                 {on ? "Included" : "Not included"}

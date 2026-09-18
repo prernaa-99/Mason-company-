@@ -19,14 +19,10 @@ export default function ServiceArea({
   className?: string;
 }) {
   return (
-    <p className={`text-xs leading-relaxed text-sand-600 ${className}`}>
-      {/* Explicit {" "} - a newline straight after </span> is whitespace JSX
-          strips, which ran "today." into "More". */}
+    <p className={`text-sm leading-relaxed text-sand-600 ${className}`}>
       <span className="font-semibold text-cream">
-        We install in {CITIES} today.
-      </span>{" "}
-      More cities are on the way - if you&rsquo;re somewhere else, leave your
-      details and we&rsquo;ll tell you the moment we reach you.
+        Mason is currently available in Goa.
+      </span>
     </p>
   );
 }
