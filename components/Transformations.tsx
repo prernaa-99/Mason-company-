@@ -157,12 +157,6 @@ function Tile({
         sizes={sizes}
         className="object-cover transition-transform duration-700 group-hover:scale-105"
       />
-      {/* same dark ramp as the hero rail — `ink` is paper here, so the old
-          from-ink/90 faded these photos out to white */}
-      <div className="photo-scrim absolute inset-0" />
-      <figcaption className="absolute bottom-4 left-4 text-sm font-semibold text-white">
-        {label}
-      </figcaption>
     </figure>
   );
 }
@@ -180,7 +174,7 @@ export default function Transformations() {
             A <span className="accent-word">reassurance</span>. Not a
             renovation.
           </h2>
-          <p className="reveal mt-6 text-lg leading-relaxed text-cream-dim">
+          <p className="reveal mt-3 text-lg leading-relaxed text-cream-dim lg:mt-6">
             We make bathrooms safer through thoughtful additions - grip,
             balance, comfort, ease. Drag to see the difference.
           </p>
@@ -192,7 +186,7 @@ export default function Transformations() {
             grid cell (object-cover), so the block is edge-to-edge with no
             ragged step — the reference layout, exactly. On mobile it collapses
             to the slider full-width over a 2×2 of photos. */}
-        <div className="reveal mt-14 grid grid-cols-2 gap-4 sm:gap-6 lg:mt-12 lg:aspect-[5/4] lg:grid-cols-3 lg:grid-rows-2">
+        <div className="reveal mt-5 grid grid-cols-2 gap-4 sm:gap-6 lg:mt-12 lg:aspect-[5/4] lg:grid-cols-3 lg:grid-rows-2">
           <div className="col-span-2 lg:row-start-1">
             <BeforeAfter />
           </div>

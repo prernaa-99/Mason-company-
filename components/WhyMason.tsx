@@ -233,7 +233,7 @@ export default function WhyMason() {
             A complete <span className="accent-word">solution</span> - not
             a pile of products.
           </h2>
-          <p className="wm-reveal mt-5 max-w-xl text-base leading-relaxed text-cream-dim">
+          <p className="wm-reveal mt-2 max-w-xl text-base leading-relaxed text-cream-dim">
             Six strengths that come together into one accountable outcome.
           </p>
         </div>
